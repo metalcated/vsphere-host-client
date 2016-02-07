@@ -14,7 +14,6 @@ dependencies()
 {
 
         # define dependencies
-        #pkglist="pigz pv tar wget curl httpd mod_ssl php"
         pkglist="pigz pv tar wget curl"
 
         # install pv because we need it!
