@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Installieren eines Gastbetriebssystems : vSphere Lernprogramm</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 38px;
+	top: 131px;
+	text-align: center;
+}
+#g_txt2 {
+	width: 155px;
+	position: absolute;
+	left: -10px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt3 {
+	width: 175px;
+	position: absolute;
+	left: 226px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt4 {
+	width: 108px;
+	position: absolute;
+	left: 371px;
+	top: 310px;
+	text-align: center;
+}
+#g_txt5 {
+	width: 78px;
+	position: absolute;
+	left: 30px;
+	top: 412px;
+	text-align: center;
+	cursor: default;
+}
+#g_txt6 {
+	width: 78px;
+	position: absolute;
+	left: 276px;
+	top: 412px;
+	text-align: center;
+	cursor: default;	
+}
+#g_txt7 {
+	width: 78px;
+	position: absolute;
+	left: 390px;
+	top: 330px;
+	text-align: center;
+	cursor: default;	
+}
+</style>
+<SCRIPT language="JavaScript"> if (document.images) { 	image_off= new Image(480,360); 	image_off.src="../images/basic_install_setup.jpg";   	image2= new Image(480,360); 	image2.src="../images/basic_install_client.jpg"; 	image3= new Image(480,360); 	image3.src="../images/basic_install_host.jpg";   	image4= new Image(480,360); 	image4.src="../images/basic_install_iso.jpg"; }  function change1(picName,imgName) { 	if (document.images) 	{ 		imgOn=eval(imgName + ".src"); 		document[picName].src= imgOn; 	} } </SCRIPT>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">Startseite</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Verwenden von vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">Erstellen einer virtuellen Maschine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">Erstellen einer neuen virtuellen Maschine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br />Installieren eines Gastbetriebssystems</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Seite drucken"></a>		
+  			<h2>Installieren eines Gastbetriebssystems</h2>
+  			<p>Eine neue virtuelle Maschine ähnelt einem physischen Computer mit einer leeren Festplatte. Bevor Sie die Maschine verwenden können, müssen Sie ein Betriebssystem installieren. Das Betriebssystem auf einer virtuellen Maschine wird Gastbetriebssystem genannt.</p>
+  			<p>Ein Gastbetriebssystem wird auf einer virtuellen Maschine auf die gleiche Weise installiert wie ein Betriebssystem auf einem physichen Computer. Sie müssen eine CD-ROM oder ein ISO-Image mit den Installationsdateien vom Anbieter des Betriebssystems beziehen. Ebenso wie bei einem physischen Computer ist für jede Installation eines Betriebssystems eine separate Lizenz erforderlich.</p>
+  			<p>Nach der Installation des Gastbetriebssystems können Sie die virtuelle Maschine über den vCenter Server genauso nutzen wie einen physischen Computer. Sie können beispielsweise Anwendungen installieren oder den Betriebsstatus verwalten.</p>
+  		</div>
+		<div id="graphic"><img src="../images/basic_install_setup.jpg" width="480" height="360" border="0" usemap="#Map" name="installpic" />
+  			<div id="g_txt1">Sie können das Gastbetriebssystem von verschiedenen Speicherorten aus installieren:</div>
+  			<div id="g_txt2">Client-CD-ROM-Laufwerk</div>
+  			<div id="g_txt3">Host-CD-ROM-Laufwerk</div>
+  			<div id="g_txt4">ISO-Image-Datei</div>
+  			<div id="g_txt5" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">Zeigen</div>
+  			<div id="g_txt6" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">Zeigen</div>
+  			<div id="g_txt7" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">Zeigen</div>
+			<map name="Map">
+				<area shape="rect" coords="19,327,110,349" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="270,327,361,349" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="382,246,471,266" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">
+			</map>
+		</div>
+		<div id="next_hdr">Nächstes Thema:</div>
+		<div id="next"><a href="installation_steps.html">Schritt-für-Schritt-Installationsanleitung</a></div>
+	</div>
+</div>
+
+</body>
+</html>

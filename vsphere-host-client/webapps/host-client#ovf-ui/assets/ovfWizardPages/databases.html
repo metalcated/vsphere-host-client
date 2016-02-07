@@ -1,0 +1,72 @@
+<div ng-controller="DatabasesController">
+   <form  name='databasesDataForm' class="form-horizontal"
+         style="padding:10px;">
+      <div class="control-group">
+         <label class="radio">
+            <input type="radio" name="dbType" ng-model="dbType"
+                  value="embedded">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.useInternalDatabase"]}}
+         </label>
+         <label class="radio">
+            <input type="radio" name="dbType"  ng-model="dbType"
+                  value="external">
+               {{vxWizard.localeMap["DeployVcsaDatabasePage.useExternalDatabase"]}}
+         </label>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'disabled'}[vxWizard.databasesDataFormDisable()]">
+         <label class="control-label" for="dbServerName">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.oracleDatabaseServer"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="dbServername"
+                  ng-model="vxWizard.wizardData.ovfOptions.databaseData.dbServerName"
+                  required ng-disabled="vxWizard.databasesDataFormDisable()">
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'disabled'}[vxWizard.databasesDataFormDisable()]">
+         <label class="control-label" for="dbServerPort">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.oracleDatabasePort"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="dbServerPort"
+                  ng-model="vxWizard.wizardData.ovfOptions.databaseData.dbServerPort"
+                  required ng-disabled="vxWizard.databasesDataFormDisable()">
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'disabled'}[vxWizard.databasesDataFormDisable()]">
+         <label class="control-label" for="dbInstance">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.instanceName"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="dbInstance"
+                  ng-model="vxWizard.wizardData.ovfOptions.databaseData.dbInstance"
+                  required ng-disabled="vxWizard.databasesDataFormDisable()">
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'disabled'}[vxWizard.databasesDataFormDisable()]">
+         <label class="control-label" for="dbUsername">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.loginUsername"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="dbUsername"
+                  ng-model="vxWizard.wizardData.ovfOptions.databaseData.dbUsername"
+                  required ng-disabled="vxWizard.databasesDataFormDisable()">
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'disabled'}[vxWizard.databasesDataFormDisable()]">
+         <label class="control-label" for="dbPassword">
+            {{vxWizard.localeMap["DeployVcsaDatabasePage.loginPassword"]}}
+         </label>
+         <div class="controls">
+            <input type="password" id="dbPassword"
+                  ng-model="vxWizard.wizardData.ovfOptions.databaseData.dbPassword"
+                  required ng-disabled="vxWizard.databasesDataFormDisable()">
+         </div>
+      </div>
+   </form>
+</div>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>使用群集：vSphere 教程</title>
+<style type="text/css">
+#g_txt1 {
+	width: 230px;
+	position: absolute;
+	left: 39px;
+	top: 402px;
+}
+#g_txt2 {
+	width: 104px;
+	position: absolute;
+	left: 400px;
+	top: 322px;
+	color: #333333;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">主页</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">使用 vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_clusters.html">创建群集</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;使用群集</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper00">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="打印页面"></a>		
+			<h2>使用群集</h2>
+			<p>使用群集可最大限度地利用主机，并为虚拟机提供高可用性。群集在主机间分发资源并管理负载平衡。使用群集，可以启用以下 VMware 解决方案：</p>
+  			<ul>
+			<li><strong>vSphere Distributed Resource Scheduler (DRS)</strong><br />vSphere DRS 可持续保持 ESX/ESXi 主机间虚拟机工作负载的平衡。当运行虚拟机的主机所提供的 CPU 或内存资源无法满足虚拟机活动所需时，vCenter Server 系统会触发 vMotion 迁移来平衡工作负载。</li>
+			<li><strong>vSphere High Availability (HA)</strong><br />vSphere HA 可使运行在 ESX/ESXi 主机上的虚拟机从主机故障中自动恢复过来。一台主机出现故障时，VMware HA 会立即重新启动群集中其他主机上的所有关联的虚拟机。</li>
+				<li><strong>VMware Enhanced vMotion Compatibility (EVC)</strong><br /> EVC 可确保群集内的所有主机向虚拟机提供相同的 CPU 功能集，从而帮助确保群集中各主机之间的 vMotion 兼容性。</li>
+  			</ul>
+			<p>此外，您还可以通过创建资源池将群集中的可用 CPU 和内存资源以层次结构形式进行划分，从而进一步优化群集的使用情况。</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />  			
+  			<div id="reltopics">
+			<p><strong>相关主题</strong></p>
+			<a href="using_resourcepools.html">使用资源池 </a>
+  			</div>
+		</div>
+		<div id="graphic"><img src="../images/using_cluster.jpg" alt="使用群集" width="480" height="360" />
+			<div id="g_txt1">使用群集可让您平衡多台主机间的负载。</div>
+			<div id="g_txt2">群集</div>
+  		</div>
+	</div>
+</div>
+</body>
+</html>

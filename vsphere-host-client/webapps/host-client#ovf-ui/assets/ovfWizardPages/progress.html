@@ -1,0 +1,27 @@
+<div ng-controller="ProgressController" style="margin-top:80px;margin-left:90px;">
+   <h4>{{vXwizard.localeMap["DeployVcsaProgressPage.title"]}}</h4>
+   <div determinate bar-width="680px" bar-height="23px"
+         progress-percent="{{progressPercent}}"></div>
+   <div ng-model='vxWizard.wizardData.progress.text'>
+      {{vxWizard.wizardData.progress.text}}
+   </div>
+   <!-- <div class="wizard-panel-TOC" style="background:none;width:300px;margin-top:15px;">
+      <ul class="wizard-steps-list">
+         <li ng-repeat="step in progressSteps"
+               ng-class="getStepClass(step.state)">
+               {{step.name}}
+         </li>
+      </ul>
+   </div> -->
+   <p ng-show="showIp && isHostName" style="margin-left:0px">
+      You can now login to vSphere web client from
+      <a href="https://{{finalHostName}}:9443"
+            data-browser="default" target="_blank">
+         https://{{finalHostName}}/vsphere-client
+      </a>
+      as Administrator@{{domainName}}
+   </p>
+   <p ng-show="errorHostName" style="margin-left:0px">
+      {{errorMessageHostName}}
+   </p>
+</div>

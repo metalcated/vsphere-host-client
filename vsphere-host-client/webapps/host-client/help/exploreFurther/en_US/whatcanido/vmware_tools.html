@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>VMware Tools : vSphere Tutorial</title>
+<style type="text/css">
+#g_txt1 {
+	width: 460px;
+	position: absolute;
+	left: 25px; /* was 10px */
+	top: 120px; /* was 40px */
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">Home</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Using vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">Creating a virtual machine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">Creating a new virtual machine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br /><a href="installing_guestos.html">Installing a guest operating system</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;VMware Tools</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper03">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Print Page"></a>
+			<h2>VMware Tools</h2>
+  			<p>VMware Tools is a suite of utilities that enhances the performance of the virtual machine&rsquo;s guest operating system and improves management of the virtual machine. Install VMware Tools after installing a guest operating system on a virtual machine.</p>
+  			<p>Installing VMware Tools in the guest operating system is vital. Although the guest operating system can run without VMware Tools, you lose important functionality and convenience. When you install VMware Tools, you install the VMware Tools service and a set of VMware device drivers that enhance display, networking, SCSI, memory control, I/O, and mouse support.</p>
+  			<p><strong>Install VMware Tools</strong></p>
+			<p>Before you install VMware Tools, ensure that you have the VMware Client-Integration Plug-in installed for your browser.</p>
+  			<ol>
+    			<li>Right-click the virtual machine in the inventory and select <strong>All vCenter Actions &gt; Guest OS &gt; Install/Upgrade VMware Tools</strong>.</li>
+    			<li>Click <strong>Launch Console</strong> on the virtual Machine <strong>Summary</strong> tab.</li>
+    			<li>In the Virtual Machine console, follow the instructions in the installation wizard.</li>
+  			</ol>
+  			<p>For Windows installations, if the wizard does not automatically appear, open the CD-ROM drive in the guest operating system labeled VMware Tools and run the Setup application.</p>
+  			<p>For Linux installations, follow the directions in the <a href="http://www.vmware.com/info?id=403" target="_blank">Guest Operation System Installation Guide</a>.</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

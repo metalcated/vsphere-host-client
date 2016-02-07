@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.opsmgmt.client.eventui
+Bundle-Version: ${version}
+Bundle-Name: event-ui
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/event-ui
+

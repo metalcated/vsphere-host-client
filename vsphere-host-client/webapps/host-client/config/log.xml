@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<logging defaultTarget="localStoreTarget">
+   <target
+         type="com.vmware.flexutil.logging.LocalStoreTarget"
+         debug="false"
+         id="localStoreTarget">
+      <level>FATAL</level>
+      <filters>
+         <String>com.vmware.*</String>
+      </filters>
+      <includeLevel>true</includeLevel>
+      <includeClass>true</includeClass>
+      <includeDate>true</includeDate>
+      <includeTime>true</includeTime>
+
+      <logFileSize>1000000</logFileSize>
+      <maxLogFiles>100</maxLogFiles>
+      <flushDelay>2</flushDelay>
+   </target>
+   <target
+         type="com.vmware.flexutil.logging.LocalStoreTarget"
+         debug="false"
+         id="smashTestLogLSTarget"
+         lockLevel="true">
+      <level>INFO</level>
+      <targetName>smashTest</targetName>
+      <filters>
+         <String>smashTest.com.vmware.*</String>
+      </filters>
+      <includeLevel>true</includeLevel>
+      <includeClass>true</includeClass>
+      <includeDate>true</includeDate>
+      <includeTime>true</includeTime>
+
+      <logFileSize>0</logFileSize>
+      <maxLogFiles>100</maxLogFiles>
+      <flushDelay>2</flushDelay>
+   </target>
+   <target
+         type="com.vmware.flexutil.logging.LocalStoreTarget"
+         debug="false"
+         id="leakTrackLSTarget"
+         lockLevel="true">
+      <level>INFO</level>
+      <targetName>leakTrack</targetName>
+      <filters>
+         <String>leakTrack.com.vmware.flexutil.gc.*</String>
+      </filters>
+      <includeLevel>false</includeLevel>
+      <includeClass>false</includeClass>
+      <includeDate>false</includeDate>
+      <includeTime>false</includeTime>
+
+      <logFileSize>0</logFileSize>
+      <maxLogFiles>100</maxLogFiles>
+      <flushDelay>2</flushDelay>
+   </target>
+   <target
+         type="com.vmware.flexutil.logging.TraceTargetEx"
+         debug="true">
+      <targetName>traceTarget</targetName>
+      <level>WARN</level>
+   </target>
+
+   <target
+         type="com.vmware.flexutil.logging.FirebugTarget"
+         debug="true">
+      <targetName>firebugTarget</targetName>
+      <level>WARN</level>
+   </target>
+
+</logging>

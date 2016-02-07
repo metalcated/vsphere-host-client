@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.vsphere.client.folderui"
+      moduleUri="FolderModule.swf" defaultBundle="FolderUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/folder-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <!-- Monitor/Logging tab for Hostsystem in Host client. -->
+   <extension id="vsphere.core.host.monitor.logView">
+      <extendedPoint>vsphere.core.host.monitorViews</extendedPoint>
+      <object>
+         <name>#{loggingTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.logging.LogView"/>
+      </object>
+
+      <metadata>
+         <objectType>HostSystem</objectType>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.folder.hostLogsActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <actions>
+            <!-- Export logs action-->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.folder.exportLogsAction</uid>
+               <label>#{Common:actionExportLogsLabel}</label>
+               <description>#{Common:actionExportLogsDescription}</description>
+               <requiredPrivilege>Global.Diagnostics</requiredPrivilege>
+               <category>vsphere.core.adminActionCategory</category>
+               <command className="com.vmware.vsphere.client.commands.folder.ExportLogsCommand"></command>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>HostSystem</objectType>
+      </metadata>
+   </extension>
+</plugin>

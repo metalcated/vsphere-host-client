@@ -1,0 +1,58 @@
+<div ng-controller="InfrastructureController" class="ng-scope">
+   <form>
+      <!-- There are two horizontal sections here to house the
+      description and image for each keeping the layout consistent
+      even if the text grows big-->
+      <div id="embededArchitecture">
+         <div style="float:left;width:220px;">
+            <h4>
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.embeddedArchitecture']}}
+            </h4>
+            <div style="margin-top:10px;margin-bottom:10px;">
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.embeddedDescription']}}
+            </div>
+            <label class="radio">
+               <input type="radio" value="embedded"
+                     ng-model="vxWizard.wizardData.ovfOptions.nodeType">
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.embedded']}}
+            </label>
+         </div>
+         <img style="display:inline;width:390px;padding-top:20px;"
+               src="ovf-ui/assets/images/embeddedArchitecture.png"/>
+      </div>
+      <!-- Section for centralized architecture description -->
+      <div id="centralizedArchitecture">
+         <div style="float:left;width:220px;">
+            <h4>
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.centralizedArchitecture']}}
+            </h4>
+            <div style="margin-top:10px;margin-bottom:10px;">
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.centralizedDescription']}}
+            </div>
+            <label class="radio">
+               <input type="radio" value="infrastructure"
+                     ng-model="vxWizard.wizardData.ovfOptions.nodeType">
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.infrastructure']}}
+            </label>
+            <label class="radio" style="margin-top:5px;">
+               <input type="radio" value="management"
+                     ng-model="vxWizard.wizardData.ovfOptions.nodeType">
+               {{vxWizard.localeMap[
+                     'DeployVcsaConfigureInfrastructurePage.management']}}
+               <div style="margin-left:19px;">
+                  {{vxWizard.localeMap[
+                        'DeployVcsaConfigureInfrastructurePage.managementCondition']}}
+               </div>
+            </label>
+         </div>
+         <img style="display:inline;width:390px;padding-top:40px;"
+               src="ovf-ui/assets/images/centralizedArchitecture.png"/>
+      </div>
+   </form>
+</div>

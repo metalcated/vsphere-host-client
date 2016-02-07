@@ -1,0 +1,416 @@
+Nov 12, 2014 12:35:55 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Nov 12, 2014 12:35:55 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 12:35:55 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 12:35:55 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 642 ms
+Nov 12, 2014 12:35:55 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Nov 12, 2014 12:35:55 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Nov 12, 2014 12:35:55 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT has finished in 399 ms
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/docs
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/docs has finished in 41 ms
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/examples
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/examples has finished in 387 ms
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager has finished in 39 ms
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager has finished in 45 ms
+Nov 12, 2014 12:35:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client
+Nov 12, 2014 12:36:31 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client is unusable.
+Nov 12, 2014 12:36:31 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client has finished in 35,334 ms
+Nov 12, 2014 12:36:31 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_advperfcharts-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui has finished in 155 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_bootstrap-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui has finished in 108 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_cm-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui has finished in 116 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_event-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui has finished in 152 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_folder-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui has finished in 35 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_host-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui has finished in 108 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_inventory-viewer is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer has finished in 110 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_license-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui has finished in 103 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui
+Nov 12, 2014 12:36:32 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_network-ui is unusable.
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui has finished in 97 ms
+Nov 12, 2014 12:36:32 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_opsmgmt-rsls is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls has finished in 139 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_ovf-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui has finished in 97 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_res-mgmt-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui has finished in 145 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_storage-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui has finished in 86 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tasks-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui has finished in 103 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tiwo-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui has finished in 95 ms
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui
+Nov 12, 2014 12:36:33 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_vm-ui is unusable.
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui has finished in 131 ms
+Nov 12, 2014 12:36:33 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 12:36:33 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 12:36:33 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 34010 ms
+Nov 12, 2014 2:59:39 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Nov 12, 2014 2:59:39 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 2:59:39 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 2:59:39 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 612 ms
+Nov 12, 2014 2:59:39 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Nov 12, 2014 2:59:39 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Nov 12, 2014 2:59:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT has finished in 447 ms
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/docs
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/docs has finished in 37 ms
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/examples
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/examples has finished in 304 ms
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager has finished in 70 ms
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager has finished in 51 ms
+Nov 12, 2014 2:59:40 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client has finished in 18,552 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_advperfcharts-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui has finished in 62 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_bootstrap-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui has finished in 68 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_cm-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui has finished in 65 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_event-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui has finished in 40 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_folder-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui has finished in 69 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_host-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui has finished in 51 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_inventory-viewer is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer has finished in 70 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_license-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui has finished in 55 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui
+Nov 12, 2014 2:59:59 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_network-ui is unusable.
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui has finished in 63 ms
+Nov 12, 2014 2:59:59 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_opsmgmt-rsls is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls has finished in 40 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_ovf-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui has finished in 49 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_res-mgmt-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui has finished in 62 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_storage-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui has finished in 61 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tasks-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui has finished in 55 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tiwo-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui has finished in 49 ms
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui
+Nov 12, 2014 3:00:00 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_vm-ui is unusable.
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui has finished in 180 ms
+Nov 12, 2014 3:00:00 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 3:00:00 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 3:00:00 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 20701 ms
+Nov 12, 2014 3:00:51 AM org.apache.catalina.startup.HostConfig undeploy
+INFO: Undeploying context [/docs]
+Nov 12, 2014 3:00:51 AM org.apache.catalina.startup.HostConfig undeploy
+INFO: Undeploying context [/examples]
+Nov 12, 2014 3:04:16 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Nov 12, 2014 3:04:17 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 3:04:17 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 531 ms
+Nov 12, 2014 3:04:17 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Nov 12, 2014 3:04:17 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/ROOT has finished in 368 ms
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-manager has finished in 48 ms
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/manager has finished in 48 ms
+Nov 12, 2014 3:04:17 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client has finished in 20,734 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_advperfcharts-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#advperfcharts-ui has finished in 61 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_bootstrap-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#bootstrap-ui has finished in 46 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_cm-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#cm-ui has finished in 42 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_event-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#event-ui has finished in 44 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_folder-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#folder-ui has finished in 59 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_host-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#host-ui has finished in 43 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_inventory-viewer is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#inventory-viewer has finished in 59 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_license-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#license-ui has finished in 55 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_network-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#network-ui has finished in 48 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_opsmgmt-rsls is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#opsmgmt-rsls has finished in 55 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_ovf-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#ovf-ui has finished in 50 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_res-mgmt-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#res-mgmt-ui has finished in 52 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui
+Nov 12, 2014 3:04:38 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_storage-ui is unusable.
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#storage-ui has finished in 65 ms
+Nov 12, 2014 3:04:38 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui
+Nov 12, 2014 3:04:39 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tasks-ui is unusable.
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tasks-ui has finished in 50 ms
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui
+Nov 12, 2014 3:04:39 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_tiwo-ui is unusable.
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#tiwo-ui has finished in 52 ms
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui
+Nov 12, 2014 3:04:39 AM org.apache.jasper.EmbeddedServletOptions <init>
+SEVERE: The scratchDir you specified: /home/herwono/vsphere-web-client/tomcat/work/Catalina/localhost/host-client_vm-ui is unusable.
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /home/herwono/vsphere-web-client/tomcat/webapps/host-client#vm-ui has finished in 77 ms
+Nov 12, 2014 3:04:39 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Nov 12, 2014 3:04:39 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Nov 12, 2014 3:04:39 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 22285 ms

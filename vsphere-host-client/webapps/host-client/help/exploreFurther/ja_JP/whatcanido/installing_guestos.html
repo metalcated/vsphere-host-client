@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>ゲスト OS のインストール: vSphere チュートリアル</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 38px;
+	top: 131px;
+	text-align: center;
+}
+#g_txt2 {
+	width: 155px;
+	position: absolute;
+	left: -10px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt3 {
+	width: 175px;
+	position: absolute;
+	left: 226px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt4 {
+	width: 108px;
+	position: absolute;
+	left: 371px;
+	top: 310px;
+	text-align: center;
+}
+#g_txt5 {
+	width: 78px;
+	position: absolute;
+	left: 30px;
+	top: 412px;
+	text-align: center;
+	cursor: default;
+}
+#g_txt6 {
+	width: 78px;
+	position: absolute;
+	left: 276px;
+	top: 412px;
+	text-align: center;
+	cursor: default;	
+}
+#g_txt7 {
+	width: 78px;
+	position: absolute;
+	left: 390px;
+	top: 330px;
+	text-align: center;
+	cursor: default;	
+}
+</style>
+<SCRIPT language="JavaScript">
+if (document.images)
+{
+	image_off= new Image(480,360);
+	image_off.src="../images/basic_install_setup.jpg";  
+	image2= new Image(480,360);
+	image2.src="../images/basic_install_client.jpg";
+	image3= new Image(480,360);
+	image3.src="../images/basic_install_host.jpg";  
+	image4= new Image(480,360);
+	image4.src="../images/basic_install_iso.jpg";
+}
+
+function change1(picName,imgName)
+{
+	if (document.images)
+	{
+		imgOn=eval(imgName + ".src");
+		document[picName].src= imgOn;
+	}
+}
+</SCRIPT>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">ホーム</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">vSphere の使用</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">仮想マシンの作成</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">新規仮想マシンの作成</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br />ゲスト OS のインストール</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="ページの印刷"></a>		
+			<h2>ゲスト OS のインストール</h2>
+			<p>新しい仮想マシンは、空のハード ディスクを持つ物理コンピュータに似ています。仮想マシンを使用する前に、オペレーティング システムをインストールする必要があります。仮想マシン上のオペレーティング システムのことを、ゲスト オペレーティング システム（ゲスト OS）といいます。</p>
+			<p>仮想マシンへのゲスト OS のインストールは、物理コンピュータでのインストールと実質的に同じです。オペレーティング システムのベンダーからインストール ファイルを含む CD-ROM または ISO イメージを入手する必要があります。物理コンピュータの場合と同様に、インストールごとに個別のオペレーティング システム ライセンスが必要です。</p>
+			<p>ゲスト OS をインストールしたあと、vCenter Server を使用すると、アプリケーションのインストールやパワー操作の管理などのタスクに、物理コンピュータと同様に仮想マシンを使用することができます。</p>
+  		</div>
+		<div id="graphic"><img src="../images/basic_install_setup.jpg" width="480" height="360" border="0" usemap="#Map" name="installpic" />
+			<div id="g_txt1">次のいくつかの場所からゲスト OS をインストールできます。</div>
+			<div id="g_txt2">クライアント CD-ROM ドライブ</div>
+			<div id="g_txt3">ホスト CD-ROM ドライブ</div>
+			<div id="g_txt4">ISO イメージ ファイル</div>
+			<div id="g_txt5" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">表示する</div>
+			<div id="g_txt6" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">表示する</div>
+			<div id="g_txt7" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">表示する</div>
+			<map name="Map">
+				<area shape="rect" coords="19,327,110,349" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="270,327,361,349" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="382,246,471,266" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">
+			</map>
+		</div>
+		<div id="next_hdr">次のトピック:</div>
+		<div id="next"><a href="installation_steps.html">インストール手順ガイド</a></div>
+	</div>
+</div>
+
+</body>
+</html>

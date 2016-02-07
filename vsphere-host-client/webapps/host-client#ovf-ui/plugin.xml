@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.ovf.ovfui"
+   moduleUri="OvfModule.swf"
+   defaultBundle="OvfUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/ovf-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <!-- Export OVF template action -->
+   <extension id="vsphere.core.ovf.exportActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.exportAction</uid>
+               <label>#{exportActionLabel}</label>
+               <description>#{exportActionDescription}</description>
+               <icon>#{exportActionIcon}</icon>
+               <operationId>ExportOVF</operationId>
+               <requiredPrivilege>VApp.Export</requiredPrivilege>
+               <delegate className="com.vmware.ovf.actions.ExportOvfResolver"/>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>VirtualMachine,VirtualApp</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Deploy OVF template action -->
+   <extension id="vsphere.core.ovf.deployActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.deployAction</uid>
+               <label>#{deployActionLabel}</label>
+               <description>#{deployActionDescription}</description>
+               <icon>#{deployActionIcon}</icon>
+               <operationId>DeployOVF</operationId>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.ovf.actions.DeployOvfResolver"/>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>ResourcePool,VirtualApp,HostSystem,ClusterComputeResource,Datacenter</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Deploy cloudVM OVF template action (only on host) -->
+   <extension id="vsphere.core.ovf.deployActionSet.host">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.deployCloudVMAction</uid>
+               <label>#{deployCloudVMActionLabel}</label>
+               <description>#{deployCloudVMActionDescription}</description>
+               <icon>#{deployCloudVMActionIcon}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.ovf.actions.DeployCloudVMOvfResolver"/>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>HostSystem</objectType>
+         <hostClientRelevant>true</hostClientRelevant>
+      </metadata>
+   </extension>
+
+   <!-- Deploy OVF template on a vCenter folder action -->
+   <extension id="vsphere.core.ovf.deployActionSet.vCenter">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <preceedingExtension>NULL</preceedingExtension>
+      <object>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.deployAction.vCenter</uid>
+               <label>#{deployActionLabel}</label>
+               <icon>#{deployActionIcon}</icon>
+               <description>#{deployActionDescription}</description>
+               <operationId>DeployOVF</operationId>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <delegate className="com.vmware.ovf.actions.DeployOvfResolver"/>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Folder</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isRootFolder</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Deploy OVF template on a VM folder action -->
+   <extension id="vsphere.core.ovf.deployActionSet.vmFolder">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <preceedingExtension>NULL</preceedingExtension>
+      <object>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.deployAction.vmFolder</uid>
+               <label>#{deployActionLabel}</label>
+               <icon>#{deployActionIcon}</icon>
+               <description>#{deployActionDescription}</description>
+               <operationId>DeployOVF</operationId>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.ovf.actions.DeployOvfResolver"/>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+               <category>vsphere.core.inventoryActionCategory</category>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Folder</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>childType</propertyName>
+                     <comparator>CONTAINS</comparator>
+                     <comparableValue>
+                        <String>VirtualMachine</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Deploy OVF template global action -->
+   <extension id="vsphere.core.ovf.deployActionSet.global">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <actions>
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.ovf.deployAction.global</uid>
+               <label>#{deployActionLabel}</label>
+               <icon>#{deployActionIcon}</icon>
+               <description>#{deployActionDescription}</description>
+               <delegate className="com.vmware.ovf.actions.DeployOvfResolver"/>
+               <acceptsMultipleTargets>false</acceptsMultipleTargets>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+   </extension>
+
+</plugin>

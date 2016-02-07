@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Utilisation des clusters Didacticiel vSphere</title>
+<style type="text/css">
+#g_txt1 {
+	width: 230px;
+	position: absolute;
+	left: 39px;
+	top: 402px;
+}
+#g_txt2 {
+	width: 104px;
+	position: absolute;
+	left: 400px;
+	top: 322px;
+	color: #333333;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">Accueil</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Utilisation de vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_clusters.html">Cr&eacute;ation des clusters</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;Utilisation des clusters</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper00">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Imprimer la page"></a>		
+  			<h2>Utilisation des clusters</h2>
+  			<p>Employez les clusters pour maximiser l'utilisation de l'h&ocirc;te et pour assurer une haute disponibilit&eacute; aux machines virtuelles. Les clusters distribuent les ressources entre les h&ocirc;tes et g&egrave;rent l'&eacute;quilibrage de charge. En utilisant des clusters, vous pouvez activer les solutions VMware suivantes :</p>
+  			<ul>
+    			<li><strong>vSphere Distributed Resource Scheduler (DRS)</strong><br /> vSphere DRS &eacute;quilibre continuellement les charges de travail des machines virtuelles sur vos h&ocirc;tes ESX/ESXi. Quand l'activit&eacute; d'une machine virtuelle exige plus de ressources en CPU ou en m&eacute;moire que ce que l'h&ocirc;te sur lequel elle est ex&eacute;cut&eacute;e peut fournir, le syst&egrave;me vCenter Server d&eacute;clenche des migrations vMotion pour &eacute;quilibrer la charge de travail.</li>
+    			<li><strong>vSphere Haute Disponibilit&eacute; (HA)</strong><br /> vSphere HA permet aux machines virtuelles fonctionnant sur des h&ocirc;tes ESX/ESXi de r&eacute;cup&eacute;rer automatiquement en cas d'une panne d'h&ocirc;te. Quand un h&ocirc;te tombe en panne, toutes les machines virtuelle associ&eacute;es sont imm&eacute;diatement red&eacute;marr&eacute;es sur d'autres h&ocirc;tes du cluster.</li>
+				<li>La fonction <strong>VMware&nbsp;Enhanced&nbsp;vMotion&nbsp;Compatibility&nbsp;(EVC)</strong><br /> aide &agrave; assurer la compatibilit&eacute; de vMotion entre les h&ocirc;tes d'un cluster en garantissant que tous les h&ocirc;tes du cluster offrent les m&ecirc;mes fonctionnalit&eacute;s de CPU aux machines virtuelles.</li>
+  			</ul>
+  			<p>Vous pouvez raffiner encore l'utilisation du cluster en cr&eacute;ant des pools de ressources pour partitionner hi&eacute;rarchiquement les ressources CPU et m&eacute;moire disponibles dans un cluster.</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />  			
+  			<div id="reltopics">
+    			<p><strong>Rubriques connexes</strong></p>
+      			<a href="using_resourcepools.html">Utilisation des pools de ressources </a>
+  			</div>
+		</div>
+		<div id="graphic"><img src="../images/using_cluster.jpg" alt="Utilisation des clusters" width="480" height="360" />
+  			<div id="g_txt1">L'utilisation d'un cluster permet d'&eacute;quilibrer la charge sur plusieurs h&ocirc;tes.</div>
+  			<div id="g_txt2">Cluster</div>
+  		</div>
+	</div>
+</div>
+</body>
+</html>

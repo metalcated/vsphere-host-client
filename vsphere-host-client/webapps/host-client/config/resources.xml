@@ -1,0 +1,37 @@
+ <!--
+ A sample manifest file:
+ <resources>
+    <locales>
+      <locale lang="ja">ja_JP</locale>
+      <locale lang="zh_CN">zh_CN</locale>
+    </locales>
+    <resource locale="ja_JP" chain="fr_BE">
+       <module uri="locales/Resources_ja_JP.swf"/>
+    </resource>
+    <resource locale="fr_BE">
+       <module uri="locales/Resources_fr_BE.swf"/>
+    </resource>
+ </resources>
+ -->
+
+<resources>
+   <!--
+      List of locales supported by the application. Unsupported locales will default to
+      a locale ID (LCID) based on the language default. For example, fr_CA will default
+      to fr_FR since the language "fr", as per the attribute (lang), defaults to fr_FR.
+      For locale sensitive regions use LCID as the language default. For example,
+      zh_CN should not be the default for zh_TW - an unsupported locale - zh_TW should
+      rather default to en_US. Thus rather than using the lang="zh" use the LCID
+      as the language default (lang="zh_CN") to emphasize that zh_CN is not the default
+      language of choice for all chinese languages.
+   -->
+   <locales>
+      <locale>de_DE</locale>
+      <locale>en_US</locale>
+      <locale>fr_FR</locale>
+      <locale>ja_JP</locale>
+      <locale>ko_KR</locale>
+      <locale lang="zh_CN">zh_CN</locale>
+      <locale lang="zh_TW">zh_TW</locale>
+   </locales>
+</resources>

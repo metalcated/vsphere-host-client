@@ -1,0 +1,81 @@
+/**
+ * Copyright 2011 VMware, Inc.  All rights reserved. -- VMware Confidential
+ */
+
+body {
+   background-color: #f5f6f8;
+   font-family: Arial, Tahoma, Helvetica, sans-serif;
+   font-size: 12px;
+   line-height: 1.2;
+   color: #000000;
+   margin: 0px 0px 0px 0px;
+   text-align: left;
+   padding-bottom: 0px
+}
+a {
+   color:#336699;
+   font-weight: bold;
+}
+a:link, a:visited {
+   text-decoration: none;
+}
+a:hover {
+   text-decoration: underline
+}
+#wrapper {
+   width:99%;
+   text-align: left;
+}
+ul {
+   margin: 0px 0px 0px 30px;
+   padding: 0px 0px 0px 0px
+}
+li {
+   margin-top: 0px 0px 0px 0px;
+   padding-top: 0px;
+   padding-bottom: 8px
+}
+.subHeaderText {
+   color: #FFFFFF;
+   font-weight: bold;
+   padding: 6px 0px 6px 0px;
+}
+ul.headerList {
+   padding: 6px 0px 0px 20px
+}
+.headerItem {
+   color: #c2edff;
+}
+.contentRegion {
+   border-top: 16px solid #f5f6f8;
+   border-bottom: 16px solid #f5f6f8;
+   border-left: 16px solid #f5f6f8;
+   border-right: 8px solid #f5f6f8;
+}
+.scrollRegion {
+   width: 100%;
+   overflow: auto;
+   border: 1px solid #888888;
+   background-color: #ffffff;
+   padding: 0px 0px 0px 0px
+}
+.scrollContents {
+   padding: 10px 10px 10px 10px
+}
+.measureDiv {
+   /* hack the measurments do not come out correct unless there is a border in both ie +
+   firefox - make the color same as background*/
+   border-top: #f5f6f8 thin solid;
+   border-bottom: #f5f6f8 thin solid;
+}
+.headerText {
+   line-height: 1.2;
+   font-size: 14px;
+   font-weight: bold;
+   white-space: nowrap;
+   padding-left:16px;
+   color: #FFFFFF;
+}
+.errorImage {
+   padding: 4px 2px 0px 0px;
+}

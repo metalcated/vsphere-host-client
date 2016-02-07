@@ -1,0 +1,26 @@
+<div ng-controller="SummaryController">
+   <table>
+      <colgroup>
+         <col span="1" style="width: 20%;">
+         <col span="1" style="width: 80%;">
+      </colgroup>
+      <tbody style="vertical-align:top;">
+         <tr ng-repeat="entry in summary">
+            <td>
+               {{entry.name}}
+            </td>
+            <td>
+               {{entry.value}}
+            </td>
+         </tr>
+         <tr>
+            <td>
+               {{vxWizard.localeMap["DeployVcsaSummaryPage.properties"]}}
+            </td>
+            <td>
+               <div ng-repeat="property in properties">{{property}}</div>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>

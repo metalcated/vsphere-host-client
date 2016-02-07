@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:annotation-config/>
+
+   <!--  This will import all bundle-context-hostclient.xml files from all service
+         JARs deployed by the host client. -->
+   <import resource="classpath*:/META-INF/spring/bundle-context.xml"/>
+
+   <import resource="host-client-application-security.xml"/>
+   <import resource="service-registrar.xml"/>
+
+   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+      <property name="mediaTypes">
+         <map>
+            <entry key="json" value="application/json"/>
+         </map>
+      </property>
+      <property name="viewResolvers">
+         <list>
+            <!-- Resolves views selected for rendering by @Controllers to
+               .jsp resources in the /WEB-INF/views directory -->
+            <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+               <property name="prefix" value="/WEB-INF/views/" />
+               <property name="suffix" value=".jsp" />
+            </bean>
+         </list>
+      </property>
+      <property name="defaultViews">
+         <list>
+            <!-- This says: use this view for any model being returned from
+               a response handler (not annotated with @ResponseBody), that does not also
+               specify a view, whose request header includes accept=application/json -->
+            <bean
+               class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+         </list>
+      </property>
+   </bean>
+
+</beans>
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Installation d'un syst&egrave;me d'exploitation client&nbsp;: Didacticiel vSphere</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 38px;
+	top: 131px;
+	text-align: center;
+}
+#g_txt2 {
+	width: 155px;
+	position: absolute;
+	left: -10px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt3 {
+	width: 175px;
+	position: absolute;
+	left: 226px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt4 {
+	width: 108px;
+	position: absolute;
+	left: 371px;
+	top: 310px;
+	text-align: center;
+}
+#g_txt5 {
+	width: 78px;
+	position: absolute;
+	left: 30px;
+	top: 412px;
+	text-align: center;
+	cursor: default;
+}
+#g_txt6 {
+	width: 78px;
+	position: absolute;
+	left: 276px;
+	top: 412px;
+	text-align: center;
+	cursor: default;	
+}
+#g_txt7 {
+	width: 78px;
+	position: absolute;
+	left: 390px;
+	top: 330px;
+	text-align: center;
+	cursor: default;	
+}
+</style>
+<SCRIPT language="JavaScript">
+if (document.images)
+{
+	image_off= new Image(480,360);
+	image_off.src="../images/basic_install_setup.jpg";  
+	image2= new Image(480,360);
+	image2.src="../images/basic_install_client.jpg";
+	image3= new Image(480,360);
+	image3.src="../images/basic_install_host.jpg";  
+	image4= new Image(480,360);
+	image4.src="../images/basic_install_iso.jpg";
+}
+
+function change1(picName,imgName)
+{
+	if (document.images)
+	{
+		imgOn=eval(imgName + ".src");
+		document[picName].src= imgOn;
+	}
+}
+</SCRIPT>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">Accueil</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Utilisation de vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">Cr&eacute;ation d'une machine virtuelle</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">Cr&eacute;ation d'une nouvelle machine virtuelle</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br />Installation d'une syst&egrave;me d'exploitation invit&eacute;</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Imprimer la page"></a>		
+  			<h2>Installation d'un syst&egrave;me d'exploitation client</h2>
+  			<p>Une nouvelle machine virtuelle est comme un ordinateur physique avec un disque dur vierge. Avant de pouvoir l'utiliser, vous devez y installer un syst&egrave;me d'exploitation. Un syst&egrave;me d'exploitation sur une machine virtuelle s'appelle un syst&egrave;me d'exploitation client.</p>
+  			<p>L'installation d'un syst&egrave;me d'exploitation client sur une machine virtuelle est globalement identique &agrave; une installation sur un ordinateur physique. Vous devez avoir un CD-ROM ou une image ISO contenant les fichiers d'installation d'un &eacute;diteur de syst&egrave;mes d'exploitation. Comme avec les ordinateurs physiques, une licence de syst&egrave;me d'exploitation distincte est exig&eacute;e pour chaque installation.</p>
+  			<p>Apr&egrave;s avoir install&eacute; un syst&egrave;me d'exploitation client, vCenter Server permet d'utiliser la machine virtuelle comme un ordinateur physique, pour des t&acirc;ches telles que l'installation d'applications ou la gestion des op&eacute;rations d'alimentation &eacute;lectrique.</p>
+  		</div>
+		<div id="graphic"><img src="../images/basic_install_setup.jpg" width="480" height="360" border="0" usemap="#Map" name="installpic" />
+  			<div id="g_txt1">Vous pouvez installer le syst&egrave;me d'exploitation client &agrave; partir de plusieurs emplacements :</div>
+  			<div id="g_txt2">Lecteur de CD-ROM du client</div>
+  			<div id="g_txt3">Lecteur de CD-ROM de l'h&ocirc;te</div>
+  			<div id="g_txt4">Fichier d'image ISO</div>
+  			<div id="g_txt5" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">Me montrer</div>
+  			<div id="g_txt6" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">Me montrer</div>
+  			<div id="g_txt7" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">Me montrer</div>
+			<map name="Map">
+				<area shape="rect" coords="19,327,110,359" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="270,327,361,349" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="382,246,471,266" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">
+			</map>
+		</div>
+		<div id="next_hdr">Suite&nbsp;:</div>
+		<div id="next"><a href="installation_steps.html">Guide d'installation pas &agrave; pas</a></div>
+	</div>
+</div>
+
+</body>
+</html>

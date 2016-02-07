@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.opsmgmt.client.advperfchartsui"
+   moduleUri="AdvPerfChartsModule.swf"
+   defaultBundle="AdvPerfChartsUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/advperfcharts-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <dependencies>
+      <dependency type="module" uri="../opsmgmt-rsls/OpsMgmtRslsModule.swf"/>
+   </dependencies>
+
+   <!-- Datacenter Performance Advanced view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.datacenter.advancedPerformanceView">
+      <extendedPoint>vsphere.core.datacenter.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>Datacenter</objectType>
+      </metadata>
+   </extension>
+
+   <!-- ResourcePool Performance Advanced view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.resourcePool.advancedPerformanceView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>ResourcePool</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Cluster Performance Advanced view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.cluster.advancedPerformanceView">
+      <extendedPoint>vsphere.core.cluster.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>ClusterComputeResource</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Host Performance Advanced view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.host.advancedPerformanceView">
+      <extendedPoint>vsphere.core.host.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>HostSystem</objectType>
+      </metadata>
+   </extension>
+
+   <!-- VirtualMachine Performance Advanced  view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.vm.advancedPerformanceView">
+      <extendedPoint>vsphere.core.vm.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>VirtualMachine</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Virtual Appliance Performance Advanced  view -->
+   <extension id="vsphere.opsmgmt.advperfcharts.vApp.advancedPerformanceView">
+      <extendedPoint>vsphere.core.vApp.monitor.performance.advancedViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.opsmgmt.client.advperfcharts.views.AdvPerfChartsMainView"/>
+      </object>
+      <metadata>
+         <objectType>VirtualApp</objectType>
+      </metadata>
+   </extension>
+
+</plugin>

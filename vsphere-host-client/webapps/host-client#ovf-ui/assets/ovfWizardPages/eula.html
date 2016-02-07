@@ -1,0 +1,14 @@
+<div ng-controller="EulaController">
+   <div ng-include="vxWizard.wizardData.eulaUrl"></div>
+   <form>
+      <br>
+      <label class="checkbox">
+         <input type="checkbox"
+                name="eula"
+                ng-model="vxWizard.wizardData.acceptEula"
+                ng-true-value="true"
+                ng-false-value="false">
+         {{vxWizard.localeMap['DeployVcsaEulaPage.accept']}}
+      </label>
+   </form>
+</div>

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: mts
+Build-Jdk: 1.7.0_21
+Bundle-Vendor: VMware
+Bundle-Version: 6.0.0
+Tool: Bundlor 1.0.0.RELEASE
+Bundle-Name: inventory-viewer
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.inventoryviewer
+Web-ContextPath: host-client/inventory-viewer
+Import-Package: flex.messaging.endpoints,flex.messaging.io.amf,flex.me
+ ssaging.io.amf.translator,flex.messaging.messages,flex.messaging.serv
+ ices,flex.messaging.services.remoting.adapters,org.springframework.fl
+ ex.messaging;version="[1.5.2.RELEASE,1.5.2.RELEASE]",org.springframew
+ ork.flex.remoting;version="[1.5.2.RELEASE,1.5.2.RELEASE]",org.springf
+ ramework.flex.servlet;version="[1.5.2.RELEASE,1.5.2.RELEASE]",org.spr
+ ingframework.web.servlet,org.springframework.web.servlet.handler
+

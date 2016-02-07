@@ -1,0 +1,17 @@
+<div ng-controller="DatastoresController">
+   <div style="padding-top: 15px;padding-bottom: 25px;">
+      {{vxWizard.localeMap['DeployVcsaStoragePage.longDescription']}}
+   </div>
+   <div class="gridStyle" ng-grid="gridOptions"
+         style="margin-bottom:20px;height:300px;">
+   </div>
+   <form>
+      <label class="checkbox">
+         <input type="checkbox"
+               ng-model="vxWizard.wizardData.ovfOptions.datastoreData.diskMode"
+               ng-true-value="thin" ng-false-value="thick">
+         {{vxWizard.localeMap['DeployVcsaStoragePage.enableThinProvisioning']}}
+      </label>
+   </form>
+</div>
+

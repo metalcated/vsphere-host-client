@@ -1,0 +1,8 @@
+/* Copyright 2012 VMware, Inc. All rights reserved. -- VMware Confidential */
+/* Style definitions for the ovf-ui project */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+.formItemLabel {
+   text-align: left;
+}

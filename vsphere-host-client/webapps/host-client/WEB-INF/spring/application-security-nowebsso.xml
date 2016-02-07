@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:osgi="http://www.springframework.org/schema/osgi"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/osgi
+      http://www.springframework.org/schema/osgi/spring-osgi.xsd
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security.xsd
+      http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd">
+
+   <!-- Application specific settings.
+   These settings are specific to vSphere client application -->
+
+   <http pattern="/playerProductInstall.swf" security="none" />
+   <http pattern="/clienttools/PluginRedirect.jsp" security="none" />
+
+   <http entry-point-ref="vimAuthenticationEntryPoint" >
+     <intercept-url pattern="/transfer/*" access="IS_AUTHENTICATED_FULLY" />
+     <intercept-url pattern="/vic/*" access="IS_AUTHENTICATED_FULLY" />
+     <intercept-url pattern="/clientId" access="IS_AUTHENTICATED_FULLY" />
+     <intercept-url pattern="/sessionId" access="IS_AUTHENTICATED_FULLY" />
+
+     <custom-filter ref="authenticationFilter" position="FORM_LOGIN_FILTER"/>
+     <custom-filter ref="logoutFilter" position="LOGOUT_FILTER"/>
+     <custom-filter ref="rememberMeFilter" position="REMEMBER_ME_FILTER"/>
+   </http>
+
+   <authentication-manager alias="vimAuthenticationManager">
+      <authentication-provider ref="authenticationProviderImpl"/>
+   </authentication-manager>
+
+   <osgi:reference id="serviceRegistry" interface="com.vmware.vise.util.service.ServiceRegistry"/>
+
+   <!-- Login provider -->
+   <beans:bean id="authenticationProviderImpl" class="com.vmware.vise.security.DefaultAuthenticationProvider">
+      <beans:constructor-arg index="0" ref="uds"/>
+      <beans:constructor-arg index="1">
+         <util:list>
+            <beans:ref bean="ssoAuthenticationHandler"></beans:ref>
+            <beans:ref bean="vimAuthenticationHandler"></beans:ref>
+         </util:list>
+      </beans:constructor-arg>
+      <beans:constructor-arg index="2" ref="serviceRegistry"/>
+   </beans:bean>
+
+   <osgi:reference id="ssoAuthenticationHandler"
+                   interface="com.vmware.vise.security.AuthenticationHandler"
+                   bean-name="ssoAuthenticationHandlerImpl"/>
+
+   <osgi:reference id="vimAuthenticationHandler"
+                   interface="com.vmware.vise.security.AuthenticationHandler"
+                   bean-name="vimAuthenticationHandlerImpl"/>
+
+   <!-- RememberMe provider -->
+   <beans:bean id="rememberMeProvider"
+         class="com.vmware.vise.security.DefaultRememberMeProvider" />
+
+   <beans:bean id="healthStatusRequestHandler" class="com.vmware.vise.vim.cm.HealthStatusRequestHandler">
+      <beans:constructor-arg ref="ssoService"/>
+   </beans:bean>
+
+   <osgi:reference id="ssoService" interface="com.vmware.vise.vim.security.sso.SsoService" />
+
+   <!-- ResetPassword request handler -->
+   <beans:bean id="resetPasswordRequestHandler"
+         class="com.vmware.vsphere.client.security.sso.ResetPasswordRequestHandler">
+      <beans:constructor-arg ref="ssoService"/>
+   </beans:bean>
+
+   <!-- For host-client we can still use VimRememberMeHandler
+   <beans:bean id="rememberMeProvider" class="com.vmware.vise.security.DefaultRememberMeProvider">
+      <beans:property name="rememberMeHandler" ref="rememberMeHandler"/>
+   </beans:bean>
+   <beans:bean id="rememberMeHandler" class="com.vmware.vsphere.client.security.VimRememberMeHandler"/>
+    -->
+
+   <!-- Platform specific settings
+   These settings come pre-canned with the platform and should not be changed
+   -->
+
+   <beans:bean id="authenticationFilter" class="com.vmware.vise.security.AuthenticationProcessingFilter" >
+     <beans:constructor-arg index="0" ref="authenticationProviderImpl"/>
+     <beans:property name="authenticationManager" ref="vimAuthenticationManager"/>
+     <beans:property name="authenticationFailureHandler" ref="failureHandler" />
+     <beans:property name="authenticationSuccessHandler" ref="successHandler" />
+     <beans:property name="sessionAuthenticationStrategy" ref="sessionStrategy" />
+     <beans:property name="postOnly" value="false" />
+
+     <beans:property name="allowSessionCreation" value="true" />
+     <beans:property name="rememberMeServices" ref="rememberMeProvider"/>
+   </beans:bean>
+
+   <beans:import resource="session-fixation-protection.xml" />
+
+   <beans:bean id="successHandler"
+         class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler" >
+      <beans:property name="defaultTargetUrl" value="/" />
+   </beans:bean>
+   <beans:bean id="failureHandler"
+         class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" >
+      <beans:property name="defaultFailureUrl" value="/?login_error=1" />
+   </beans:bean>
+
+
+   <!-- AuthenticationEntryPoint -->
+    <beans:bean id="vimAuthenticationEntryPoint"
+         class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+      <beans:property name="loginFormUrl" value="/" />
+   </beans:bean>
+
+   <beans:bean id="uds" class="com.vmware.vise.security.DefaultUserDetailsService"/>
+
+   <!-- Logout configuration start -->
+   <beans:bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+      <beans:constructor-arg index="0" value="/"/>
+      <beans:constructor-arg index="1">
+         <beans:list>
+            <beans:ref bean="authenticationProviderImpl"/>
+            <beans:ref bean="securityContextLogoutHandler" />
+            <beans:ref bean="rememberMeProvider" />
+         </beans:list>
+      </beans:constructor-arg>
+   </beans:bean>
+
+   <beans:bean id="securityContextLogoutHandler"
+         class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+   <!-- Logout configuration end -->
+
+   <!-- RememberMe filter -->
+   <beans:bean id="rememberMeFilter"
+         class="com.vmware.vise.security.RememberMeFilter">
+      <beans:constructor-arg index="0" ref="authenticationProviderImpl"/>
+      <beans:property name="rememberMeServices" ref="rememberMeProvider" />
+      <beans:property name="authenticationManager" ref="vimAuthenticationManager" />
+   </beans:bean>
+</beans:beans>

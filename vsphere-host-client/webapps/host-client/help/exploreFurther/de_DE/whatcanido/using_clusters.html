@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Verwenden von Clustern : vSphere Lernprogramm</title>
+<style type="text/css">
+#g_txt1 {
+	width: 230px;
+	position: absolute;
+	left: 39px;
+	top: 402px;
+}
+#g_txt2 {
+	width: 104px;
+	position: absolute;
+	left: 400px;
+	top: 322px;
+	color: #333333;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">Startseite</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Verwenden von vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_clusters.html">Erstellen von Clustern</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;Verwenden von Clustern</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper00">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Seite drucken"></a>		
+  			<h2>Verwenden von Clustern</h2>
+  			<p>Mithilfe von Clustern können Sie die Hostnutzung optimieren und eine hohe Verfügbarkeit für virtuelle Maschinen sicherstellen. Cluster sorgen für eine ausgewogene Verteilung der Ressourcen zwischen den Hosts und verwalten den Lastenausgleich. Mit Clustern können Sie folgende VMware-Lösungen nutzen:</p>
+  			<ul>
+    			<li><strong>vSphere Distributed Resource Scheduler (DRS)</strong><br /> vSphere DRS verteilt die Arbeitslasten virtueller Maschinen kontinuierlich auf alle ESX/ESXi-Hosts. Wenn eine virtuelle Maschine mehr CPU- oder Arbeitsspeicherressourcen erfordert, als der zugehörige Host bereitstellen kann, löst das vCenter Server-System vMotion-Migrationen zur Verteilung der Arbeitslast aus.</li>
+    			<li><strong>vSphere High Availability (HA)</strong><br /> Mit vSphere HA können virtuelle Maschinen auf ESX/ESXi-Hosts nach einem Ausfall des Hosts automatisch wiederhergestellt werden. Wenn ein Host ausfällt, werden alle verknüpften virtuellen Maschinen sofort auf anderen Hosts im Cluster neu gestartet.</li>
+				<li><strong>VMware Enhanced vMotion Compatibility (EVC)</strong><br /> EVC hilft, die vMotion-Kompatibilität zwischen Hosts in einem Cluster sicherzustellen, indem sichergestellt wird, dass den virtuellen Maschinen von allen Hosts im Cluster der gleiche CPU-Funktionssatz präsentiert wird.</li>
+  			</ul>
+  			<p>Sie können die Clusternutzung weiter optimieren, indem Sie Ressourcenpools erstellen, in denen die verfügbaren CPU- und Arbeitsspeicherressourcen eines Clusters hierarchisch partitioniert werden.</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />  			
+  			<div id="reltopics">
+    			<p><strong>Verwandte Themen</strong></p>
+      			<a href="using_resourcepools.html">Verwenden von Ressourcenpools </a>
+  			</div>
+		</div>
+		<div id="graphic"><img src="../images/using_cluster.jpg" alt="Verwenden von Clustern" width="480" height="360" />
+  			<div id="g_txt1">Mithilfe eines Clusters können Sie die Last auf mehrere Hosts verteilen.</div>
+  			<div id="g_txt2">Cluster</div>
+  		</div>
+	</div>
+</div>
+</body>
+</html>

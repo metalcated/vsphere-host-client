@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>vSphere Distributed Switch アーキテクチャについて: vSphere チュートリアル</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#g_txt1 {
+	width: 90px;
+	position: absolute;
+	left: 106px; /* was 91px */
+	top: 362px; /* was 282px */
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">ホーム</a>  &gt;  <a href="virtualization.html">仮想化について</a>  &gt;  <a href="how_does_vc_work.html">vSphere の機能</a>  &gt;  vSphere Distributed Switch アーキテクチャについて</div></div>
+		<div id="hdrright"> </div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="ページの印刷"></a>		
+	  		<h2>vSphere Distributed Switch アーキテクチャについて</h2>
+	  		<p>vSphere Distributed Switch を使ったネットワークは、データセンター レベルで実行されます。vSphere Distributed Switch は、データセンター上の 1 オブジェクトとして存在し、関連するすべてのホストに対する仮想スイッチとして機能し、ホストをまたがる移行を行っても、仮想マシンは一貫したネットワーク構成を維持することができます。</p>
+<p>アップリンクは、vSphere Distributed Switch を関連するホスト上の物理ネットワーク アダプタに接続します。各ホストでは、vSphere Distributed Switch 上のアップリンク ポートそれぞれについて、1 つの物理ネットワーク アダプタを vSphere Distributed Switch に接続できます。</p>
+<p>仮想マシン NIC は、分散ポート グループを介して vSphere Distributed Switch に接続します。この分散ポート グループは、共通構成下に複数のポートを集め、ラベルが付けられたネットワークに接続する仮想マシンに対し、不変の固定点を提供します。</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />	  		
+		    <div id="reltopics">
+	      		<p><strong>関連トピック</strong></p>
+	        	<a href="vNetworkSSarchitecture.html">vSphere 標準スイッチ アーキテクチャについて</a>
+	    	</div>
+	    </div>
+		<div id="graphic"><img src="../images/distributed_switch.png" alt="vSphere Distributed Switch アーキテクチャ" width="480" height="360">
+
+	  	</div>
+		<div id="next_hdr">次のトピック:</div>
+		<div id="next"><a href="../whatcanido/using_vNetwork_distributed_switch.html">vSphere Distributed Switch アーキテクチャのセットアップ</a></div>
+	</div>
+</div>
+</body>
+</html>
+

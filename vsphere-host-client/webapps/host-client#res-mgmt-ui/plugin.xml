@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.vsphere.client.resmgmtui"
+   moduleUri="ResMgmtModule.swf" defaultBundle="ResMgmtUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/res-mgmt-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <!-- Resource Management sub tabs for VirtualMachine objects. -->
+   <extensionPoint id="vsphere.core.vm.monitor.resMgmtViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Management sub tabs for VirtualApp objects. -->
+   <extensionPoint id="vsphere.core.vApp.monitor.resMgmtViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Management sub tabs for ResourcePool objects. -->
+   <extensionPoint id="vsphere.core.resourcePool.monitor.resMgmtViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Management sub tabs for ClusterComputeResource objects. -->
+   <extensionPoint id="vsphere.core.cluster.monitor.resMgmtViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Management sub tabs for HostSystem objects. -->
+   <extensionPoint id="vsphere.core.host.monitor.resMgmtViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Utilization portlets for vApp objects. -->
+   <extensionPoint id="vsphere.core.vApp.monitor.utilizationViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Utilization portlets for ResourcePool objects. -->
+   <extensionPoint id="vsphere.core.resourcePool.monitor.utilizationViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Utilization portlets for Cluster objects. -->
+   <extensionPoint id="vsphere.core.cluster.monitor.utilizationViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Resource Utilization portlets for HostSystem objects. -->
+   <extensionPoint id="vsphere.core.host.monitor.utilizationViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Monitor/Resource Allocation tab for VirtualApp objects -->
+   <extension id="vsphere.core.vApp.monitor.resMgmtView">
+      <extendedPoint>vsphere.core.vApp.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.vApp.monitor.resMgmtViews</hostedPoint>
+      <precedingExtension>vsphere.core.vApp.monitor.events</precedingExtension>
+      <object>
+         <name>#{resMgmtTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+      </object>
+   </extension>
+
+   <!-- Monitor/Resource Allocation tab for ResourcePool objects -->
+   <extension id="vsphere.core.resourcePool.monitor.resMgmtView">
+      <extendedPoint>vsphere.core.resourcePool.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.resourcePool.monitor.resMgmtViews</hostedPoint>
+      <precedingExtension>vsphere.core.resourcePool.monitor.events</precedingExtension>
+      <object>
+         <name>#{resMgmtTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+      </object>
+   </extension>
+
+   <!-- Monitor/Resource Allocation tab for ClusterComputeResource objects -->
+   <extension id="vsphere.core.cluster.monitor.resMgmtView">
+      <extendedPoint>vsphere.core.cluster.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.cluster.monitor.resMgmtViews</hostedPoint>
+      <precedingExtension>vsphere.core.cluster.monitor.events</precedingExtension>
+      <object>
+         <name>#{resMgmtTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+      </object>
+   </extension>
+
+   <!-- Monitor/Resource Allocation tab for HostSystem objects -->
+   <extension id="vsphere.core.host.monitor.resMgmtView">
+      <extendedPoint>vsphere.core.host.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.host.monitor.resMgmtViews</hostedPoint>
+      <precedingExtension>vsphere.core.host.monitor.events</precedingExtension>
+      <object>
+         <name>#{resMgmtTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>parent.@type</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <String>ComputeResource</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- CPU sub-tab in Resource Management tab -->
+   <extension id="vsphere.core.resMgmt.cpuAllocationView">
+      <extendedPoint>vsphere.core.host.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.cluster.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.resourcePool.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.vApp.monitor.resMgmtViews</extendedPoint>
+      <object>
+         <name>#{cpuTabLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.ResourceAllocationView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Memory sub-tab in Resource Management tab -->
+   <extension id="vsphere.core.resMgmt.memoryAllocationView">
+      <extendedPoint>vsphere.core.host.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.cluster.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.resourcePool.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.vApp.monitor.resMgmtViews</extendedPoint>
+      <object>
+         <name>#{memoryTabLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.ResourceAllocationView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Storage sub-tab in Resource Management tab -->
+   <extension id="vsphere.core.resMgmt.storageAllocationView">
+      <extendedPoint>vsphere.core.host.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.cluster.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.resourcePool.monitor.resMgmtViews</extendedPoint>
+      <extendedPoint>vsphere.core.vApp.monitor.resMgmtViews</extendedPoint>
+      <object>
+         <name>#{storageTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.storage.StorageResourceAllocationView" />
+      </object>
+   </extension>
+
+   <!--  Monitor/Utilization tab for Cluster -->
+   <extension id="vsphere.core.cluster.monitor.utilizationView">
+      <extendedPoint>vsphere.core.cluster.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.cluster.monitor.utilizationViews</hostedPoint>
+      <object>
+         <name>#{utilizationTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.PortalView" />
+      </object>
+   </extension>
+
+   <!--  Monitor/Utilization tab for Standalone Host -->
+   <extension id="vsphere.core.host.monitor.utilizationView">
+      <extendedPoint>vsphere.core.host.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.host.monitor.utilizationViews</hostedPoint>
+      <object>
+         <name>#{utilizationTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.PortalView" />
+      </object>
+      <metadata>
+         <!-- in case of host client the view does not make sense as the data
+              which feeds its portlets is not available -->
+         <hostClientRelevant>false</hostClientRelevant>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>parent.@type</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <String>ComputeResource</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!--  Monitor/Utilization tab for VApp -->
+   <extension id="vsphere.core.vApp.monitor.utilizationView">
+      <extendedPoint>vsphere.core.vApp.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.vApp.monitor.utilizationViews</hostedPoint>
+      <object>
+         <name>#{utilizationTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.PortalView" />
+      </object>
+   </extension>
+
+   <!--  Monitor/Utilization tab for ResourcePool -->
+   <extension id="vsphere.core.resourcePool.monitor.utilizationView">
+      <extendedPoint>vsphere.core.resourcePool.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.resourcePool.monitor.utilizationViews</hostedPoint>
+      <object>
+         <name>#{utilizationTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.PortalView" />
+      </object>
+   </extension>
+
+   <!-- Guest Memory portlet in Cluster's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.cluster.monitor.utilization.guestMemoryView">
+      <extendedPoint>vsphere.core.cluster.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.cluster.monitor.utilization.hostMemoryView</precedingExtension>
+      <object>
+         <name>#{guestMemoryPortletLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.utilization.GuestMemoryView"/>
+      </object>
+   </extension>
+
+   <!-- Guest Memory portlet in Standalone Host Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.host.monitor.utilization.guestMemoryView">
+      <extendedPoint>vsphere.core.host.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.host.monitor.utilization.hostMemoryView</precedingExtension>
+      <object>
+         <name>#{guestMemoryPortletLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.utilization.GuestMemoryView"/>
+      </object>
+   </extension>
+
+   <!-- Guest Memory portlet in ResourcePool's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.resourcePool.monitor.utilization.guestMemoryView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>
+         vsphere.core.resourcePool.monitor.utilization.hostMemoryView
+      </precedingExtension>
+      <object>
+         <name>#{guestMemoryPortletLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.utilization.GuestMemoryView"/>
+      </object>
+   </extension>
+
+   <!-- Guest Memory portlet in VirtualApp's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.vApp.monitor.utilization.guestMemoryView">
+      <extendedPoint>vsphere.core.vApp.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.vApp.monitor.utilization.hostMemoryView</precedingExtension>
+      <object>
+         <name>#{guestMemoryPortletLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.utilization.GuestMemoryView"/>
+      </object>
+   </extension>
+
+   <!-- Cluster Memory portlet in Cluster's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.cluster.monitor.utilization.hostMemoryView">
+      <extendedPoint>vsphere.core.cluster.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.cluster.monitor.utilization.hostCPUView</precedingExtension>
+      <object>
+         <name>#{clusterMemoryPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceProducerView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Host Memory portlet in Standalone Host's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.host.monitor.utilization.hostMemoryView">
+      <extendedPoint>vsphere.core.host.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.host.monitor.utilization.hostCPUView</precedingExtension>
+      <object>
+         <name>#{hostMemoryPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceProducerView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Memory portlet in ResourcePool's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.resourcePool.monitor.utilization.hostMemoryView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.resourcePool.monitor.utilization.hostCPUView</precedingExtension>
+      <object>
+         <name>#{resourcePoolMemoryPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Memory portlet in VirtualApp's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.vApp.monitor.utilization.hostMemoryView">
+      <extendedPoint>vsphere.core.vApp.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>vsphere.core.vApp.monitor.utilization.hostCPUView</precedingExtension>
+      <object>
+         <name>#{vAppMemoryPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Cluster CPU portlet in Cluster's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.cluster.monitor.utilization.hostCPUView">
+      <extendedPoint>vsphere.core.cluster.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{clusterCPUPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceProducerView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Host CPU portlet in Standalone Host's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.host.monitor.utilization.hostCPUView">
+      <extendedPoint>vsphere.core.host.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{hostCPUPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceProducerView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- CPU portlet in ResourcePool's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.resourcePool.monitor.utilization.hostCPUView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{resourcePoolCPUPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- CPU portlet in VirtualApp's Resource Utilization sub-tab. -->
+   <extension id="vsphere.core.vApp.monitor.utilization.hostCPUView">
+      <extendedPoint>vsphere.core.vApp.monitor.utilizationViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{vAppCPUPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Monitor/Resource Allocation tab for VM objects(excluding VM Templates) -->
+   <extension id="vsphere.core.vm.monitor.resMgmtView">
+      <extendedPoint>vsphere.core.vm.monitorViews</extendedPoint>
+      <hostedPoint>vsphere.core.vm.monitor.resMgmtViews</hostedPoint>
+      <precedingExtension>vsphere.core.vm.monitor.events</precedingExtension>
+      <object>
+         <name>#{resMgmtTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.PortalView"/>
+      </object>
+      <metadata>
+         <objectType>VirtualMachine</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>config</propertyName>
+                     <comparator>NOT_EQUALS</comparator>
+                     <comparableValue>
+                        <String>null</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!--  CPU portlet in VM's Resource Management tab. -->
+   <extension id="vsphere.core.vm.monitor.resMgmt.hostCPUView">
+      <extendedPoint>vsphere.core.vm.monitor.resMgmtViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{vmCPUPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>cpu</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Host Memory portlet in VM's Resource Management tab. -->
+   <extension id="vsphere.core.vm.monitor.resMgmt.hostMemoryView">
+      <extendedPoint>vsphere.core.vm.monitor.resMgmtViews</extendedPoint>
+      <precedingExtension>vsphere.core.vm.monitor.resMgmt.hostCPUView</precedingExtension>
+      <object>
+         <name>#{vmMemoryPortletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.resmgmt.utilization.ResourceConsumeView</className>
+            <object><root>
+                  <resourceType>memory</resourceType>
+               </root></object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Guest Memory portlet in VM's Resource Management tab. -->
+   <extension id="vsphere.core.vm.monitor.resMgmt.guestMemoryView">
+      <extendedPoint>vsphere.core.vm.monitor.resMgmtViews</extendedPoint>
+      <precedingExtension>vsphere.core.vm.monitor.resMgmt.hostMemoryView</precedingExtension>
+      <object>
+         <name>#{guestMemoryPortletLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.resmgmt.utilization.GuestMemoryView"/>
+      </object>
+   </extension>
+
+   <!-- Facets -->
+   <extension id="vsphere.core.resourcePool.list.facets">
+      <extendedPoint>vsphere.core.resourcePool.list.facets</extendedPoint>
+      <object type="com.vmware.ui.facets.FacetSetSpec">
+         <facets>
+            <Array>
+               <com.vmware.core.specs.ObjectSpec>
+                  <className>com.vmware.ui.facets.model.DynamicValueSelectionFacet</className>
+                  <object>
+                     <root>
+                        <label>#{resourceManagementFacet.tags}</label>
+                        <targetType>ResourcePool</targetType>
+                        <relation>inventoryservice:tag</relation>
+                        <property>name</property>
+                        <renderer>
+                           <com.vmware.core.specs.ObjectSpec>
+                              <className>com.vmware.ui.facets.view.TypeAheadFacetControl</className>
+                           </com.vmware.core.specs.ObjectSpec>
+                        </renderer>
+                     </root>
+                  </object>
+               </com.vmware.core.specs.ObjectSpec>
+            </Array>
+         </facets>
+      </object>
+   </extension>
+</plugin>

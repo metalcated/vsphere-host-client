@@ -1,0 +1,63 @@
+<div ng-controller="ConnectToSsoController">
+   <form  name='connectSSODataForm' class="form-horizontal"
+         style="padding-top:10px;">
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(connectSSODataForm.ssoInstanceIp)]">
+         <label class="control-label" for="ssoInstanceIp">
+            {{vxWizard.localeMap["DeployVcsaConnectToSSOPage.ssoInstanceIP"]}}
+         </label>
+         <div class="controls">
+            <input type="text" name="ssoInstanceIp" required
+                  ng-model="vxWizard.wizardData.ovfOptions.ssoNodeData.ssoInstanceIp">
+            <span class="help-inline"
+                  ng-show="showRequiredError(connectSSODataForm.ssoInstanceIp)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="control-label" for="ssoUsername">
+            {{vxWizard.localeMap[
+                  'DeployVcsaConnectToSSOPage.ssoUsername']}}
+         </label>
+         <div class="controls">
+            {{vxWizard.localeMap[
+                  'DeployVcsaConnectToSSOPage.administrator']}}
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(connectSSODataForm.ssoPassword)]">
+         <label class="control-label" for="ssoPassword">
+            {{vxWizard.localeMap["DeployVcsaConnectToSSOPage.ssoAdministratorPassword"]}}
+         </label>
+         <div class="controls">
+            <input type="password" name="ssoPassword" id="ssoPassword"
+               ng-model="vxWizard.wizardData.ovfOptions.ssoNodeData.ssoPassword"
+               required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(connectSSODataForm.ssoPassword)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group" ng-if='checkForMAC()'
+            ng-class="{true: 'error'}[addErrorClass(connectSSODataForm.domainName)]">
+         <label class="control-label" for="domainName">
+            {{vxWizard.localeMap["DeployVcsaConnectToSSOPage.domainName"]}}
+         </label>
+         <div class="controls">
+            <input type="text" name="domainName"
+                  ng-model="vxWizard.wizardData.ovfOptions.ssoNodeData.ssoDomainName"
+                  required vx-domain-format>
+            <span class="help-inline"
+                  ng-show="showRequiredError(connectSSODataForm.domainName)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showDomainNameError(connectSSODataForm.domainName)">
+               {{vxWizard.localeMap["validationText.invalidDomainName"]}}
+            </span>
+         </div>
+      </div>
+   </form>
+</div>

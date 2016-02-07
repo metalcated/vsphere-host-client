@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.vsphere.client.containerapp" defaultBundle="containerApp">
+   <export>
+      <class name="com.vmware.ui.facets.view.CheckboxFacetControl"/>
+   </export>
+
+   <!--  The extension point for extension filters. -->
+   <extensionPoint id="vmware.extension.filters">
+      <objectType class="com.vmware.extensionfw.ExtensionFilterSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for exclusions for Dispose Manager. -->
+   <extensionPoint id="vise.dispose.namespace.exclusions">
+      <objectType class="com.vmware.ui.util.DisposeManagerNamespaceSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for inclusions for Dispose Manager. -->
+   <extensionPoint id="vise.dispose.namespace.inclusions">
+      <objectType class="com.vmware.ui.util.DisposeManagerNamespaceSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for extension transformers. -->
+   <extensionPoint id="vmware.extension.transformers">
+      <objectType class="com.vmware.extensionfw.IExtensionTransformer"/>
+   </extensionPoint>
+
+    <extensionPoint id="vmware.extension.instantiation.strategy">
+      <objectType class="com.vmware.extensionfw.ObjectInstantiationStrategySpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for type resource information. -->
+   <extensionPoint id="vsphere.core.objectTypes">
+      <objectType class="com.vmware.core.specs.ObjectTypeSpec"/>
+   </extensionPoint>
+
+   <!-- Extension point for associations -->
+   <extensionPoint id="vsphere.core.associations">
+      <objectType class="com.vmware.extensionfw.AssociationSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for vSphere Client domain views. -->
+   <extensionPoint id="vise.global.views">
+      <objectType class="com.vmware.vsphere.client.views.GlobalViewSpec"/>
+   </extensionPoint>
+
+   <!--
+         The extension point for vSphere Client navigator. As of now we only
+         support a single navigator therefore this point should not be publicly
+         documented as open for extensions.
+   -->
+   <extensionPoint id="vsphere.core.navigators">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for vSphere Client app side-bar views. -->
+   <extensionPoint id="vsphere.core.appSidebarViews">
+      <objectType class="com.vmware.vsphere.client.views.AppSidebarSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for a set of Actions that can be performed by the user -->
+   <extensionPoint id="vise.actions.sets">
+      <objectType class="com.vmware.actionsfw.ActionSetSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for categories into which Actions get sorted. -->
+   <extensionPoint id="vmware.actions.categories">
+      <objectType class="com.vmware.common.CategorySpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for specifying drag and drop behavior. -->
+   <extensionPoint id="vise.dragAndDrop.rules">
+      <objectType class="com.vmware.ui.dragAndDrop.DragAndDropSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for a custom action menu -->
+   <extensionPoint id="vise.actions.menus">
+      <!-- Array of ActionMenuItemSpec -->
+      <objectType class="Array"/>
+   </extensionPoint>
+
+   <!-- The extension point for inventory navigator spec. -->
+   <extensionPoint id="vsphere.core.navigator.inventorySpecs">
+      <objectType
+         class="com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for children tree view. Views extending this point are
+        used to represent parent/child hierarchies when needed
+        (e.g. permissions propagation) -->
+   <extensionPoint id="vsphere.core.navigator.childrentree">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for the related items specs. -->
+   <extensionPoint id="vise.relateditems.specs">
+      <objectType class="com.vmware.ui.relateditems.model.ObjectRelationSetSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for global toolbar views. -->
+   <extensionPoint id="vsphere.core.toolbarViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for global toolbar user menu actions -->
+   <extensionPoint id="vsphere.core.toolbarUserMenu.actions">
+      <objectType class="com.vmware.actionsfw.ActionSetSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for global toolbar perspective menu actions -->
+   <extensionPoint id="vsphere.vise.perspectives">
+      <objectType class="com.vmware.ui.perspective.PerspectiveSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for notification views. -->
+   <extensionPoint id="vmware.notification.views">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Control center tab extension point -->
+   <extensionPoint id="vsphere.core.controlcenter.views">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Control center - App category extension point -->
+   <extensionPoint id="vsphere.core.controlcenter.shortcutCategories">
+      <objectType class="com.vmware.common.CategorySpec"/>
+   </extensionPoint>
+
+   <!-- Control center - App shortcuts extension point -->
+   <extensionPoint id="vise.home.shortcuts">
+      <objectType class="com.vmware.vsphere.client.views.ShortcutSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vise.navigator.nodespecs">
+      <objectType class="com.vmware.ui.objectnavigator.model.ObjectNavigatorNodeSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vise.inventory.representationspecs">
+      <objectType class="com.vmware.ui.iconlabel.model.ObjectRepresentationSpec"/>
+   </extensionPoint>
+
+   <!-- Priroritization: Assembler Extension Points-->
+   <extensionPoint id="vmware.prioritization.assemblers">
+      <objectType class="com.vmware.common.interfaces.prioritization.IPriorityGroupAssembler"/>
+   </extensionPoint>
+   <!-- Prioritization: Assembler for Item Actions -->
+   <extension id="vmware.prioritization.actionPriorityGroupAssembler">
+      <extendedPoint>vmware.prioritization.assemblers</extendedPoint>
+      <object type="com.vmware.actionsfw.implementation.ActionPriorityGroupAssembler"/>
+   </extension>
+   <!-- Prioritization: Assembler for Columns -->
+   <extension id="vmware.prioritization.columnPriorityGroupAssembler">
+      <extendedPoint>vmware.prioritization.assemblers</extendedPoint>
+      <object type="com.vmware.vsphere.client.prioritization.ColumnPriorityGroupAssembler"/>
+   </extension>
+   <!-- Prioritization: Assembler for List Actions-->
+   <extension id="vmware.prioritization.listActionPriorityGroupAssembler">
+      <extendedPoint>vmware.prioritization.assemblers</extendedPoint>
+      <object type="com.vmware.vsphere.client.prioritization.ListActionPriorityGroupAssembler"/>
+   </extension>
+
+
+    <!-- Priroritization: Prioritization Entity Extension Points -->
+   <extensionPoint id="vmware.prioritization.actions">
+      <objectType class="com.vmware.actionsfw.model.ActionPriorityGroup"/>
+   </extensionPoint>
+
+   <extensionPoint id="vmware.prioritization.columns">
+      <objectType class="com.vmware.vsphere.client.prioritization.ColumnPriorityGroup"/>
+   </extensionPoint>
+
+   <extensionPoint id="vmware.prioritization.listActions">
+      <objectType class="com.vmware.actionsfw.model.ActionPriorityGroup"/>
+   </extensionPoint>
+
+
+   <!--Extension point for various lists in the application.-->
+   <extensionPoint id="vise.inventory.lists">
+      <objectType class="com.vmware.ui.views.ComponentSpec"/>
+   </extensionPoint>
+
+   <!--  The extension point for user settings categories. -->
+   <extensionPoint id="vsphere.core.usersettings.categories">
+      <objectType class="com.vmware.common.CategorySpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for the related objects specs. -->
+   <extensionPoint id="vsphere.relatedobjects.summary.specs">
+      <!-- Array of RelationSpec -->
+      <objectType class="Array"/>
+   </extensionPoint>
+
+   <!-- The extension point for the prioritization spec of related objects portlet. -->
+   <extensionPoint id="vsphere.relatedobject.summary.prioritization">
+        <objectType class="com.vmware.core.specs.PriorityGroup"/>
+   </extensionPoint>
+
+   <!-- The extension point for the prioritization spec of related items specs. -->
+   <extensionPoint id="vsphere.relateditems.prioritization">
+        <objectType class="com.vmware.core.specs.PriorityGroup"/>
+   </extensionPoint>
+
+   <extension id="vmware.extension.filters.instantiation.strategy">
+      <extendedPoint>vmware.extension.instantiation.strategy</extendedPoint>
+      <object>
+         <extensionPointId>vmware.extension.filters</extensionPointId>
+         <objectInstantiationStrategy>
+            <com.vmware.extensionfw.SimpleInstantiationStrategy />
+         </objectInstantiationStrategy>
+      </object>
+   </extension>
+
+   <extension id="vise.actions.menus.instantiation.strategy">
+      <extendedPoint>vmware.extension.instantiation.strategy</extendedPoint>
+      <object>
+         <!-- Specialized instantiation strategies for "vise.actions.menus extensions"
+              extension point -->
+         <extensionPointId>vise.actions.menus</extensionPointId>
+         <!-- The objects declared within "vise.actions.menus extensions"
+              are created using the given constructor -->
+         <objectInstantiationStrategy>
+            <com.vmware.extensionfw.SimpleInstantiationStrategy />
+         </objectInstantiationStrategy>
+         <!-- The Extension Object instances for "vise.actions.menus"
+              extension point are singletons -->
+         <extensionObjectInstantiationStrategy>
+            <com.vmware.extensionfw.SharedInstanceInstantiationStrategy />
+         </extensionObjectInstantiationStrategy>
+      </object>
+   </extension>
+
+   <!-- TODO btonchev: current declaration is to verbose -
+        provide a utility to achieve more compact style -->
+   <extension id="vise.actions.sets.instantiation.strategy">
+      <extendedPoint>vmware.extension.instantiation.strategy</extendedPoint>
+      <object>
+         <extensionPointId>vise.actions.sets</extensionPointId>
+         <objectInstantiationStrategy>
+            <com.vmware.actionsfw.ActionFwInstantiationStrategy />
+         </objectInstantiationStrategy>
+         <extensionObjectInstantiationStrategy>
+            <com.vmware.extensionfw.CopyingInstanceInstantiationStrategy />
+         </extensionObjectInstantiationStrategy>
+      </object>
+   </extension>
+   <extension id="vise.actions.specs.instantiation.strategy">
+      <extendedPoint>vmware.extension.instantiation.strategy</extendedPoint>
+      <object>
+         <extensionPointId>vise.actions.specs</extensionPointId>
+         <objectInstantiationStrategy>
+            <com.vmware.extensionfw.SimpleInstantiationStrategy />
+         </objectInstantiationStrategy>
+         <extensionObjectInstantiationStrategy>
+            <com.vmware.extensionfw.SharedInstanceInstantiationStrategy />
+         </extensionObjectInstantiationStrategy>
+      </object>
+   </extension>
+   <extension id="vsphere.core.menus.solutionMenus.instantiation.strategy">
+      <extendedPoint>vmware.extension.instantiation.strategy</extendedPoint>
+      <object>
+         <extensionPointId>vsphere.core.menus.solutionMenus</extensionPointId>
+         <objectInstantiationStrategy>
+            <com.vmware.extensionfw.SimpleInstantiationStrategy />
+         </objectInstantiationStrategy>
+         <extensionObjectInstantiationStrategy>
+            <com.vmware.extensionfw.SharedInstanceInstantiationStrategy />
+         </extensionObjectInstantiationStrategy>
+      </object>
+   </extension>
+
+   <!-- The extension point for filtering of permission propegation. -->
+   <extensionPoint id="vsphere.permission.propagation.filter">
+        <objectType class="Array"/>
+   </extensionPoint>
+
+   <!-- The Manage and Monitor domain view -->
+   <extension id="vsphere.core.manageAndMonitor.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <object>
+         <name>#{navigator.manageAndMonitor}</name>
+         <icon>#{containerAppImages:manageMonitor}</icon>
+         <componentClass className="com.vmware.vsphere.client.views.app.ManageAndMonitorView"/>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.usersettings.tiwo">
+      <extendedPoint>vsphere.core.usersettings.categories</extendedPoint>
+      <object>
+         <label>#{tiwoItemsCategoryLabel}</label>
+         <uid>com.vmware.usersettings.tiwo</uid>
+      </object>
+      <metadata>
+         <tags>usersettings</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.usersettings.columns">
+      <extendedPoint>vsphere.core.usersettings.categories</extendedPoint>
+      <object>
+         <label>#{userPreferences.removeColumnsCategoryLabel}</label>
+         <uid>com.vmware.usersetting.savedcolumnprefs</uid>
+      </object>
+   </extension>
+
+
+   <extension id="vsphere.core.usersettings.gs">
+      <extendedPoint>vsphere.core.usersettings.categories</extendedPoint>
+      <object>
+         <label>#{gettingStartedPagesCategoryLabel}</label>
+         <uid>com.vmware.usersettings.gettingStarted</uid>
+      </object>
+      <metadata>
+         <tags>usersettings</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.launcher">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{navigator.launcher}</title>
+         <icon>#{containerAppImages:home}</icon>
+         <viewOpenedUponFocus>
+            <className>com.vmware.ui.objectnavigator.views.CategoryNodeListView</className>
+               <object>
+                  <root>
+                     <showName>false</showName>
+                  </root>
+               </object>
+         </viewOpenedUponFocus>
+      </object>
+      <metadata>
+         <tags>global, navigator</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.homeCategory">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <title>#{navigator.homeCategory}</title>
+         <parentUid>vsphere.core.navigator.launcher</parentUid>
+      </object>
+      <metadata>
+         <tags>global, navigator</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.solutionsCategory">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>vsphere.core.navigator.homeCategory</precedingExtension>
+      <object>
+         <title>#{navigator.solutionsCategory}</title>
+         <parentUid>vsphere.core.navigator.launcher</parentUid>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.administrationCategory">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>vsphere.core.navigator.solutionsCategory</precedingExtension>
+      <object>
+         <title>#{navigator.administrationCategory}</title>
+         <parentUid>vsphere.core.navigator.launcher</parentUid>
+      </object>
+      <metadata>
+         <tags>global, admin</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.statisticsCategory">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>vsphere.core.navigator.administrationCategory</precedingExtension>
+      <object>
+         <title>#{navigator.statisticsCategory}</title>
+         <parentUid>vsphere.core.navigator.launcher</parentUid>
+      </object>
+      <metadata>
+         <tags>global, solutions, statistics</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.home">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{navigator.home}</title>
+         <icon>#{containerAppImages:home}</icon>
+         <parentUid>vsphere.core.navigator.homeCategory</parentUid>
+         <navigationTargetUid>vsphere.core.controlcenter.domainView</navigationTargetUid>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.navigator.administration">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{navigator.administration}</title>
+         <icon>#{containerAppImages:administration}</icon>
+         <parentUid>vsphere.core.navigator.administrationCategory</parentUid>
+         <viewOpenedUponFocus className="com.vmware.ui.objectnavigator.views.CategoryNodeTreeView">
+            <object>
+               <root>
+                  <numLevels>2</numLevels>
+               </root>
+            </object>
+         </viewOpenedUponFocus>
+         <navigationTargetUid>vsphere.core.inventory.roleManager</navigationTargetUid>
+      </object>
+      <metadata>
+         <tags>admin</tags>
+      </metadata>
+   </extension>
+
+   <!-- The extension for string notification views. -->
+   <extension id="vsphere.core.stringNotificationView">
+      <extendedPoint>vmware.notification.views</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.ui.views.notification.StringNotifyView"/>
+      </object>
+      <metadata>
+         <objectType>com.vmware.ui.views.notification.StringNotificationData</objectType>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Type filter -->
+   <extension id="vsphere.core.typeFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.TypeFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <!-- The server object ref types is matched against the objectType provided
+            by the extension. If extension can support all the types in the current
+            context then it is marked as applicable by the filter -->
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- If the object type is specified as *, then it means extension is
+               applicable to all kinds of object -->
+               <name>objectType</name>
+               <!-- comma separated list of object types -->
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Exclude filter -->
+   <extension id="vsphere.core.excludeFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.ExcludeFilter"/>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Privilege filter -->
+   <extension id="vsphere.core.privilegeFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.PrivilegeFilter"/>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <!-- The server object ref types is matched against the objectType provided
+            by the extension. If extension can support all the types in the current
+            context then it is marked as applicable by the filter If the contextObjects
+            are not specified, then privilege checks are performed on the root folders.-->
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type>
+               <optional>true</optional>
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- An array of privilege ids that need to be granted to a user to access
+               ths extension -->
+               <name>privilege</name>
+               <!-- comma separated list of privilege IDs-->
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Custom Attribute filter
+   Used to filter out any extensions that do not have the specified custom attribute
+   key-value pair defined.
+   -->
+   <extension id="vsphere.core.customAttributeFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.CustomAttributeFilter"/>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type> <!-- An array of com.vmware.core.model.ServerObjectRef -->
+               <!-- Currently the filter is applicable only to an object not an array -->
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- Name of the custom attribute -->
+               <name>attributeKey</name>
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- Value of the custom attribute -->
+               <name>attributeValue</name>
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- UserSessionEnvPropertyFilter filter -->
+   <extension id="vsphere.core.userSessionEnvPropertyFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.UserSessionEnvPropertyFilter"/>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>exclusionProperty</name>
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Disabled Operation filter -->
+   <extension id="vsphere.core.disabledOperationFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass
+            className="com.vmware.vsphere.client.filters.DisabledOperationFilter"/>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <!-- The server object ref types is matched against the objectType provided
+            by the extension. If extension can support all the types in the current
+            context then it is marked as applicable by the filter -->
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- Operations that need to be available for the extension
+               to be valid -->
+               <name>operationId</name>
+               <!-- comma separated list of operation ids -->
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Server Guid filter -->
+   <extension id="vsphere.core.vcServerGuidFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.VcServerGuidFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+
+         <!-- The properties that the filter expects to get from the extension host. -->
+         <contextProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type> <!-- array of com.vmware.core.model.ServerObjectRef -->
+               <!-- optional is true so that global extensions (applications etc)
+                  pass the filter. -->
+               <optional>true</optional>
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <!-- The properties required by the filter and specified in
+            the extension metadata. -->
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>vcServerGuids</name>
+               <type>Array</type> <!-- array of guid String -->
+               <!-- optional is true so that non-vc extensions pass the filter. -->
+               <optional>true</optional>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Extension Object Content Filter-->
+   <extension id="vsphere.core.extensionContentFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass
+            className="com.vmware.vsphere.client.filters.ExtensionObjectFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <!-- The propertyConstraints are used to compare against the content of
+            the extension object XML.
+            propertyName : Must be a valid xpath in the XML object. Note that the
+               last fragment in the path can be a node or name of an attribute. Also,
+               "." or "" implies text of rootNode.
+            comparableValue : Can be CSV of values to compare against.
+            comparator : Currently supports EQUALS and EQUALS_ANY_OF operators.  -->
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>propertyConstraints</name>
+               <type>Array</type> <!-- Array of com.vmware.data.query.PropertyConstraint -->
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Object Property filter-->
+   <extension id="vsphere.core.objectPropertyFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.ObjectPropertyFilter"/>
+
+         <!-- Context is the data the filter expects to get from the extension host -->
+         <contextProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type> <!-- An array of com.vmware.core.model.ServerObjectRef -->
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- 1. Expected that all the properties specified in the propertyConditions
+                    are properties that can be retrieved using the DataService on the
+                    object supplied as context. Apart from these the filter additionally
+                    supports 'parent.type' property.
+                    2. The supported comparison operators are EQUALS, CONTAINS and EQUALS_ANY_OF.
+                    3. The supported conjoiner operators are AND, OR.
+                    -->
+               <name>propertyConditions</name>
+               <type>com.vmware.data.query.CompositeConstraint</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Filters out the extensions that have no extensions specified for their
+      hosted extension point. This can be used, for example, to filter out empty tabs.
+      The filter operates on extensions that specify true for the
+      "requiresHostedExtensions" filter property. -->
+   <extension id="vsphere.core.extensionHostFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.ExtensionHostFilter"/>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>requiresHostedExtensions</name>
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- User Settings filter-->
+   <extension id="vsphere.core.userSettingsFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.UserSettingsFilter"/>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- 1. Expected that all the properties specified in the userSettingsConditions
+                    are keys that can be retrieved using the persistence service.
+                    2. The supported comparison operators are EQUALS, NOT_EQUALS and EQUALS_ANY_OF.
+                    3. The supported conjoiner operators are AND, OR.
+                    -->
+               <name>userSettingsConditions</name>
+               <type>com.vmware.data.query.CompositeConstraint</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Host Client filter -->
+   <extension id="vsphere.core.hostClientFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.vsphere.client.filters.HostClientFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>hostClientRelevant</name>
+               <type>Boolean</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Perspective Filter -->
+   <extension id="vsphere.core.perspectiveTagFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.ui.perspective.PerspectiveTagFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <!-- A list of perspective tags describing which perspectives the
+                   extension can and cannot be included in. -->
+               <name>tags</name>
+               <!-- comma separated list of perspective tags -->
+               <type>String</type>
+               <optional>true</optional>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- IUID transformer -->
+   <extension id="vsphere.core.UidTransformer">
+      <extendedPoint>vmware.extension.transformers</extendedPoint>
+      <object type="com.vmware.ui.uid.UidTransformer"/>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- GroupId transformer -->
+   <extension id="vsphere.core.GroupIdTransformer">
+      <extendedPoint>vmware.extension.transformers</extendedPoint>
+      <object type="com.vmware.vsphere.client.groups.GroupIdTransformer"/>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- PrioritizedItem transformer -->
+   <extension id="vsphere.core.prioritizedItemTransformer">
+      <extendedPoint>vmware.extension.transformers</extendedPoint>
+      <object type="com.vmware.vsphere.client.prioritization.PrioritizedItemTransformer"/>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!--
+      Basic ActionCategory list. These are the generic ones we think most Actions
+      will fit into; there are a couple of categories in the vm-ui plugin as well,
+      and potentially any plugin could add its own but we hope third parties will
+      avoid creating one-entry categories.
+    -->
+   <extension id="vsphere.core.powerOpsActionCategory">
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <precedingExtension>vsphere.opsmgmt.alarms.alarmActionCategory</precedingExtension>
+      <object>
+         <label>#{actionCategories.PowerOps}</label>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.adminActionCategory">
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <precedingExtension>vsphere.core.powerOpsActionCategory</precedingExtension>
+      <object>
+         <label>#{actionCategories.Administration}</label>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.configActionCategory">
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <precedingExtension>vsphere.core.inventoryActionCategory</precedingExtension>
+      <object>
+         <label>#{actionCategories.Config}</label>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.core.inventoryActionCategory">
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <precedingExtension>vsphere.core.configActionCategory</precedingExtension>
+      <object>
+         <label>#{actionCategories.Inventory}</label>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <!-- The Action Framework will always display this special category last, so no
+        need to define precedingExtension here -->
+   <extension id="vsphere.core.miscellaneousActionCategory">
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <object>
+         <label>#{actionCategories.miscellaneous}</label>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <!-- Action set for the resource framework's edit action -->
+   <extension id="vsphere.core.resourcefw.inventoryActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <actions>
+            <!-- The default edit dynamic resource action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <!-- The uid matches ResourceViewEditResolver.DEFAULT_EDIT_ACTION_ID -->
+               <uid>com.vmware.resourcefw.defaultEditAction</uid>
+               <label>#{ResourceFw:editButton.label}</label>
+               <delegate className="com.vmware.resourcefw.actions.ResourceViewEditResolver"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <tags>global, action</tags>
+      </metadata>
+   </extension>
+
+   <!-- The control center view -->
+   <extension id="vsphere.core.controlcenter.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <hostedPoint>vsphere.core.controlcenter.views</hostedPoint>
+      <object>
+         <name>#{controlCenter}</name>
+         <icon>#{containerAppImages:home}</icon>
+         <componentClass className="com.vmware.ui.views.TabbedView"/>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Getting Started tab -->
+   <extension id="vsphere.core.controlcenter.gettingStartedHomeView">
+      <extendedPoint>vsphere.core.controlcenter.views</extendedPoint>
+      <object>
+         <name>#{controlcenter.gettingStartedTab}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.homeGS.GettingStartedHomeView</className>
+            <object>
+               <root>
+                  <title>#{controlcenter.gettingStartedTab.title}</title>
+                  <description>#{controlcenter.gettingStartedTab.description}</description>
+                  <neverShowAgainKey>home.gs.neverShowAgain</neverShowAgainKey>
+                  <descriptions>
+                     <com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                        <image>#{containerAppImages:number1}</image>
+                        <title>#{controlcenter.gettingStartedTab.description.objectNavigator.title}</title>
+                        <description>#{controlcenter.gettingStartedTab.description.objectNavigator.description}</description>
+                     </com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                     <com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                        <image>#{containerAppImages:number2}</image>
+                        <title>#{controlcenter.gettingStartedTab.description.search.title}</title>
+                        <description>#{controlcenter.gettingStartedTab.description.search.description}</description>
+                     </com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                     <com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                        <image>#{containerAppImages:number3}</image>
+                        <title>#{controlcenter.gettingStartedTab.description.information.title}</title>
+                        <description>#{controlcenter.gettingStartedTab.description.information.description}</description>
+                     </com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                     <com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                        <image>#{containerAppImages:number4}</image>
+                        <title>#{controlcenter.gettingStartedTab.description.region.title}</title>
+                        <description>#{controlcenter.gettingStartedTab.description.region.description}</description>
+                     </com.vmware.vsphere.client.views.homeGS.GettingStartedTitledSectionInfo>
+                  </descriptions>
+                  <neverShowAgainKey>vsphere.core.controlcenter.gs.neverShowAgain</neverShowAgainKey>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <requiresHostedExtensions>false</requiresHostedExtensions>
+         <userSettingsConditions>
+            <com.vmware.data.query.CompositeConstraint>
+            <conjoiner>AND</conjoiner>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>vsphere.core.controlcenter.gs.neverShowAgain</propertyName>
+                     <comparator>NOT_EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>gettingStartedPages.neverShowAgain</propertyName>
+                     <comparator>NOT_EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </userSettingsConditions>
+         <tags>global, control</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Application tab -->
+   <extension id="vsphere.core.controlcenter.shortcutsView">
+      <extendedPoint>vsphere.core.controlcenter.views</extendedPoint>
+      <object>
+         <name>#{controlcenter.applicationsTab}</name>
+         <componentClass
+            className="com.vmware.vsphere.client.views.controlcenter.ControlCenterView"/>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Inventories category -->
+   <extension id="vsphere.core.controlcenter.inventoriesCategory">
+      <extendedPoint>vsphere.core.controlcenter.shortcutCategories</extendedPoint>
+      <object>
+         <label>#{controlcenter.category.inventories}</label>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Monitoring category -->
+   <extension id="vsphere.core.controlcenter.monitoringCategory">
+      <extendedPoint>vsphere.core.controlcenter.shortcutCategories</extendedPoint>
+      <object>
+         <label>#{controlcenter.category.monitoring}</label>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Administration category -->
+   <extension id="vsphere.core.controlcenter.administrationCategory">
+      <extendedPoint>vsphere.core.controlcenter.shortcutCategories</extendedPoint>
+      <object>
+         <label>#{controlcenter.category.administration}</label>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Control center - Legacy category -->
+   <extension id="vsphere.core.controlcenter.legacyCategory">
+      <extendedPoint>vsphere.core.controlcenter.shortcutCategories</extendedPoint>
+      <object>
+         <label>#{controlcenter.category.Legacy}</label>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- Main Menu Legacy Category -->
+   <extension id='vsphere.core.scriptPlugins'>
+      <extendedPoint>vmware.actions.categories</extendedPoint>
+      <object>
+         <label>#{userMenu.category.Legacy}</label>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+</plugin>

@@ -1,0 +1,358 @@
+Feb 07, 2016 9:15:48 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Feb 07, 2016 9:15:49 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 9:15:49 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 379 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 07, 2016 9:15:49 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui has finished in 200 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui has finished in 40 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls has finished in 28 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui has finished in 27 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui has finished in 26 ms
+Feb 07, 2016 9:15:49 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client
+Feb 07, 2016 9:15:53 AM org.apache.catalina.core.ApplicationContext log
+INFO: No Spring WebApplicationInitializer types detected on classpath
+Feb 07, 2016 9:15:53 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring root WebApplicationContext
+Feb 07, 2016 9:16:02 AM org.apache.catalina.core.ApplicationContext log
+INFO: org.tuckey.web.filters.urlrewrite.UrlRewriteFilter INFO: loaded (conf ok)
+Feb 07, 2016 9:16:02 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'springServlet'
+Feb 07, 2016 9:16:03 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'downloadManager'
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client has finished in 13,746 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#network-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#network-ui has finished in 21 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui has finished in 60 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/manager
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/manager has finished in 25 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui has finished in 18 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui has finished in 18 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer has finished in 17 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui has finished in 17 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#event-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#event-ui has finished in 16 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#license-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#license-ui has finished in 18 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/ROOT
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/ROOT has finished in 17 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui has finished in 16 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#host-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#host-ui has finished in 321 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui has finished in 16 ms
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-manager
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-manager has finished in 19 ms
+Feb 07, 2016 9:16:03 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 9:16:03 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 9:16:03 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 14716 ms
+Feb 07, 2016 10:07:02 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Feb 07, 2016 10:07:02 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:07:02 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:07:02 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 358 ms
+Feb 07, 2016 10:07:02 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 07, 2016 10:07:02 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Feb 07, 2016 10:07:02 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui
+Feb 07, 2016 10:07:19 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Feb 07, 2016 10:07:20 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:07:20 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:07:20 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 347 ms
+Feb 07, 2016 10:07:20 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 07, 2016 10:07:20 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Feb 07, 2016 10:07:20 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui
+Feb 07, 2016 10:09:28 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Feb 07, 2016 10:09:29 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:09:29 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:09:29 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 342 ms
+Feb 07, 2016 10:09:29 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 07, 2016 10:09:29 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Feb 07, 2016 10:09:29 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui
+Feb 07, 2016 10:10:12 AM org.apache.catalina.util.SessionIdGenerator createSecureRandom
+INFO: Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [43,499] milliseconds.
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui has finished in 43,716 ms
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui has finished in 98 ms
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls has finished in 48 ms
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui has finished in 37 ms
+Feb 07, 2016 10:10:12 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui
+Feb 07, 2016 10:10:13 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui has finished in 36 ms
+Feb 07, 2016 10:10:13 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client
+Feb 07, 2016 10:10:16 AM org.apache.catalina.core.ApplicationContext log
+INFO: No Spring WebApplicationInitializer types detected on classpath
+Feb 07, 2016 10:10:16 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring root WebApplicationContext
+Feb 07, 2016 10:10:25 AM org.apache.catalina.core.ApplicationContext log
+INFO: org.tuckey.web.filters.urlrewrite.UrlRewriteFilter INFO: loaded (conf ok)
+Feb 07, 2016 10:10:25 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'springServlet'
+Feb 07, 2016 10:10:26 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'downloadManager'
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client has finished in 13,158 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#network-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#network-ui has finished in 21 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui has finished in 35 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/manager
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/manager has finished in 26 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui has finished in 19 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#event-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#event-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#license-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#license-ui has finished in 20 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/ROOT
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/ROOT has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#host-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#host-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui has finished in 18 ms
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-manager
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-manager has finished in 38 ms
+Feb 07, 2016 10:10:26 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:10:26 AM org.apache.catalina.connector.MapperListener findDefaultHost
+WARNING: Unknown default host [192.168.80.126] for connector [Connector[HTTP/1.1-8080]]
+Feb 07, 2016 10:10:26 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:10:26 AM org.apache.catalina.connector.MapperListener findDefaultHost
+WARNING: Unknown default host [192.168.80.126] for connector [Connector[AJP/1.3-8009]]
+Feb 07, 2016 10:10:26 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 57443 ms
+Feb 07, 2016 10:11:29 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+Feb 07, 2016 10:11:30 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:11:30 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 362 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 07, 2016 10:11:30 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.56
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#ovf-ui has finished in 246 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#vm-ui has finished in 46 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#opsmgmt-rsls has finished in 37 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#cm-ui has finished in 41 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#bootstrap-ui has finished in 28 ms
+Feb 07, 2016 10:11:30 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client
+Feb 07, 2016 10:11:33 AM org.apache.catalina.core.ApplicationContext log
+INFO: No Spring WebApplicationInitializer types detected on classpath
+Feb 07, 2016 10:11:33 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring root WebApplicationContext
+Feb 07, 2016 10:11:43 AM org.apache.catalina.core.ApplicationContext log
+INFO: org.tuckey.web.filters.urlrewrite.UrlRewriteFilter INFO: loaded (conf ok)
+Feb 07, 2016 10:11:43 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'springServlet'
+Feb 07, 2016 10:11:44 AM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring FrameworkServlet 'downloadManager'
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client has finished in 13,847 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#network-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#network-ui has finished in 21 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#res-mgmt-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/manager
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/manager has finished in 43 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tasks-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#storage-ui has finished in 17 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#inventory-viewer has finished in 17 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#tiwo-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#event-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#event-ui has finished in 17 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#license-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#license-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/ROOT
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/ROOT has finished in 19 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#folder-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#host-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#host-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-client#advperfcharts-ui has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /opt/vsphere-host-client/webapps/host-manager
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deployment of web application directory /opt/vsphere-host-client/webapps/host-manager has finished in 18 ms
+Feb 07, 2016 10:11:44 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Feb 07, 2016 10:11:44 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Feb 07, 2016 10:11:44 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 14577 ms

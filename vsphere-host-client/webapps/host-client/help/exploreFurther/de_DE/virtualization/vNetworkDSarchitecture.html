@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Was ist eine vSphere Distributed Switch-Architektur? : vSphere Lernprogramm</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#g_txt1 {
+	width: 90px;
+	position: absolute;
+	left: 106px; /* was 91px */
+	top: 362px; /* was 282px */
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">Startseite</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="virtualization.html">Was ist Virtualisierung?</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="how_does_vc_work.html">Wie funktioniert vSphere?</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;Was ist eine vSphere Distributed Switch-Architektur?</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Seite drucken"></a>		
+	  		<h2>Was ist eine vSphere Distributed Switch-Architektur?</h2>
+	  		<p>Ein Netzwerk mit vSphere Distributed Switches wird von der Datencenterebene aus gesteuert. Ein vSphere Distributed Switch ist ein Objekt im Datencenter, das als virtueller Switch für alle verbundenen Hosts agiert. Dies ermöglicht eine konsistente Netzwerkkonfiguration der virtuellen Maschinen, wenn diese von Host zu Host migrieren.</p>
+<p>Uplinks verbinden den vSphere Distributed Switch mit physischen Netzwerkadaptern auf den zugehörigen Hosts. Jeder Host kann für jeden Uplink-Port auf dem vSphere Distributed Switch einen physischen Netzwerkadapter mit einem vSphere Distributed Switch verbinden.</p>
+<p>NICs virtueller Maschinen können über verteilte Portgruppen eine Verbindung zu vSphere Distributed Switches herstellen. Diese Gruppen fassen mehrere Ports unter einer gemeinsamen Konfiguration zusammen und bieten einen stabilen Ankerpunkt für virtuelle Maschinen, die eine Verbindung zu einem benannten Netzwerk herstellen.</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />	  		
+		    <div id="reltopics">
+	      		<p><strong>Verwandte Themen</strong></p>
+	        	<a href="vNetworkSSarchitecture.html">Was ist eine vSphere-Standard-Switch-Architektur?</a>
+	    	</div>
+	    </div>
+		<div id="graphic"><img src="../images/distributed_switch.png" alt="vSphere Distributed Switch-Architektur" width="480" height="360">
+
+	  	</div>
+		<div id="next_hdr">Nächstes Thema:</div>
+		<div id="next"><a href="../whatcanido/using_vNetwork_distributed_switch.html">Einrichten einer vSphere Distributed Switch-Architektur</a></div>
+	</div>
+</div>
+</body>
+</html>
+

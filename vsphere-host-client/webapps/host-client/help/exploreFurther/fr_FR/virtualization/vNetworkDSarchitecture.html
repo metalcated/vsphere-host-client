@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Qu'est-ce que l'architecture de commutation distribu&eacute;e vSphere&nbsp;? : Didacticiel vSphere</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#g_txt1 {
+	width: 90px;
+	position: absolute;
+	left: 106px; /* was 91px */
+	top: 362px; /* was 282px */
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">Accueil</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="virtualization.html">Qu'est-ce que la virtualisation&nbsp;?</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="how_does_vc_work.html">Comment vSphere fonctionne-t-il&nbsp;?</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;Qu'est-ce que l'architecture de vSphere Distributed Switch&nbsp;?</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Imprimer la page"></a>		
+	  		<h2>Qu'est-ce que l'architecture de commutation distribu&eacute;e vSphere&nbsp;?</h2>
+	  		<p>La gestion de r&eacute;seau avec les commutateurs distribu&eacute;s vSphere est pilot&eacute;e au niveau du centre de donn&eacute;es. Un commutateur distribu&eacute; vSphere existe comme objet dans le centre de donn&eacute;es qui fait office de commutateur virtuel sur tous les h&ocirc;tes associ&eacute;s, permettant aux machines virtuelles de conserver une configuration r&eacute;seau coh&eacute;rente lors de leur migration sur les h&ocirc;tes.</p>
+<p>Les liaisons montantes connectent le commutateur distribu&eacute; vSphere aux cartes r&eacute;seau physiques sur les h&ocirc;tes associ&eacute;s. Chaque h&ocirc;te peut connecter un adaptateur r&eacute;seau physique &agrave; un commutateur distribu&eacute; vSphere pour chaque port de liaison montante sur le commutateur distribu&eacute; vSphere.</p>
+<p>Les cartes NIC des machines virtuelles se connectent aux commutateurs distribu&eacute;s vSphere via des groupes de ports distribu&eacute;s qui agr&egrave;gent plusieurs ports sous une configuration commune et fournissent un point d'ancrage stable pour les machines virtuelles qui se connectent &agrave; un r&eacute;seau nomm&eacute;.</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />	  		
+		    <div id="reltopics">
+	      		<p><strong>Rubriques connexes</strong></p>
+	        	<a href="vNetworkSSarchitecture.html">Qu'est-ce que l'architecture de commutation standard vSphere&nbsp;?</a>
+	    	</div>
+	    </div>
+		<div id="graphic"><img src="../images/distributed_switch.png" alt="Architecture de commutation distribu&eacute;e vSphere" width="480" height="360">
+
+	  	</div>
+		<div id="next_hdr">Suite&nbsp;:</div>
+		<div id="next"><a href="../whatcanido/using_vNetwork_distributed_switch.html">Configuration de l'architecture de commutation distribu&eacute;e vSphere</a></div>
+	</div>
+</div>
+</body>
+</html>
+

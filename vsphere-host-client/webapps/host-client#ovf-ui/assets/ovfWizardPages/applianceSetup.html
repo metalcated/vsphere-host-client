@@ -1,0 +1,108 @@
+<div ng-controller="ApplianceSetupController" class="ng-scope">
+   <div style="padding-top: 15px;padding-bottom: 15px;">
+      {{vxWizard.localeMap['DeployVcsaSetupAppliancePage.longDescription']}}
+   </div>
+   <form name='setApplianceDataForm' class="form-horizontal">
+      <label class="radio">
+         <input type="radio" name="eula"
+               ng-model="vxWizard.wizardData.localFileSourceSet"
+               ng-value="false"  class="ng-pristine ng-valid" value="false">
+         {{vxWizard.localeMap['DeployVcsaSetupAppliancePage.url']}}
+      </label>
+      <div class="control-group" style="padding-left:15px;">
+         <input type="text" id="ovfSource"
+               ng-model="vxWizard.wizardData.ovfSource"
+               style="width:450px;" class="ng-valid ng-dirty">
+      </div>
+      <label class="radio">
+         <input type="radio" name="eula"
+               ng-model="vxWizard.wizardData.localFileSourceSet"
+               ng-value="true" class="ng-pristine ng-valid" value="true">
+         {{vxWizard.localeMap['DeployVcsaSetupAppliancePage.localFile']}}
+      </label>
+      <button class="wizard-button" ng-click="chooseLocalFile()"
+            style="margin-left:15px;">
+         {{vxWizard.localeMap['DeployVcsaSetupAppliancePage.browse']}}
+      </button>
+      <div ng-model="vxWizard.wizardData.ovfSourceLocalPath" style="padding:20px;">
+         {{vxWizard.wizardData.ovfSourceLocalPath}}
+      </div>
+      <h4>{{vxWizard.localeMap['DeployVcsaSetupAppliancePage.setupVirtualMachine']}}</h4>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(setApplianceDataForm.vmName)]">
+         <label class="control-label" for="vmName">
+            {{vxWizard.localeMap[
+                  'DeployVcsaSetupAppliancePage.vCenterServerApplianceName']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="vmName" name="vmName"
+                  ng-model="vxWizard.wizardData.ovfOptions.vmName"
+                  required vx-in-Array="existingVMNames">
+            <span class="help-inline"
+                  ng-show="showRequiredError(setApplianceDataForm.vmName)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showVMNameError(setApplianceDataForm.vmName)">
+               {{vxWizard.localeMap["validationText.vmNameExists"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="control-label" for="vmName">
+            {{vxWizard.localeMap[
+                  'DeployVcsaSetupAppliancePage.osUsername']}}
+         </label>
+         <div class="controls">
+            {{vxWizard.localeMap[
+                  'DeployVcsaSetupAppliancePage.root']}}
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(setApplianceDataForm.rootPassword)]">
+         <label class="control-label" for="rootPassword">
+            {{vxWizard.localeMap["DeployVcsaSetupAppliancePage.osPassword"]}}
+         </label>
+         <div class="controls">
+            <input type="password" id="rootPassword" name="rootPassword"
+                  ng-model="vxWizard.wizardData.ovfOptions.passwordData.rootPassword"
+                  required vx-password-complexity>
+            <!-- <a href="#" tool-tip data-html="true" data-placement="right"
+                  data-toggle="tooltip" tooltip-title="passwordHelpText">
+               <img src="ovf-ui/assets/img/icons/info.png" />
+            </a> -->
+            <span class="help-inline"
+                  ng-show="showRequiredError(setApplianceDataForm.rootPassword)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showPasswordError(setApplianceDataForm.rootPassword)">
+               {{vxWizard.localeMap["validationText.invalidPasswordFormat"]}}
+            </span>
+            <div class="formHelpText">
+                  {{vxWizard.localeMap["DeployVcsaSetupAppliancePage.passwordHelpText"]}}
+            </div>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}
+                  [addErrorClass(setApplianceDataForm.rootPasswordConfirmation)]">
+         <label class="control-label" for="rootPasswordConfirmation">
+            {{vxWizard.localeMap["DeployVcsaSetupAppliancePage.confirmOSPassword"]}}
+         </label>
+         <div class="controls">
+            <input type="password" name="rootPasswordConfirmation"
+                  ng-model="vxWizard.wizardData.ovfOptions.passwordData.rootPasswordConfrimation"
+                  required vx-password-Match="rootPassword">
+            <span class="help-inline"
+                  ng-show="showRequiredError(setApplianceDataForm.rootPasswordConfirmation)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showPasswordMatchError(setApplianceDataForm.rootPasswordConfirmation)">
+               {{vxWizard.localeMap["validationText.passwordMismatch"]}}
+            </span>
+         </div>
+      </div>
+   </form>
+</div>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.vsphere.client.tasksui"
+   moduleUri="TasksModule.swf"
+   defaultBundle="TasksUi">
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/tasks-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <extensionPoint id="vsphere.core.tasks.relatedEventsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!--  The Recent Tasks sidebar view -->
+   <extension id="vsphere.core.tasks.recentTasksView">
+      <extendedPoint>vsphere.core.appSidebarViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <name>#{myRecentTasks}</name>
+         <icon>#{CommonImages:recentTasksIcon}</icon>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.RecentTasksView" />
+      </object>
+   </extension>
+
+   <!-- Object Navigator extension into the statistics category under manage and monitor -->
+   <extension id="vsphere.core.navigator.tasks">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{navigator.tasks}</title>
+         <icon>#{CommonImages:taskConsoleIcon}</icon>
+         <parentUid>vsphere.core.navigator.statisticsCategory</parentUid>
+         <navigationTargetUid>vsphere.core.tasks.domainView</navigationTargetUid>
+      </object>
+   </extension>
+
+   <!-- The Task console domain view -->
+   <extension id="vsphere.core.tasks.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <name>#{taskConsole}</name>
+         <icon>#{CommonImages:taskConsoleIcon}></icon>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Control center - Task Console shortcut -->
+   <extension id="vsphere.core.controlcenter.tasks">
+      <extendedPoint>vise.home.shortcuts</extendedPoint>
+      <precedingExtension>vsphere.core.controlcenter.viTreeNetworking</precedingExtension>
+      <object>
+         <name>#{taskConsole}</name>
+         <categoryUid>vsphere.core.controlcenter.monitoringCategory</categoryUid>
+         <icon>#{CommonImages:taskConsoleShortcut}</icon>
+         <targetViewUid>vsphere.core.tasks.domainView</targetViewUid>
+      </object>
+   </extension>
+
+   <!-- Folder tasks view. -->
+   <extension id="vsphere.core.folder.monitor.tasksView">
+      <extendedPoint>vsphere.core.folder.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Datacenter tasks view. -->
+   <extension id="vsphere.core.datacenter.monitor.tasksView">
+      <extendedPoint>vsphere.core.datacenter.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Datacenter tasks view. -->
+   <extension id="vsphere.core.cluster.monitor.tasksView">
+      <extendedPoint>vsphere.core.cluster.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Host tasks view. -->
+   <extension id="vsphere.core.host.monitor.tasksView">
+      <extendedPoint>vsphere.core.host.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- vApp task tab. -->
+   <extension id="vsphere.core.vApp.monitor.tasksView">
+      <extendedPoint>vsphere.core.vApp.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- VM tasks view. -->
+   <extension id="vsphere.core.vm.monitor.tasksView">
+      <extendedPoint>vsphere.core.vm.monitor.tasksViews</extendedPoint>
+      <extendedPoint>vsphere.core.template.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Datastore tasks view. -->
+   <extension id="vsphere.core.datastore.monitor.tasksView">
+      <extendedPoint>vsphere.core.datastore.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Storage Pod tasks view. -->
+   <extension id="vsphere.core.dscluster.monitor.tasksView">
+      <extendedPoint>vsphere.core.dscluster.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Network tasks view. -->
+   <extension id="vsphere.core.network.monitor.tasksView">
+      <extendedPoint>vsphere.core.network.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Opaque Network tasks view. -->
+   <extension id="vsphere.core.opaqueNetwork.monitor.tasksView">
+      <extendedPoint>vsphere.core.opaqueNetwork.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- DVS tasks view. -->
+   <extension id="vsphere.core.dvs.monitor.tasksView">
+      <extendedPoint>vsphere.core.dvs.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- DVPortGroup tasks view. -->
+   <extension id="vsphere.core.dvPortgroup.monitor.tasksView">
+      <extendedPoint>vsphere.core.dvPortgroup.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- ResourcePool tasks view. -->
+   <extension id="vsphere.core.resourcePool.monitor.tasksView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.tasksViews</extendedPoint>
+      <hostedPoint>vsphere.core.tasks.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.tasks.TaskConsoleView" />
+      </object>
+   </extension>
+
+   <!-- The operation notification view. -->
+   <extension id="vsphere.core.operationNotificationView">
+      <extendedPoint>vmware.notification.views</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.notification.OperationNotifyView"/>
+      </object>
+      <metadata>
+         <objectType>com.vmware.vsphere.client.model.notification.OperationNotifyData</objectType>
+      </metadata>
+   </extension>
+</plugin>
+

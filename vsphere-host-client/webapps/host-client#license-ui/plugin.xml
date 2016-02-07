@@ -1,0 +1,2771 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.license.client.licenseui"
+   moduleUri="LicenseModule.swf" defaultBundle="LicenseUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/license-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <export>
+      <class name="com.vmware.license.client.cis.components.management.AssignLicenseFormFactory"/>
+      <class name="com.vmware.license.client.cis.views.notifications.LicensingExpirationNotifier"/>
+   </export>
+
+   <extensionPoint id="vsphere.license.licenseViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.licensing.managementViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.license.views">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.license.reportViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.license.reportDashboards">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.core.folder.manage.licensingSettingsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.core.host.manage.licensingSettingsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.core.cluster.manage.licensingSettingsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <extensionPoint id="vsphere.license.cis.assetsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The extension for license expiration notification view. -->
+   <extension id="vsphere.licensing.expirationNotificationView">
+      <extendedPoint>vmware.notification.views</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.notifications.ExpirationNotificationView</className>
+            <object>
+               <root>
+                  <showExpiringLicensesActionId>vsphere.licensing.cis.showExpiringLicenses</showExpiringLicensesActionId>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <objectType>com.vmware.license.client.cis.models.notifications.AssetExpirationListItem</objectType>
+      </metadata>
+   </extension>
+
+   <!-- vSAN licensing filter -->
+   <extension id="vsphere.licensing.vsanFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.license.client.filters.VsanLicensingFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>vsanLicensingRelevant</name>
+               <type>Boolean</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+   </extension>
+
+   <!-- Reports tab -->
+   <extension id="vsphere.license.reports">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <hostedPoint>vsphere.license.reportViews</hostedPoint>
+      <object>
+         <name>#{licensingReports}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.LicensingParentView</className>
+            <object>
+               <root>
+                  <noPrivilegesVcVersionText>#{reports.noPrivilegesText.vc}</noPrivilegesVcVersionText>
+                  <noPrivilegesCisVersionText>#{reports.noPrivilegesText.cis}</noPrivilegesCisVersionText>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Reports tabbed view -->
+   <extension id="vsphere.license.reportView">
+      <extendedPoint>vsphere.license.reportViews</extendedPoint>
+      <hostedPoint>vsphere.license.reportDashboards</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.ui.views.TabbedView"/>
+      </object>
+   </extension>
+
+   <!-- Reports legacy dashboard -->
+   <extension id="vsphere.license.legacyReportView">
+      <extendedPoint>vsphere.license.reportDashboards</extendedPoint>
+      <object>
+         <name>#{reports.productsTab}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.report.LicenseReportView</className>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Management tab -->
+   <extension id="vsphere.license.management">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <hostedPoint>vsphere.licensing.managementViews</hostedPoint>
+      <object>
+         <name>#{licensingManagement}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.LicensingParentView</className>
+            <object>
+               <root>
+                  <globalActionUid>vsphere.licensing.visitPortal</globalActionUid>
+                  <noPrivilegesVcVersionText>#{management.noPrivilegesText.vc}</noPrivilegesVcVersionText>
+                  <noPrivilegesCisVersionText>#{management.noPrivilegesText.cis}</noPrivilegesCisVersionText>
+                  <shouldIncludeLinkedGroupReplicationMessage>true</shouldIncludeLinkedGroupReplicationMessage>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Object navigator tabs -->
+
+   <!-- Licensing item -->
+   <extension id="vsphere.license.navigator.licensing">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>vsphere.core.navigator.adminSignOn</precedingExtension>
+      <object>
+         <title>#{application.navigation}</title>
+         <parentUid>vsphere.core.navigator.administration</parentUid>
+      </object>
+   </extension>
+
+   <!-- Reports item -->
+   <extension id="vsphere.license.navigator.reports">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>vsphere.license.navigator.management</precedingExtension>
+      <object>
+         <title>#{licensingReports}</title>
+         <parentUid>vsphere.license.navigator.licensing</parentUid>
+         <navigationTargetUid>vsphere.license.reports</navigationTargetUid>
+      </object>
+   </extension>
+
+   <!-- Management item -->
+   <extension id="vsphere.license.navigator.management">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <title>#{licensingManagement}</title>
+         <parentUid>vsphere.license.navigator.licensing</parentUid>
+         <navigationTargetUid>vsphere.license.management</navigationTargetUid>
+      </object>
+   </extension>
+
+   <!-- Control center - Licensing link -->
+   <extension id="vsphere.core.controlcenter.licensing">
+      <extendedPoint>vise.home.shortcuts</extendedPoint>
+      <precedingExtension>vsphere.core.controlcenter.roles</precedingExtension>
+      <object>
+         <name>#{application.navigation}</name>
+         <categoryUid>vsphere.core.controlcenter.administrationCategory</categoryUid>
+         <icon>#{LicenseUiImages:licensingAppIcon}</icon>
+         <targetViewUid>vsphere.license.management</targetViewUid>
+      </object>
+      <metadata>
+         <hostClientRelevant>false</hostClientRelevant>
+      </metadata>
+   </extension>
+
+   <!--
+      The template for a license object. This template includes the following hierarchy:
+      Summary
+      Related Items
+
+      Extended points:
+      - vsphere.license.views
+      - vise.inventory.lists
+      - vsphere.core.inventory.serverObjectViews
+      - vise.inventory.representationspecs
+      - vsphere.core.objectTypes
+
+      Extension points:
+      - ${namespace}.headerViews
+      - ${namespace}.objectViews
+      - ${namespace}.views
+
+      - ${namespace}.summaryViews
+      - ${namespace}.summarySectionViews
+
+
+      Extensions:
+      - ${namespace}.list
+      - ${namespace}.relationshipsList
+      - ${namespace}.view
+
+      - ${namespace}.summary
+      - ${namespace}.summaryView
+      - ${namespace}.related
+      - ${namespace}.iconLabelSpecCollection
+      - ${namespace}.type
+
+      Variables:
+      - namespace: The namespace used in the extension points and extension ids.
+      - contextViewClassName: The full name of the type of the view that hold the list
+         component of the current object.
+      - contextListClassName: The full name of the type of the context list component
+         for the current object. It may not be specified for views that hold its own lists.
+      - contextListId: The ID of the context list component.
+      - summaryClassName: The full name of the type of the summary page component
+         for the current object.
+      - objectType: The view's object type.
+      - tabLocalizationKey: Localization key from the default UI bundle used to retrieve
+         the name of the tab which is added by this template.
+      - imageLocalizationKey: Localization key used to retrieve the image of the object.
+      - labelLocalizationKey: Localization key used to retrieve the label of the object.
+      - licensingVersionId: The version ID of the licensing, used for filtering multi
+         version extensions.
+
+      Usage Example:
+      <templateInstance id="vsphere.license.product.objectTemplateInstance">
+         <templateId>vsphere.license.objectTemplate</templateId>
+
+         <variable name="namespace" value="vsphere.license.product"/>
+         <variable name="contextViewClassName"
+            value="com.vmware.license.client.views.management.BaseListView"/>
+         <variable name="contextListClassName"
+            value="com.vmware.license.client.views.management.products.ProductList"/>
+         <variable name="contextListId" value="productList"/>
+         <variable name="summaryClassName"
+            value="com.vmware.license.client.views.management.products.ProductSummaryHeaderView"/>
+         <variable name="objectType" value="Product"/>
+         <variable name="tabLocalizationKey" value="management.navigation.products"/>
+         <variable name="iconLocalizationKey" value="LicenseUiImages:product"/>
+         <variable name="labelLocalizationKey" value="management.product"/>
+         <variable name="licensingVersionId" value="vc"/>
+      </templateInstance>
+   -->
+   <template id="vsphere.license.objectTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="contextViewClassName" required="true"/>
+      <variable name="contextListClassName" required="true"/>
+      <variable name="contextListId" required="true"/>
+      <variable name="objectType" required="true"/>
+      <variable name="tabLocalizationKey" required="true"/>
+      <variable name="iconLocalizationKey" required="true"/>
+      <variable name="labelLocalizationKey" required="true"/>
+      <variable name="licensingVersionId" required="true"/>
+
+      <!-- Object licensing tab -->
+      <extension id="${namespace}.licensingTab">
+         <extendedPoint>vsphere.license.views</extendedPoint>
+         <object>
+            <name>#{${tabLocalizationKey}}</name>
+            <componentClass>
+               <className>${contextViewClassName}</className>
+               <object>
+                  <root>
+                     <listClassName>${contextListClassName}</listClassName>
+                     <listId>${contextListId}</listId>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+         <metadata>
+            <licensingVersionId>${licensingVersionId}</licensingVersionId>
+         </metadata>
+      </extension>
+
+      <!-- Object relationships list -->
+      <extension id="${namespace}.relationshipsList">
+         <extendedPoint>vise.inventory.lists</extendedPoint>
+         <object>
+            <componentClass>
+               <className>${contextViewClassName}</className>
+               <object>
+                  <root>
+                     <listClassName>${contextListClassName}</listClassName>
+                     <listId>${contextListId}</listId>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+      </extension>
+
+      <!-- Object icon label spec collection -->
+      <extension id="${namespace}.representationspecs">
+         <extendedPoint>vise.inventory.representationspecs</extendedPoint>
+         <object>
+            <objectType>${objectType}</objectType>
+            <specCollection>
+               <com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+                  <iconId>#{${iconLocalizationKey}}</iconId>
+                  <labelId>#{${labelLocalizationKey}}</labelId>
+               </com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+            </specCollection>
+         </object>
+      </extension>
+
+      <!-- Object type -->
+      <extension id="${namespace}.type">
+         <extendedPoint>vsphere.core.objectTypes</extendedPoint>
+         <object>
+            <types>
+               <String>${objectType}</String>
+            </types>
+            <label>#{${labelLocalizationKey}}</label>
+            <labelPlural>#{${tabLocalizationKey}}</labelPlural>
+            <icon>#{${iconLocalizationKey}}</icon>
+         </object>
+      </extension>
+
+   </template>
+
+   <!-- License Key object -->
+   <templateInstance id="vsphere.license.licenseKey.objectTemplateInstance">
+      <templateId>vsphere.license.objectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.licenseKey"/>
+      <variable name="contextViewClassName"
+         value="com.vmware.license.client.views.management.BaseListView"/>
+      <variable name="contextListClassName"
+         value="com.vmware.license.client.views.management.licensekeys.LicenseKeyList"/>
+      <variable name="contextListId" value="licenseKeyList"/>
+      <variable name="objectType" value="LicenseKey"/>
+      <variable name="tabLocalizationKey" value="management.navigation.licenseKeys"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:key"/>
+      <variable name="labelLocalizationKey" value="management.licenseKey"/>
+      <variable name="licensingVersionId" value="vc"/>
+   </templateInstance>
+
+   <!-- License Key details -->
+   <templateInstance id="vsphere.license.licenseKey.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.licenseKey"/>
+      <variable name="objectType" value="LicenseKey"/>
+   </templateInstance>
+
+   <!-- License Key summary -->
+   <templateInstance id="vsphere.license.licenseKey.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.licenseKey"/>
+      <variable name="summaryHeaderView"
+         value="com.vmware.license.client.views.management.licensekeys.LicenseKeySummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Product object -->
+   <templateInstance id="vsphere.license.product.objectTemplateInstance">
+      <templateId>vsphere.license.objectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.product"/>
+      <variable name="contextViewClassName"
+         value="com.vmware.license.client.views.management.BaseListView"/>
+      <variable name="contextListClassName"
+         value="com.vmware.license.client.views.management.products.ProductList"/>
+      <variable name="contextListId" value="productList"/>
+      <variable name="objectType" value="LicenseProduct"/>
+      <variable name="tabLocalizationKey" value="management.navigation.products"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:product"/>
+      <variable name="labelLocalizationKey" value="management.product"/>
+      <variable name="licensingVersionId" value="vc"/>
+   </templateInstance>
+
+   <!-- Product details -->
+   <templateInstance id="vsphere.license.product.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.product"/>
+      <variable name="objectType" value="LicenseProduct"/>
+   </templateInstance>
+
+   <!-- Product summary -->
+   <templateInstance id="vsphere.license.product.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.product"/>
+      <variable name="summaryHeaderView"
+         value="com.vmware.license.client.views.management.products.ProductSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- VC aggregate list -->
+   <extension id="vsphere.license.vc.list">
+      <extendedPoint>vsphere.license.views</extendedPoint>
+      <precedingExtension>vsphere.license.product.list</precedingExtension>
+      <object>
+         <name>#{management.navigation.vcs}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.vcs.VcList</listClassName>
+                  <listId>vcList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.vc.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- VC relationships list -->
+   <extension id="vsphere.license.vc.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <precedingExtension>vsphere.license.licenseKey.relationshipsList</precedingExtension>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.vcs.VcList</listClassName>
+                  <listId>vcList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.vc.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Licensing portlet in VC summary page. -->
+   <extension id="vsphere.core.vc.summary.licensingView">
+      <extendedPoint>vsphere.core.folder.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.folder.summary.detailsView</precedingExtension>
+      <object>
+         <name>#{management.assets.settings.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.assets.AssetSettingsView</className>
+            <object>
+               <root>
+                  <assignLicenseBtnActionUid>vsphere.license.management.vc.assignLicenseKeyAction</assignLicenseBtnActionUid>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+         <objectType>Folder</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isRootFolder</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- VC licensing VC settings -->
+   <extension id="vsphere.core.folder.manage.settings.vcLicensing">
+      <extendedPoint>vsphere.core.folder.manage.licensingSettingsViews</extendedPoint>
+      <object>
+         <name>#{management.assets.advancedSettings.title}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.license.client.views.management.assets.AssetAdvancedSettingsView"/>
+                  <label>#{management.assets.advancedSettings.title}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.vc.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Host aggregate list -->
+   <extension id="vsphere.license.host.list">
+      <extendedPoint>vsphere.license.views</extendedPoint>
+      <precedingExtension>vsphere.license.vc.list</precedingExtension>
+      <object>
+         <name>#{management.navigation.hosts}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.hosts.HostList</listClassName>
+                  <listId>hostList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.host.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Host relationships list -->
+   <extension id="vsphere.license.host.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <precedingExtension>vsphere.license.vc.relationshipsList</precedingExtension>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.hosts.HostList</listClassName>
+                  <listId>hostList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>shouldHaveAdditionalFilter</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Boolean>false</Boolean>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.host.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Licensing portlet in host summary page. -->
+   <extension id="vsphere.core.host.summary.licensingView">
+      <extendedPoint>vsphere.core.host.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{management.assets.settings.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.assets.AssetSettingsView</className>
+            <object>
+               <root>
+                  <assignLicenseBtnActionUid>vsphere.license.management.host.assignLicenseKeyAction</assignLicenseBtnActionUid>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+         <objectType>HostSystem</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>config.product.version</propertyName>
+                     <comparator>GREATER</comparator>
+                     <comparableValue>
+                        <String>4.0.0</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>config.product.version</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <String>4.0.0</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>OR</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- VC licensing host settings -->
+   <extension id="vsphere.core.host.manage.settings.vcLicensing">
+      <extendedPoint>vsphere.core.host.manage.licensingSettingsViews</extendedPoint>
+      <object>
+         <name>#{management.assets.advancedSettings.title}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.license.client.views.management.assets.AssetAdvancedSettingsView"/>
+                  <label>#{management.assets.advancedSettings.title}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.host.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Cluster aggregate list -->
+   <extension id="vsphere.license.cluster.list">
+      <extendedPoint>vsphere.license.views</extendedPoint>
+      <precedingExtension>vsphere.license.host.list</precedingExtension>
+      <object>
+         <name>#{management.navigation.clusters}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.clusters.ClusterList</listClassName>
+                  <listId>clusterList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.cluster.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Cluster relationships list -->
+   <extension id="vsphere.license.cluster.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <precedingExtension>vsphere.license.host.relationshipsList</precedingExtension>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.views.management.assets.clusters.ClusterList</listClassName>
+                  <listId>clusterList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>toolbarActions</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <Array>
+                              <String>vsphere.license.management.cluster.assignLicenseKeyAction</String>
+                           </Array>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+      </metadata>
+   </extension>
+
+   <!-- Licensing portlet in cluster summary page. -->
+   <extension id="vsphere.core.cluster.summary.licensingView">
+      <extendedPoint>vsphere.core.cluster.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{management.assets.settings.clusterTitle}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.assets.AssetSettingsView</className>
+            <object>
+               <root>
+                  <assignLicenseBtnActionUid>vsphere.license.management.cluster.assignLicenseKeyAction</assignLicenseBtnActionUid>
+                  <assetNotRegisteredMessage>#{management.assets.clusters.notRegistered}</assetNotRegisteredMessage>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+         <licensingVersionId>vc</licensingVersionId>
+         <objectType>ClusterComputeResource</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>vsanSupportedForVc</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- VC licensing cluster settings -->
+   <extension id="vsphere.core.cluster.manage.settings.licensing">
+      <extendedPoint>vsphere.core.cluster.manage.licensingSettingsViews</extendedPoint>
+      <precedingExtension>vsphere.core.cluster.manage.settings.generalCategoryMultiExtentsionView</precedingExtension>
+      <object>
+         <name>#{management.assets.advancedSettings.clusterTitle}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo>
+                     <className>com.vmware.license.client.views.management.assets.AssetAdvancedSettingsView</className>
+                     <object>
+                        <root>
+                           <assetNotRegisteredMessage>#{management.assets.clusters.notRegistered}</assetNotRegisteredMessage>
+                        </root>
+                     </object>
+                  </settingsComponentInfo>
+                  <label>#{management.assets.advancedSettings.clusterTitle}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.cluster.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Solution object -->
+   <templateInstance id="vsphere.license.solution.objectTemplateInstance">
+      <templateId>vsphere.license.objectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.solution"/>
+      <variable name="contextViewClassName"
+         value="com.vmware.license.client.views.management.BaseListView"/>
+      <variable name="contextListClassName"
+         value="com.vmware.license.client.views.management.assets.solutions.SolutionList"/>
+      <variable name="contextListId" value="solutionList"/>
+      <variable name="objectType" value="LicenseSolution"/>
+      <variable name="tabLocalizationKey" value="management.navigation.solutions"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:solution"/>
+      <variable name="labelLocalizationKey" value="management.solution"/>
+      <variable name="licensingVersionId" value="vc"/>
+   </templateInstance>
+
+   <!-- Solution details -->
+   <templateInstance id="vsphere.license.solution.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.solution"/>
+      <variable name="objectType" value="LicenseSolution"/>
+
+      <excludedExtension>vsphere.license.solution.related</excludedExtension>
+   </templateInstance>
+
+   <!-- Solution summary -->
+   <templateInstance id="vsphere.license.solution.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.solution"/>
+      <variable name="summaryHeaderView"
+         value="com.vmware.license.client.views.management.assets.solutions.SolutionSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Licensing portlet in solution summary page. -->
+   <extension id="vsphere.license.solution.summary.settingsView">
+      <extendedPoint>vsphere.license.solution.summarySectionViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{management.assets.settings.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.assets.AssetSettingsView</className>
+            <object>
+               <root>
+                  <assignLicenseBtnActionUid>vsphere.license.management.solution.assignLicenseKeyAction</assignLicenseBtnActionUid>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>vc</licensingVersionId>
+      </metadata>
+   </extension>
+
+
+   <!-- Object navigator specs -->
+   <extension id="vsphere.license.relateditems.specs.product">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <type>LicenseProduct</type>
+         <relationsViewId>vsphere.license.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>licenseKeysForProduct</id>
+               <icon>#{LicenseUiImages:key}</icon>
+               <label>#{management.navigation.licenseKeys}</label>
+               <relation>licenseKey</relation>
+               <listViewId>vsphere.license.licenseKey.relationshipsList</listViewId>
+               <targetType>LicenseKey</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.vcProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.product</precedingExtension>
+      <object>
+         <type>LicenseProduct</type>
+         <conditionalProperty>isForVirtualCenter</conditionalProperty>
+         <relationsViewId>vsphere.license.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>vcsForVcProduct</id>
+               <icon>#{CommonImages:rootFolder}</icon>
+               <label>#{management.navigation.vcs}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.vc.relationshipsList</listViewId>
+               <targetType>Folder</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.hostProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.vcProduct</precedingExtension>
+      <object>
+         <type>LicenseProduct</type>
+         <conditionalProperty>isForHost</conditionalProperty>
+         <relationsViewId>vsphere.license.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>hostsForHostProduct</id>
+               <icon>#{CommonImages:hostConnected}</icon>
+               <label>#{management.navigation.hosts}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.host.relationshipsList</listViewId>
+               <targetType>HostSystem</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.clusterProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.hostProduct</precedingExtension>
+      <object>
+         <type>LicenseProduct</type>
+         <conditionalProperty>isForCluster</conditionalProperty>
+         <relationsViewId>vsphere.license.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>clustersForHostProduct</id>
+               <icon>#{CommonImages:clustercomputeresource}</icon>
+               <label>#{management.navigation.clusters}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.cluster.relationshipsList</listViewId>
+               <targetType>ClusterComputeResource</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.solutionProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.clusterProduct</precedingExtension>
+      <object>
+         <type>LicenseProduct</type>
+         <conditionalProperty>isForSolution</conditionalProperty>
+         <relationsViewId>vsphere.license.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>solutionsForSolutionProduct</id>
+               <icon>#{LicenseUiImages:solution}</icon>
+               <label>#{management.navigation.solutions}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.solution.relationshipsList</listViewId>
+               <targetType>LicenseSolution</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.licenseKey">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <type>LicenseKey</type>
+         <relationsViewId>vsphere.license.licenseKey.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>productsForLicenseKey</id>
+               <icon>#{LicenseUiImages:product}</icon>
+               <label>#{management.navigation.products}</label>
+               <relation>licenseProduct</relation>
+               <listViewId>vsphere.license.product.relationshipsList</listViewId>
+               <targetType>LicenseProduct</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.vcLicenseKey">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.licenseKey</precedingExtension>
+      <object>
+         <type>LicenseKey</type>
+         <conditionalProperty>isForVirtualCenter</conditionalProperty>
+         <relationsViewId>vsphere.license.licenseKey.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>vcsForVcLicenseKey</id>
+               <icon>#{CommonImages:rootFolder}</icon>
+               <label>#{management.navigation.vcs}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.vc.relationshipsList</listViewId>
+               <targetType>Folder</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.hostLicenseKey">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.vcLicenseKey</precedingExtension>
+      <object>
+         <type>LicenseKey</type>
+         <conditionalProperty>isForHost</conditionalProperty>
+         <relationsViewId>vsphere.license.licenseKey.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>hostsForHostLicenseKey</id>
+               <icon>#{CommonImages:hostConnected}</icon>
+               <label>#{management.navigation.hosts}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.host.relationshipsList</listViewId>
+               <targetType>HostSystem</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.clusterLicenseKey">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.hostLicenseKey</precedingExtension>
+      <object>
+         <type>LicenseKey</type>
+         <conditionalProperty>isForCluster</conditionalProperty>
+         <relationsViewId>vsphere.license.licenseKey.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>clustersForHostLicenseKey</id>
+               <icon>#{CommonImages:clustercomputeresource}</icon>
+               <label>#{management.navigation.clusters}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.cluster.relationshipsList</listViewId>
+               <targetType>ClusterComputeResource</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.license.relateditems.specs.solutionLicenseKey">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.clusterLicenseKey</precedingExtension>
+      <object>
+         <type>LicenseKey</type>
+         <conditionalProperty>isForSolution</conditionalProperty>
+         <relationsViewId>vsphere.license.licenseKey.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>solutionsForSolutionLicenseKey</id>
+               <icon>#{LicenseUiImages:solution}</icon>
+               <label>#{management.navigation.solutions}</label>
+               <relation>licenseEntity</relation>
+               <listViewId>vsphere.license.solution.relationshipsList</listViewId>
+               <targetType>LicenseSolution</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Actions -->
+
+   <!-- Intrinsic action promotions for LicenseKey -->
+   <extension id="vsphere.license.licenseKey.intrinsicActionPromotions">
+      <extendedPoint>vmware.prioritization.actions</extendedPoint>
+      <object>
+         <prioritizedIds>
+            <String>vsphere.license.management.updateLicenseKeyAction</String>
+            <String>vsphere.license.management.removeLicenseKeyAction</String>
+         </prioritizedIds>
+         <actionTargetTypes>
+            <String>LicenseKey</String>
+         </actionTargetTypes>
+      </object>
+   </extension>
+
+   <!-- Intrinsic action promotions for LicenseSolution -->
+   <extension id="vsphere.license.solution.intrinsicActionPromotions">
+      <extendedPoint>vmware.prioritization.actions</extendedPoint>
+      <object>
+         <prioritizedIds>
+            <String>vsphere.license.management.solution.assignLicenseKeyAction</String>
+            <String>vsphere.license.management.removeSolutionAction</String>
+         </prioritizedIds>
+         <actionTargetTypes>
+            <String>LicenseSolution</String>
+         </actionTargetTypes>
+      </object>
+   </extension>
+
+
+   <!-- Action set for licensing management global actions -->
+   <extension id="vsphere.license.management.globalActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <delegate className="com.vmware.license.client.commands.management.LicenseManagementMutationResolver"/>
+         <actions>
+            <!-- Add license keys action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.addLicenseKeysAction</uid>
+               <label>#{management.actions.addLicenseKeys.label}</label>
+               <description>#{management.actions.addLicenseKeys.description}</description>
+               <icon>#{LicenseUiImages:addLicenseKeys}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <command className="com.vmware.license.client.commands.management.LicenseManagementGlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+   </extension>
+
+   <!-- Action set for license key actions -->
+   <extension id="vsphere.license.management.licenseKeyActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <delegate className="com.vmware.license.client.commands.management.LicenseManagementMutationResolver"/>
+         <actions>
+            <!-- Update license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.updateLicenseKeyAction</uid>
+               <label>#{management.actions.updateLicenseKey.label}</label>
+               <description>#{management.actions.updateLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:updateLicenseKey}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <command className="com.vmware.license.client.commands.management.LicenseKeyActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Remove license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.removeLicenseKeyAction</uid>
+               <label>#{management.actions.removeLicenseKey.label}</label>
+               <description>#{management.actions.removeLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:removeLicenseKey}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <conditionalProperty>isRemovable</conditionalProperty>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <confirmationTitle>#{management.actions.removeLicenseKey.confirmTitle}</confirmationTitle>
+               <confirmationTextNone>#{management.actions.removeLicenseKey.confirmNone}</confirmationTextNone>
+               <confirmationTextOne>#{management.actions.removeLicenseKey.confirmOne}</confirmationTextOne>
+               <confirmationTextSome>#{management.actions.removeLicenseKey.confirmSome}</confirmationTextSome>
+               <confirmationTextAll>#{management.actions.removeLicenseKey.confirmAll}</confirmationTextAll>
+               <command className="com.vmware.license.client.commands.management.LicenseKeyActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>LicenseKey</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action set for solution actions -->
+   <extension id="vsphere.license.management.solutionActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <delegate className="com.vmware.license.client.commands.management.LicenseManagementMutationResolver"/>
+         <actions>
+            <!-- Assign license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.solution.assignLicenseKeyAction</uid>
+               <label>#{management.actions.assignLicenseKey.label}</label>
+               <description>#{management.actions.assignLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:assignLicenseKey}</icon>
+               <category>vsphere.core.configActionCategory</category>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <command className="com.vmware.license.client.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Remove solution action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.removeSolutionAction</uid>
+               <label>#{management.actions.removeSolution.label}</label>
+               <description>#{management.actions.removeSolution.description}</description>
+               <icon>#{LicenseUiImages:removeSolution}</icon>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <confirmationTitle>#{management.actions.removeSolution.confirmTitle}</confirmationTitle>
+               <confirmationTextNone>#{management.actions.removeSolution.confirmNone}</confirmationTextNone>
+               <confirmationTextOne>#{management.actions.removeSolution.confirmOne}</confirmationTextOne>
+               <confirmationTextAll>#{management.actions.removeSolution.confirmAll}</confirmationTextAll>
+               <command className="com.vmware.license.client.commands.management.SolutionActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>LicenseSolution</objectType>
+      </metadata>
+   </extension>
+
+   <!-- OP declarations -->
+
+   <!-- Licensing version filter -->
+   <extension id="vsphere.licensing.versionFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass className="com.vmware.license.client.cis.filters.LicensingVersionExtensionFilter"/>
+         <returnsInstantly>true</returnsInstantly>
+
+         <contextProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>contextObjects</name>
+               <type>Array</type>
+               <optional>true</optional>
+            </com.vmware.extensionfw.PropertyInfo>
+         </contextProperties>
+
+         <filterProperties>
+            <com.vmware.extensionfw.PropertyInfo>
+               <name>licensingVersionId</name>
+               <type>String</type>
+            </com.vmware.extensionfw.PropertyInfo>
+         </filterProperties>
+      </object>
+   </extension>
+
+   <!-- Management view -->
+   <extension id="vsphere.licensing.managementView">
+      <extendedPoint>vsphere.licensing.managementViews</extendedPoint>
+      <hostedPoint>vsphere.license.views</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.ui.views.TabbedView"/>
+      </object>
+   </extension>
+
+   <!-- Getting started view for licensing management-->
+   <extension id="vsphere.licensing.management.gettingStarted">
+      <extendedPoint>vsphere.license.views</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{inventory:gettingStartedTabLabel}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.management.ManagementGettingStartedView</className>
+            <object>
+               <root>
+                  <title>#{gettingStarted.management.title}</title>
+                  <description>#{gettingStarted.management.description}</description>
+                  <closeButtonEnabled>false</closeButtonEnabled>
+                  <customDescriptionEnabled>true</customDescriptionEnabled>
+                  <image>#{LicenseUiImages:gettingStartedManagement}</image>
+                  <linkDisplayInfos>
+                     <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <label>#{gettingStarted.management.link.licenses}</label>
+                        <urlKey>LicenseUi:gettingStarted.management.link.licenses.url</urlKey>
+                     </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                     <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <label>#{gettingStarted.management.link.products}</label>
+                        <urlKey>LicenseUi:gettingStarted.management.link.products.url</urlKey>
+                     </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                     <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <label>#{gettingStarted.management.link.assets}</label>
+                        <urlKey>LicenseUi:gettingStarted.management.link.assets.url</urlKey>
+                     </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                     <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <label>#{gettingStarted.management.link.solutions}</label>
+                        <urlKey>LicenseUi:gettingStarted.management.link.solutions.url</urlKey>
+                     </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                     <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <label>#{gettingStarted.management.link.suites}</label>
+                        <urlKey>LicenseUi:gettingStarted.management.link.suites.url</urlKey>
+                     </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                  </linkDisplayInfos>
+                  <visitPortalActionId>vsphere.licensing.visitPortal</visitPortalActionId>
+                  <visitLicensesActionId>vsphere.licensing.visitLicenses</visitLicensesActionId>
+                  <visitAssetsActionId>vsphere.licensing.visitAssets</visitAssetsActionId>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+        <licensingVersionId>cis</licensingVersionId>
+     </metadata>
+   </extension>
+
+   <!-- License object -->
+   <templateInstance id="vsphere.license.cis.license.objectTemplateInstance">
+      <templateId>vsphere.license.objectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.license"/>
+      <variable name="contextViewClassName"
+         value="com.vmware.license.client.views.management.BaseListView"/>
+      <variable name="contextListClassName"
+         value="com.vmware.license.client.cis.views.management.licenses.LicenseList"/>
+      <variable name="contextListId" value="licenseList"/>
+      <variable name="objectType" value="License"/>
+      <variable name="tabLocalizationKey" value="list.licenses"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:license"/>
+      <variable name="labelLocalizationKey" value="label.license"/>
+      <variable name="licensingVersionId" value="cis"/>
+   </templateInstance>
+
+   <!-- License details -->
+   <templateInstance id="vsphere.license.cis.license.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.license"/>
+      <variable name="objectType" value="License"/>
+   </templateInstance>
+
+   <!-- License summary -->
+   <templateInstance id="vsphere.license.cis.license.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.license"/>
+      <variable name="summaryHeaderView"
+         value="com.vmware.license.client.cis.views.management.licenses.LicenseSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Product object -->
+   <templateInstance id="vsphere.license.cis.product.objectTemplateInstance">
+      <templateId>vsphere.license.objectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.product"/>
+      <variable name="contextViewClassName"
+         value="com.vmware.license.client.views.management.BaseListView"/>
+      <variable name="contextListClassName"
+         value="com.vmware.license.client.cis.views.management.products.ProductList"/>
+      <variable name="contextListId" value="productList"/>
+      <variable name="objectType" value="Product"/>
+      <variable name="tabLocalizationKey" value="list.products"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:cisProduct"/>
+      <variable name="labelLocalizationKey" value="label.product"/>
+      <variable name="licensingVersionId" value="cis"/>
+   </templateInstance>
+
+   <!-- Product details -->
+   <templateInstance id="vsphere.license.cis.product.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.product"/>
+      <variable name="objectType" value="Product"/>
+   </templateInstance>
+
+   <!-- Product summary -->
+   <templateInstance id="vsphere.license.cis.product.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.license.cis.product"/>
+      <variable name="summaryHeaderView"
+         value="com.vmware.license.client.cis.views.management.products.ProductSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Asset details -->
+   <templateInstance id="vsphere.licensing.cis.asset.objectTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.licensing.cis.asset"/>
+      <variable name="objectType" value="Asset"/>
+
+      <!-- Exclude the Manage tab to re-define it without settings sub-tab. -->
+      <excludedExtension>vsphere.licensing.cis.asset.manage</excludedExtension>
+      <excludedExtension>vsphere.licensing.cis.asset.related</excludedExtension>
+   </templateInstance>
+
+   <!-- Manage tab -->
+   <extension id="vsphere.licensing.cis.asset.manage">
+      <extendedPoint>vsphere.licensing.cis.asset.views</extendedPoint>
+      <hostedPoint>vsphere.licensing.cis.asset.manageViews</hostedPoint>
+      <object>
+         <name>#{inventory:manageTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.TocView"/>
+      </object>
+      <metadata>
+         <objectType>Asset</objectType>
+         <requiresHostedExtensions>true</requiresHostedExtensions>
+      </metadata>
+   </extension>
+
+   <!-- Asset type -->
+   <extension id="vsphere.licensing.cis.asset.type">
+      <extendedPoint>vsphere.core.objectTypes</extendedPoint>
+      <object>
+         <types>
+            <String>Asset</String>
+         </types>
+         <label>#{label.asset}</label>
+         <labelPlural>#{list.assets.title}</labelPlural>
+         <icon>#{LicenseUiImages:cisSolution}</icon>
+      </object>
+   </extension>
+
+   <!-- Asset icon label spec collection -->
+   <extension id="vsphere.licensing.cis.asset.representationspecs">
+      <extendedPoint>vise.inventory.representationspecs</extendedPoint>
+      <object>
+         <objectType>Asset</objectType>
+         <specCollection>
+            <com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+               <iconId>#{LicenseUiImages:cisSolution}</iconId>
+               <labelId>#{label.asset}</labelId>
+            </com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+         </specCollection>
+      </object>
+   </extension>
+
+   <!-- Asset list -->
+   <extension id="vsphere.license.cis.asset.licensingTab">
+      <extendedPoint>vsphere.license.views</extendedPoint>
+      <hostedPoint>vsphere.license.cis.assetsViews</hostedPoint>
+      <object>
+         <name>#{list.assets.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.SubTabbedView"/>
+      </object>
+      <metadata>
+         <licensingVersionId>cis</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.license.cis.asset.vcsTab">
+      <extendedPoint>vsphere.license.cis.assetsViews</extendedPoint>
+      <object>
+         <name>#{assets.pluralLabel.vc}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>vcList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>assetType</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>VC</value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+
+   <extension id="vsphere.license.cis.asset.hostsTab">
+      <extendedPoint>vsphere.license.cis.assetsViews</extendedPoint>
+      <object>
+         <name>#{assets.pluralLabel.host}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>hostList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>assetType</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>HOST</value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <extension id="vsphere.license.cis.asset.clustersTab">
+      <extendedPoint>vsphere.license.cis.assetsViews</extendedPoint>
+      <object>
+         <name>#{assets.pluralLabel.cluster}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>clusterList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>assetType</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>CLUSTER</value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+      </metadata>
+   </extension>
+
+
+   <extension id="vsphere.license.cis.asset.solutionsTab">
+      <extendedPoint>vsphere.license.cis.assetsViews</extendedPoint>
+      <object>
+         <name>#{assets.pluralLabel.solution}</name>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>solutionList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>assetType</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>SOLUTION</value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- VC relationships list -->
+   <extension id="vsphere.license.cis.vc.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>vcList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>relation</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <String>vcs</String>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Host relationships list -->
+   <extension id="vsphere.license.cis.host.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>hostList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>relation</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <String>hosts</String>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Cluster relationships list -->
+   <extension id="vsphere.license.cis.cluster.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>clusterList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>relation</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <String>clusters</String>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Solution relationships list -->
+   <extension id="vsphere.license.cis.solution.relationshipsList">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.license.client.views.management.BaseListView</className>
+            <object>
+               <root>
+                  <listClassName>com.vmware.license.client.cis.views.management.assets.AssetList</listClassName>
+                  <listId>solutionList</listId>
+                  <listProperties>
+                     <vmodl.KeyAnyValue>
+                        <key>
+                           <com.vmware.core.model.StringDataObject>
+                              <value>relation</value>
+                           </com.vmware.core.model.StringDataObject>
+                        </key>
+                        <value>
+                           <String>solutions</String>
+                        </value>
+                     </vmodl.KeyAnyValue>
+                  </listProperties>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- License products details portlet in license summary page. -->
+   <extension id="vsphere.license.cis.license.summary.productsDetailsPortlet">
+      <extendedPoint>vsphere.license.cis.license.summarySectionViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{license.productsDetailsView.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.management.licenses.LicenseProductsDetailsView</className>
+         </componentClass>
+      </object>
+      <metadata>
+         <objectType>License</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Product licenses details portlet in product summary page. -->
+   <extension id="vsphere.license.cis.product.summary.licensesDetailsPortlet">
+      <extendedPoint>vsphere.license.cis.product.summarySectionViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{product.licensesDetailsView.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.management.products.ProductLicensesDetailsView</className>
+         </componentClass>
+      </object>
+      <metadata>
+         <objectType>Product</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Product features portlet in product summary page. -->
+   <extension id="vsphere.license.cis.product.summary.featuresPortlet">
+      <extendedPoint>vsphere.license.cis.product.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.license.cis.product.summarySectionViews</precedingExtension>
+      <object>
+         <name>#{product.featuresView.title}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.management.products.ProductFeaturesView</className>
+         </componentClass>
+      </object>
+      <metadata>
+         <objectType>Product</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Asset licensing settings -->
+   <extension id="vsphere.licensing.cis.asset.manage.settings.licensing">
+      <extendedPoint>vsphere.licensing.cis.asset.manageViews</extendedPoint>
+      <object>
+         <name>#{asset.manage.settings.title}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.license.client.cis.views.management.assets.AssetSettingsView"/>
+                  <label>#{asset.manage.settings.subtitle}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.cis.management.assignLicenseAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Licensing settings option in VC settings tab. -->
+   <extension id="vsphere.core.folder.manage.settings.licensing">
+      <extendedPoint>vsphere.core.folder.manage.settingsViews</extendedPoint>
+      <hostedPoint>vsphere.core.folder.manage.licensingSettingsViews</hostedPoint>
+      <precedingExtension>vsphere.core.folder.manage.settings.vcGeneralSettingsView</precedingExtension>
+      <object>
+         <name>#{asset.manage.settings.title}</name>
+         <componentClass className="com.vmware.ui.views.MultiExtensionView"/>
+      </object>
+      <metadata>
+         <objectType>Folder</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isRootFolder</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- CIS licensing VC settings -->
+   <extension id="vsphere.core.folder.manage.settings.cisLicensing">
+      <extendedPoint>vsphere.core.folder.manage.licensingSettingsViews</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo>
+                     <className>com.vmware.license.client.cis.views.management.assets.AssetSettingsView</className>
+                     <object>
+                        <root>
+                           <shouldIncludeEvaluationCostUnitLimits>false</shouldIncludeEvaluationCostUnitLimits>
+                        </root>
+                     </object>
+                  </settingsComponentInfo>
+                  <label>#{asset.manage.settings.subtitle}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.vc.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>cis</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Licensing settings option in host settings tab. -->
+   <extension id="vsphere.core.host.manage.settings.licensingSettingsView">
+      <extendedPoint>vsphere.core.host.manage.settingsViews</extendedPoint>
+      <hostedPoint>vsphere.core.host.manage.licensingSettingsViews</hostedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{asset.manage.settings.title}</name>
+         <componentClass className="com.vmware.ui.views.MultiExtensionView"/>
+         <categoryUid>vsphere.core.host.systemSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <objectType>HostSystem</objectType>
+      </metadata>
+   </extension>
+
+   <!-- CIS licensing host settings -->
+   <extension id="vsphere.core.host.manage.settings.cisLicensing">
+      <extendedPoint>vsphere.core.host.manage.licensingSettingsViews</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo>
+                     <className>com.vmware.license.client.cis.views.management.assets.AssetSettingsView</className>
+                     <object>
+                        <root>
+                           <shouldIncludeEvaluationCostUnitLimits>false</shouldIncludeEvaluationCostUnitLimits>
+                        </root>
+                     </object>
+                  </settingsComponentInfo>
+                  <label>#{asset.manage.settings.subtitle}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.host.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>cis</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Licensing settings option in cluster settings tab. -->
+   <extension id="vsphere.core.cluster.manage.settings.licensingSettingsView">
+      <extendedPoint>vsphere.core.cluster.manage.settingsViews</extendedPoint>
+      <hostedPoint>vsphere.core.cluster.manage.licensingSettingsViews</hostedPoint>
+      <precedingExtension>vsphere.core.cluster.manage.settings.generalCategoryMultiExtentsionView</precedingExtension>
+      <object>
+         <name>#{asset.manage.settings.title}</name>
+         <componentClass className="com.vmware.ui.views.MultiExtensionView"/>
+         <categoryUid>vsphere.core.cluster.configurationSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+         <objectType>ClusterComputeResource</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>vsanSupportedForVc</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- CIS licensing cluster settings -->
+   <extension id="vsphere.core.cluster.manage.settings.cisLicensing">
+      <extendedPoint>vsphere.core.cluster.manage.licensingSettingsViews</extendedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo>
+                     <className>com.vmware.license.client.cis.views.management.assets.AssetSettingsView</className>
+                     <object>
+                        <root>
+                           <assetNotRegisteredMessage>#{assets.clusterNotRegistered}</assetNotRegisteredMessage>
+                           <shouldIncludeEvaluationCostUnitLimits>false</shouldIncludeEvaluationCostUnitLimits>
+                        </root>
+                     </object>
+                  </settingsComponentInfo>
+                  <label>#{asset.manage.settings.subtitle}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.license.management.cluster.assignLicenseKeyAction</actionId>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>cis</licensingVersionId>
+      </metadata>
+   </extension>
+
+   <!-- Object navigator specs -->
+
+   <!-- Product related licenses -->
+   <extension id="vsphere.license.relateditems.specs.licensesForProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <object>
+         <type>Product</type>
+         <relationsViewId>vsphere.license.cis.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>licensesForProduct</id>
+               <icon>#{LicenseUiImages:license}</icon>
+               <label>#{list.licenses}</label>
+               <relation>licenses</relation>
+               <targetType>License</targetType>
+               <listViewId>vsphere.license.cis.license.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Product related VCs -->
+   <extension id="vsphere.license.relateditems.specs.vcsForProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.licensesForProduct</precedingExtension>
+      <object>
+         <type>Product</type>
+         <conditionalProperty>isForVcs</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>vcsForProduct</id>
+               <icon>#{CommonImages:rootFolder}</icon>
+               <label>#{assets.pluralLabel.vc}</label>
+               <relation>vcs</relation>
+               <targetType>Folder</targetType>
+               <listViewId>vsphere.license.cis.vc.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Product related hosts -->
+   <extension id="vsphere.license.relateditems.specs.hostsForProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.vcsForProduct</precedingExtension>
+      <object>
+         <type>Product</type>
+         <conditionalProperty>isForHosts</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>hostsForProduct</id>
+               <icon>#{CommonImages:hostConnected}</icon>
+               <label>#{assets.pluralLabel.host}</label>
+               <relation>hosts</relation>
+               <targetType>HostSystem</targetType>
+               <listViewId>vsphere.license.cis.host.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Product related clusters -->
+   <extension id="vsphere.license.relateditems.specs.clustersForProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.hostsForProduct</precedingExtension>
+      <object>
+         <type>Product</type>
+         <conditionalProperty>isForClusters</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>clustersForProduct</id>
+               <icon>#{CommonImages:clustercomputeresource}</icon>
+               <label>#{assets.pluralLabel.cluster}</label>
+               <relation>clusters</relation>
+               <targetType>ClusterComputeResource</targetType>
+               <listViewId>vsphere.license.cis.cluster.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Product related solutions -->
+   <extension id="vsphere.license.relateditems.specs.solutionsForProduct">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.clustersForProduct</precedingExtension>
+      <object>
+         <type>Product</type>
+         <conditionalProperty>isForSolutions</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.product.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>solutionsForProduct</id>
+               <icon>#{LicenseUiImages:cisSolution}</icon>
+               <label>#{assets.pluralLabel.solution}</label>
+               <relation>solutions</relation>
+               <targetType>Asset</targetType>
+               <listViewId>vsphere.license.cis.solution.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- License related products -->
+   <extension id="vsphere.license.relateditems.specs.productsForLicense">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <object>
+         <type>License</type>
+         <relationsViewId>vsphere.license.cis.license.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>productsForLicense</id>
+               <icon>#{LicenseUiImages:cisProduct}</icon>
+               <label>#{list.products}</label>
+               <relation>products</relation>
+               <targetType>Product</targetType>
+               <listViewId>vsphere.license.cis.product.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- License related VCs -->
+   <extension id="vsphere.license.relateditems.specs.vcsForLicense">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.productsForLicense</precedingExtension>
+      <object>
+         <type>License</type>
+         <conditionalProperty>isAssignableToVcs</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.license.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>vcsForLicense</id>
+               <icon>#{CommonImages:rootFolder}</icon>
+               <label>#{assets.pluralLabel.vc}</label>
+               <relation>vcs</relation>
+               <targetType>Folder</targetType>
+               <listViewId>vsphere.license.cis.vc.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- License related hosts -->
+   <extension id="vsphere.license.relateditems.specs.hostsForLicense">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.vcsForLicense</precedingExtension>
+      <object>
+         <type>License</type>
+         <conditionalProperty>isAssignableToHosts</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.license.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>hostsForLicense</id>
+               <icon>#{CommonImages:hostConnected}</icon>
+               <label>#{assets.pluralLabel.host}</label>
+               <relation>hosts</relation>
+               <targetType>HostSystem</targetType>
+               <listViewId>vsphere.license.cis.host.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- License related clusters -->
+   <extension id="vsphere.license.relateditems.specs.clustersForLicense">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.hostsForLicense</precedingExtension>
+      <object>
+         <type>License</type>
+         <conditionalProperty>isAssignableToClusters</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.license.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>clustersForLicense</id>
+               <icon>#{CommonImages:clustercomputeresource}</icon>
+               <label>#{assets.pluralLabel.cluster}</label>
+               <relation>clusters</relation>
+               <targetType>ClusterComputeResource</targetType>
+               <listViewId>vsphere.license.cis.cluster.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- License related solutions -->
+   <extension id="vsphere.license.relateditems.specs.solutionsForLicense">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <precedingExtension>vsphere.license.relateditems.specs.hostsForLicense</precedingExtension>
+      <object>
+         <type>License</type>
+         <conditionalProperty>isAssignableToSolutions</conditionalProperty>
+         <relationsViewId>vsphere.license.cis.license.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>solutionsForLicense</id>
+               <icon>#{LicenseUiImages:cisSolution}</icon>
+               <label>#{assets.pluralLabel.solution}</label>
+               <relation>solutions</relation>
+               <targetType>Asset</targetType>
+               <listViewId>vsphere.license.cis.solution.relationshipsList</listViewId>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!--
+      The template for a licensing report object. This template includes the following items:
+      Summary
+
+      Extended points:
+      - vsphere.core.inventory.serverObjectViews
+      - vise.inventory.representationspecs
+      - vsphere.core.objectTypes
+
+      Extension points:
+      - ${namespace}.views
+      - ${namespace}.globalSections
+      - ${namespace}.summaryViews
+
+      Extensions:
+      - ${namespace}.view
+      - ${namespace}.globalSection
+      - ${namespace}.summary
+      - ${namespace}.summaryView
+      - ${namespace}.representationspec
+      - ${namespace}.type
+
+      Variables:
+      - namespace: The namespace used in the extension points and extension ids.
+      - objectType: The type of the object.
+      - globalSectionClassName: The name of the class of the global section of the object.
+      - summaryViewClassName: The name of the class of the summary view of the object.
+      - iconLocalizationKey: Localization key used to retrieve the icon of the object.
+      - labelLocalizationKey: Localization key used to retrieve the label of the object.
+      - labelPluralLocalizationKey: Localization key used to retrieve the plural label
+         of the object.
+      - licensingVersionId: The version ID of the licensing, used for filtering multi
+         version extensions.
+
+      Usage Example:
+      <templateInstance id="vsphere.licensing.product.reportObjectTemplateInstance">
+         <templateId>vsphere.licensing.reportObjectTemplate</templateId>
+
+         <variable name="namespace" value="vsphere.licensing.product"/>
+         <variable name="objectType" value="ProductReport"/>
+         <variable name="globalSectionClassName" value="com.vmware.license.client.cis.views.reports.products.ProductReportGlobalView"/>
+         <variable name="summaryViewClassName" value="com.vmware.license.client.cis.views.reports.products.ProductReportSummaryView"/>
+         <variable name="iconLocalizationKey" value="LicenseUiImages:productReport"/>
+         <variable name="labelLocalizationKey" value="label.productReport"/>
+         <variable name="labelPluralLocalizationKey" value="labelPlural.productReport"/>
+      </templateInstance>
+   -->
+   <template id="vsphere.licensing.reportObjectTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="objectType" required="true"/>
+      <variable name="globalSectionClassName" required="true"/>
+      <variable name="summaryViewClassName" required="true"/>
+      <variable name="iconLocalizationKey" required="true"/>
+      <variable name="labelLocalizationKey" required="true"/>
+      <variable name="labelPluralLocalizationKey" required="true"/>
+
+      <!-- Object tabs -->
+      <extensionPoint id="${namespace}.views">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Object global sections -->
+      <extensionPoint id="${namespace}.globalSections">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Summary views -->
+      <extensionPoint id="${namespace}.summaryViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Object view -->
+      <extension id="${namespace}.view">
+         <extendedPoint>vsphere.core.inventory.serverObjectViews</extendedPoint>
+         <hostedPoint>${namespace}.views</hostedPoint>
+         <hostedPoint>${namespace}.globalSections</hostedPoint>
+         <object>
+            <componentClass className="com.vmware.vsphere.client.views.ExtensibleObjectTabbedView"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+
+      <!-- Global section -->
+      <extension id="${namespace}.globalSection">
+         <extendedPoint>${namespace}.globalSections</extendedPoint>
+         <object>
+            <componentClass className="${globalSectionClassName}"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+
+      <!-- Summary tab -->
+      <extension id="${namespace}.summary">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <hostedPoint>${namespace}.summaryViews</hostedPoint>
+         <object>
+            <name>#{inventory:summaryTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+
+      <!-- Summary view -->
+      <extension id="${namespace}.summaryView">
+         <extendedPoint>${namespace}.summaryViews</extendedPoint>
+         <object>
+            <name>#{inventory:summaryTabLabel}</name>
+            <componentClass className="${summaryViewClassName}"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+
+      <!-- Object icon label spec collection -->
+      <extension id="${namespace}.representationspec">
+         <extendedPoint>vise.inventory.representationspecs</extendedPoint>
+         <object>
+            <objectType>${objectType}</objectType>
+            <specCollection>
+               <com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+                  <iconId>#{${iconLocalizationKey}}</iconId>
+                  <labelId>#{${labelLocalizationKey}}</labelId>
+               </com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+            </specCollection>
+         </object>
+      </extension>
+
+      <!-- Object type -->
+      <extension id="${namespace}.type">
+         <extendedPoint>vsphere.core.objectTypes</extendedPoint>
+         <object>
+            <types>
+               <String>${objectType}</String>
+            </types>
+            <label>#{${labelLocalizationKey}}</label>
+            <labelPlural>#{${labelPluralLocalizationKey}}</labelPlural>
+            <icon>#{${iconLocalizationKey}}</icon>
+         </object>
+      </extension>
+
+   </template>
+
+   <!-- Product report object -->
+   <templateInstance id="vsphere.licensing.product.reportObjectTemplateInstance">
+      <templateId>vsphere.licensing.reportObjectTemplate</templateId>
+
+      <variable name="namespace" value="vsphere.licensing.productReport"/>
+      <variable name="objectType" value="ProductReport"/>
+      <variable name="globalSectionClassName" value="com.vmware.license.client.cis.views.reports.products.ProductReportGlobalView"/>
+      <variable name="summaryViewClassName" value="com.vmware.license.client.cis.views.reports.products.ProductReportSummaryView"/>
+      <variable name="iconLocalizationKey" value="LicenseUiImages:productReport"/>
+      <variable name="labelLocalizationKey" value="label.productReport"/>
+      <variable name="labelPluralLocalizationKey" value="labelPlural.productReport"/>
+   </templateInstance>
+
+   <!-- Getting started view for licensing reports -->
+   <extension id="vsphere.licensing.reports.gettingStarted">
+      <extendedPoint>vsphere.license.reportDashboards</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{inventory:gettingStartedTabLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.GettingStartedView</className>
+            <object>
+               <root>
+                  <title>#{gettingStarted.reports.title}</title>
+                  <description>#{gettingStarted.reports.description}</description>
+                  <closeButtonEnabled>false</closeButtonEnabled>
+                  <image>#{LicenseUiImages:gettingStartedReports}</image>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+     <metadata>
+        <licensingVersionId>cis</licensingVersionId>
+     </metadata>
+   </extension>
+
+   <!-- Products dashboard -->
+   <extension id="vsphere.license.productsReportDashboard">
+      <extendedPoint>vsphere.license.reportDashboards</extendedPoint>
+      <object>
+         <name>#{reports.productsTab}</name>
+         <componentClass>
+            <className>com.vmware.license.client.cis.views.reports.products.ProductsReportDashboardView</className>
+            <object>
+               <root>
+                  <exportDataDumpActionUid>vsphere.licensing.cis.reports.exportDataDump</exportDataDumpActionUid>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <licensingVersionId>cis</licensingVersionId>
+      </metadata>
+   </extension>
+
+
+   <!-- Actions -->
+
+   <!-- Action set for licensing global actions -->
+   <extension id="vsphere.licensing.cis.globalActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.miscellaneousActionCategory</category>
+         <actions>
+            <!-- Visit licensing portal action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.visitPortal</uid>
+               <label>#{action.visitPortal.label}</label>
+               <description>#{action.visitPortal.description}</description>
+               <command className="com.vmware.license.client.cis.commands.GlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Visit management action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.visitManagement</uid>
+               <label>#{action.visitManagement.label}</label>
+               <description>#{action.visitManagement.description}</description>
+               <command className="com.vmware.license.client.cis.commands.GlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Visit licenses action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.visitLicenses</uid>
+               <label>#{action.visitLicenses.label}</label>
+               <description>#{action.visitLicenses.description}</description>
+               <command className="com.vmware.license.client.cis.commands.GlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Visit assets action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.visitAssets</uid>
+               <label>#{action.visitAssets.label}</label>
+               <description>#{action.visitAssets.description}</description>
+               <command className="com.vmware.license.client.cis.commands.GlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Show expiring licenses action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.showExpiringLicenses</uid>
+               <label>#{action.showExpiringLicenses.label}</label>
+               <description>#{action.showExpiringLicenses.description}</description>
+               <command className="com.vmware.license.client.cis.commands.GlobalActionCommand"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+   </extension>
+
+   <!-- Action set for licensing management global actions -->
+   <extension id="vsphere.license.cis.management.globalActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <actions>
+            <!-- Add licenses action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.cis.management.addLicensesAction</uid>
+               <label>#{action.addLicenses.label}</label>
+               <description>#{action.addLicenses.description}</description>
+               <icon>#{CommonImages:defaultAdd}</icon>
+               <category>vsphere.core.inventoryActionCategory</category>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <privateAction>true</privateAction>
+               <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+               <command className="com.vmware.license.client.cis.commands.management.ManagementActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+   </extension>
+
+   <!-- Action set for license actions -->
+   <extension id="vsphere.license.cis.management.licenseActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <actions>
+            <!-- Rename license action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.management.renameLicenseAction</uid>
+               <label>#{action.renameLicense.label}</label>
+               <description>#{action.renameLicense.description}</description>
+               <icon>#{CommonImages:defaultEdit}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <command className="com.vmware.license.client.cis.commands.management.LicenseActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- View license details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.management.viewLicenseDetailsAction</uid>
+               <label>#{action.viewLicenseDetails.label}</label>
+               <description>#{action.viewLicenseDetails.description}</description>
+               <icon>#{LicenseUiImages:key}</icon>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <command className="com.vmware.license.client.cis.commands.management.LicenseActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Dialog view license details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.management.dialogViewLicenseDetailsAction</uid>
+               <label>#{action.viewLicenseDetails.label}</label>
+               <description>#{action.viewLicenseDetails.description}</description>
+               <icon>#{LicenseUiImages:key}</icon>
+               <category>vsphere.core.configActionCategory</category>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <privateAction>true</privateAction>
+               <command className="com.vmware.license.client.cis.commands.management.LicenseActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Remove licenses action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.cis.management.removeLicensesAction</uid>
+               <label>#{action.removeLicenses.label}</label>
+               <description>#{action.removeLicenses.description}</description>
+               <icon>#{CommonImages:defaultRemove}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <conditionalProperty>isRemovable</conditionalProperty>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <confirmationTitle>#{action.removeLicenses.confirmTitle}</confirmationTitle>
+               <confirmationTextNone>#{action.removeLicenses.confirmNone}</confirmationTextNone>
+               <confirmationTextOne>#{action.removeLicenses.confirmOne}</confirmationTextOne>
+               <confirmationTextSome>#{action.removeLicenses.confirmSome}</confirmationTextSome>
+               <confirmationTextAll>#{action.removeLicenses.confirmAll}</confirmationTextAll>
+               <command className="com.vmware.license.client.cis.commands.management.LicenseActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>License</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action set for product actions -->
+   <extension id="vsphere.license.cis.management.productActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.configActionCategory</category>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <actions>
+            <!-- View product details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.management.viewProductDetailsAction</uid>
+               <label>#{action.viewProductDetails.label}</label>
+               <description>#{action.viewProductDetails.description}</description>
+               <icon>#{LicenseUiImages:features}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <command className="com.vmware.license.client.cis.commands.management.ProductActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+           <!-- Dialog view product details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.management.dialogViewProductDetailsAction</uid>
+               <label>#{action.viewProductDetails.label}</label>
+               <description>#{action.viewProductDetails.description}</description>
+               <icon>#{LicenseUiImages:features}</icon>
+               <category>vsphere.core.configActionCategory</category>
+               <privateAction>true</privateAction>
+               <command className="com.vmware.license.client.cis.commands.management.ProductActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Product</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action set for assets -->
+   <extension id="vsphere.license.cis.management.assetsActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <actions>
+            <!-- Assign license action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.cis.management.assignLicenseAction</uid>
+               <label>#{action.assignLicense.label}</label>
+               <description>#{action.assignLicense.description}</description>
+               <icon>#{LicenseUiImages:assignLicense}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- View asset details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.cis.management.viewAssetDetailsAction</uid>
+               <label>#{action.viewAssetDetails.label}</label>
+               <description>#{action.viewAssetDetails.description}</description>
+               <icon>#{LicenseUiImages:features}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Asset</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action set for solutions -->
+   <extension id="vsphere.license.cis.management.solutionsActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <actions>
+
+            <!-- Remove solutions action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.cis.management.removeSolutionsAction</uid>
+               <label>#{action.removeSolutions.label}</label>
+               <description>#{action.removeSolutions.description}</description>
+               <icon>#{CommonImages:defaultRemove}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <confirmationTitle>#{action.removeSolutions.confirmTitle}</confirmationTitle>
+               <confirmationTextOne>#{action.removeSolutions.confirmOne}</confirmationTextOne>
+               <confirmationTextAll>#{action.removeSolutions.confirmAll}</confirmationTextAll>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Asset</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isSolution</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Action set for licensing VC actions.
+        This action set includes both actions for VC and CIS. The actions have the same uid.
+        This is done in order to have only one action for assign license available in VC global UI. -->
+   <extension id="vsphere.licensing.cis.management.vcsActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <actions>
+
+            <!-- Assign license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.vc.assignLicenseKeyAction</uid>
+               <label>#{management.actions.assignLicenseKey.label}</label>
+               <description>#{management.actions.assignLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:assignLicenseKey}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.commands.management.AssignLicenseKeyActionResolver"/>
+               <command className="com.vmware.license.client.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+             <!-- Assign license action -->
+             <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.vc.assignLicenseKeyAction</uid>
+               <label>#{action.assignLicense.label}</label>
+               <description>#{action.assignLicense.description}</description>
+               <icon>#{LicenseUiImages:assignLicense}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.cis.commands.management.AssignLicenseActionResolver"/>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>Folder</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isRootFolder</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Action set for licensing host actions.
+        This action set includes both actions for VC and CIS. The actions have the same uid.
+        This is done in order to have only one action for assign license available in host global UI.-->
+   <extension id="vsphere.licensing.cis.management.hostsActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <actions>
+
+            <!-- Assign license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.host.assignLicenseKeyAction</uid>
+               <label>#{management.actions.assignLicenseKey.label}</label>
+               <description>#{management.actions.assignLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:assignLicenseKey}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.commands.management.AssignLicenseKeyActionResolver"/>
+               <command className="com.vmware.license.client.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Assign license action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.host.assignLicenseKeyAction</uid>
+               <label>#{action.assignLicense.label}</label>
+               <description>#{action.assignLicense.description}</description>
+               <icon>#{LicenseUiImages:assignLicense}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.cis.commands.management.AssignLicenseActionResolver"/>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>HostSystem</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>config.product.version</propertyName>
+                     <comparator>GREATER</comparator>
+                     <comparableValue>
+                        <String>4.0.0</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>config.product.version</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <String>4.0.0</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>OR</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Action set for licensing cluster actions.
+        This action set includes both actions for VC and CIS. The actions have the same uid.
+        This is done in order to have only one action for assign license available in cluster global UI.-->
+   <extension id="vsphere.licensing.cis.management.vcClustersActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <actions>
+
+            <!-- Assign license key action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.cluster.assignLicenseKeyAction</uid>
+               <label>#{management.actions.assignLicenseKey.label}</label>
+               <description>#{management.actions.assignLicenseKey.description}</description>
+               <icon>#{LicenseUiImages:assignLicenseKey}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.commands.management.AssignLicenseKeyActionResolver"/>
+               <command className="com.vmware.license.client.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+         <objectType>ClusterComputeResource</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isRegisteredForLicensing</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <String>true</String>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <extension id="vsphere.licensing.cis.management.cisClustersActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.inventoryActionCategory</category>
+         <actions>
+
+            <!-- Assign license action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.license.management.cluster.assignLicenseKeyAction</uid>
+               <label>#{action.assignLicense.label}</label>
+               <description>#{action.assignLicense.description}</description>
+               <icon>#{LicenseUiImages:assignLicense}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <delegate className="com.vmware.license.client.cis.commands.management.AssignLicenseActionResolver"/>
+               <command className="com.vmware.license.client.cis.commands.management.AssetActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <vsanLicensingRelevant>true</vsanLicensingRelevant>
+         <objectType>ClusterComputeResource</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action set for licensing report global actions -->
+   <extension id="vsphere.licensing.cis.reports.globalActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <category>vsphere.core.miscellaneousActionCategory</category>
+         <actions>
+            <!-- Data Dump Export action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.reports.exportDataDump</uid>
+               <label>#{action.dataDumpExport.label}</label>
+               <description>#{action.dataDumpExport.description}</description>
+               <icon>#{FlexWidgets:export}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <privateAction>true</privateAction>
+               <command className="com.vmware.license.client.cis.commands.reports.DataDumpCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+   </extension>
+
+   <!-- Action set for license report actions -->
+   <extension id="vsphere.licensing.cis.reports.licenseReportActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <delegate className="com.vmware.license.client.cis.commands.LicensingActionResolverBase"/>
+         <category>vsphere.core.configActionCategory</category>
+         <actions>
+            <!-- View license report details action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.licensing.cis.reports.viewLicenseReportDetailsAction</uid>
+               <label>#{action.viewLicenseReportDetails.label}</label>
+               <description>#{action.viewLicenseReportDetails.description}</description>
+               <icon>#{LicenseUiImages:key}</icon>
+               <requiredPrivilege>COMPUTE</requiredPrivilege>
+               <acceptsMultipleTargets>true</acceptsMultipleTargets>
+               <command className="com.vmware.license.client.cis.commands.reports.LicenseReportActionCommand"/>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>CisLicenseReport</objectType>
+      </metadata>
+   </extension>
+
+
+   <!-- TODO: pankovm - Remove this extension if the C# will not be supported for OP. -->
+   <extension id="vsphere.license.licenseReportView">
+      <extendedPoint>vsphere.license.licenseViews</extendedPoint>
+      <object>
+         <!-- TODO apetkov: A fake resource expression is specified as a workaround for #624873. -->
+         <name>#{LicenseUiCsharp:licenseReportView.pluginTitle}</name>
+         <componentClass className="com.vmware.license.client.csharp.views.LicenseReportViewCsharp"/>
+      </object>
+   </extension>
+
+</plugin>
+

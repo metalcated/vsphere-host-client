@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services-config>
+
+   <services>
+      <service-include file-path="remoting-config.xml" />
+      <default-channels>
+         <channel ref="secure-amf"/>
+         <channel ref="amf"/>
+      </default-channels>
+   </services>
+
+   <channels>
+      <channel-definition id="secure-amf" class="mx.messaging.channels.SecureAMFChannel">
+         <endpoint
+            url="https://{server.name}:{server.port}/{context.root}/messagebroker/amfsecure"
+            class="com.vmware.vise.messaging.endpoints.SecureAMFEndpoint"/>
+         <properties>
+            <!-- http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=lcconfig_5.html -->
+            <!-- no-cache response headers cause problems for Internet Explorer browsers.-->
+            <add-no-cache-headers>false</add-no-cache-headers>
+         </properties>
+      </channel-definition>
+      <channel-definition id="amf" class="mx.messaging.channels.AMFChannel">
+         <endpoint
+            url="http://{server.name}:{server.port}/{context.root}/messagebroker/amf"
+            class="com.vmware.vise.messaging.endpoints.AMFEndpoint"/>
+         <properties>
+            <!-- http://livedocs.adobe.com/blazeds/1/blazeds_devguide/help.html?content=lcconfig_5.html -->
+            <!-- no-cache response headers cause problems for Internet Explorer browsers.-->
+            <add-no-cache-headers>false</add-no-cache-headers>
+         </properties>
+      </channel-definition>
+   </channels>
+
+   <logging>
+      <target class="flex.messaging.log.ConsoleTarget" level="Error">
+         <properties>
+            <prefix>[BlazeDS]</prefix>
+            <includeDate>false</includeDate>
+            <includeTime>false</includeTime>
+            <includeLevel>false</includeLevel>
+            <includeCategory>false</includeCategory>
+         </properties>
+
+         <filters>
+            <pattern>Endpoint.*</pattern>
+            <pattern>Service.*</pattern>
+            <pattern>Configuration</pattern>
+         </filters>
+      </target>
+   </logging>
+
+   <validators>
+      <!--
+         Default implementation of DeserializationValidator that supports
+         allow and disallow classes.
+      -->
+      <validator class="com.vmware.vise.messaging.validators.ClassDeserializationValidator">
+         <properties>
+            <!-- Allow the following classes/packages -->
+            <allow-classes>
+               <class name="com.vmware.*"/>
+            </allow-classes>
+         </properties>
+      </validator>
+   </validators>
+</services-config>

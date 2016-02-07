@@ -1,0 +1,136 @@
+html, body {
+   margin: 0px;
+   padding: 0px;
+   height: 100%;
+   font: 15px arial,sans-serif;
+   overflow: hidden;
+   background-color: #000000;
+}
+
+#bar {
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 60px;
+   background: url('../img/buttonbar-bg.png') repeat-x top left;
+#   text-align: center;
+   border-top: 1px solid #565656;
+   border-bottom: 1px solid #000000;
+   overflow: hidden;
+   padding: 6px;
+}
+
+#params {
+   width: 80%;
+#   margin-left: 6px;
+}
+
+#console {
+   width: 100%;
+   height:100%;
+   overflow: hidden;
+   background-color: black;
+   overflow: scroll;
+}
+
+div.spinner {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: inline-block;
+  padding: 44px;
+  text-align: center;
+}
+
+div.spinner div {
+  width: 9%;
+  height: 26%;
+  background: #fff;
+  position: absolute;
+  left: 44.5%;
+  top: 37%;
+  opacity: 0;
+  -webkit-animation: fade 1s linear infinite;
+  -webkit-border-radius: 50px;
+  -webkit-box-shadow: 0 0 3px rgba(ff,ff,ff,0.2);
+}
+
+div.spinner div.bar1 {-webkit-transform:rotate(0deg) translate(0, -142%); -webkit-animation-delay: 0s;}
+div.spinner div.bar2 {-webkit-transform:rotate(30deg) translate(0, -142%); -webkit-animation-delay: -0.9167s;}
+div.spinner div.bar3 {-webkit-transform:rotate(60deg) translate(0, -142%); -webkit-animation-delay: -0.833s;}
+div.spinner div.bar4 {-webkit-transform:rotate(90deg) translate(0, -142%); -webkit-animation-delay: -0.75s;}
+div.spinner div.bar5 {-webkit-transform:rotate(120deg) translate(0, -142%); -webkit-animation-delay: -0.667s;}
+div.spinner div.bar6 {-webkit-transform:rotate(150deg) translate(0, -142%); -webkit-animation-delay: -0.5833s;}
+div.spinner div.bar7 {-webkit-transform:rotate(180deg) translate(0, -142%); -webkit-animation-delay: -0.5s;}
+div.spinner div.bar8 {-webkit-transform:rotate(210deg) translate(0, -142%); -webkit-animation-delay: -0.41667s;}
+div.spinner div.bar9 {-webkit-transform:rotate(240deg) translate(0, -142%); -webkit-animation-delay: -0.333s;}
+div.spinner div.bar10 {-webkit-transform:rotate(270deg) translate(0, -142%); -webkit-animation-delay: -0.25s;}
+div.spinner div.bar11 {-webkit-transform:rotate(300deg) translate(0, -142%); -webkit-animation-delay: -0.1667s;}
+div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -webkit-animation-delay: -0.0833s;}
+
+ @-webkit-keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0.25;}
+}
+
+/* Button states. */
+
+.buttonT {
+   height: 22px;
+   cursor: pointer;
+   margin: 5px;
+}
+
+.buttonL {
+   float: right;
+   height: 100%;
+   width: 5px;
+}
+
+.buttonC {
+  float: right;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.buttonR {
+  background: url('button-leftside.png') left top no-repeat;
+  position: relative;
+  left: 0px;
+  width: 5px;
+  height: 100%;
+  float: right;
+}
+
+
+#buttonBar {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 60px;
+   text-align: center;
+   border-top: 1px solid #565656;
+   border-bottom: 1px solid #000000;
+   overflow: hidden;
+}
+
+#buttonBar .buttonT {
+   float: right;
+}
+
+#vmName {
+   font-weight: bold;
+   padding-top: 7px;
+   white-space: nowrap;
+   overflow: hidden;
+   position: absolute;
+   top: 12px;
+   left: 12px;
+   color: #ffffff;
+}

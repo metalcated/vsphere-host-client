@@ -1,0 +1,245 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+
+<!-- Use the .htaccess and remove these lines to avoid edge case issues.
+More info: h5bp.com/b/378 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title></title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Mobile viewport optimized: j.mp/bplateviewport -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="SHORTCUT ICON" href="favicon.ico" />
+
+<!-- CSS: implied media=all -->
+<!-- CSS concatenated and minified via ant build script-->
+<link rel="stylesheet" href="css/style.css">
+<!-- end CSS-->
+
+<!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+<!-- All JavaScript at the bottom, except for Modernizr / Respond.
+Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+      For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+<script src="js/libs/modernizr-2.0.6.min.js"></script>
+
+<script type="text/javascript">
+   if (!window.console) {
+      console = {log: function() {} };
+   }
+</script>
+
+</head>
+
+<body>
+<div id="bar">
+
+<div id="buttonBar">
+<div id="cadButton" class="buttonT">
+<div class="buttonR">&nbsp;</div>
+<div class="buttonC"><button id="vmrc">Download Client Integration Plugin</button><button id="console-fullscreen">View Fullscreen</button><button id="sendCAD">Send Ctrl+Alt+Delete</button></div>
+<div class="buttonL">&nbsp;</div>
+</div>
+</div>
+
+<div id="vmName">
+<span id="vmTitle"><!-- filled programmatically --></span>
+</div>
+</div>
+
+<div id="console">
+</div>
+
+<div id="spinner" style="width:60px; height:60px; opacity:0.6;">
+<div class="bar1"></div>
+<div class="bar2"></div>
+<div class="bar3"></div>
+<div class="bar4"></div>
+<div class="bar5"></div>
+<div class="bar6"></div>
+<div class="bar7"></div>
+<div class="bar8"></div>
+<div class="bar9"></div>
+<div class="bar10"></div>
+<div class="bar11"></div>
+<div class="bar12"></div>
+</div>
+
+<!-- JavaScript at the bottom for fast page loading -->
+
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+
+<!-- Grab Google CDN's jQuery UI, with a protocol relative URL; fall back to local if offline -->
+<script src="js/jquery-ui.js"></script>
+
+<!-- scripts concatenated and minified via ant build script-->
+<script defer src="js/plugins.js"></script>
+<script defer src="js/script.js"></script>
+<!-- end scripts-->
+
+<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+chromium.org/developers/how-tos/chrome-frame-getting-started -->
+<!--[if lt IE 7 ]>
+<script src="js/CFInstall.min.js"></script>
+<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
+
+<!-- WMKS -->
+<script src="js/wmks.js"></script>
+
+<script>
+
+document.getElementById("console").style.position = "fixed";
+
+function getURLParameter(name) {
+   return decodeURIComponent(
+         (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+   );
+}
+</script>
+
+<!-- Full screen support -->
+<script src="js/fullscreen.js"></script>
+
+<script>
+
+   // Repositions the canvas under the name bar at the top allowing for correct scrolling.
+   function repositionCanvas() {
+      var canvasHeight = $("#console .wmks canvas").height();
+      var consoleHeight = $("#console").height();
+      console.log("canvas height is: " + canvasHeight + " and console height is: " + consoleHeight);
+
+      var negativeHalfMargin = (-1 * canvasHeight)/2;
+      console.log("negative half margin is: " + negativeHalfMargin);
+      if ((consoleHeight <= canvasHeight) && !isFullScreen()) {
+         console.log("high resolution!");
+         // adds the difference in screen size and canvas size to the margin. This will make sure canvas
+         // appears correctly under the name bar at the top of the screen in the case the canvas size
+         // is higher than the screen size available.
+         var difference = (canvasHeight - consoleHeight);
+         console.log("difference is: " + difference);
+         var addition = canvasHeight + consoleHeight;
+         console.log("addition is: " + addition);
+         var finalMargin = negativeHalfMargin + (difference/2);
+         console.log("final margin is: " + finalMargin);
+         $("#console .wmks canvas").css("margin-top",  finalMargin + 'px');
+      } else {
+         console.log("not high resolution");
+         $('#console .wmks canvas').css('margin-top', negativeHalfMargin + 'px');
+      }
+   }
+
+   function relayout() {
+      if ($("#bar").is(":visible")) {
+         $("#console").height( $(window).height() - $("#bar").outerHeight() );
+      } else {
+         $("#console").height( $(window).height() );
+      }
+      $("#spinner").css("margin-left",  $("#console").width()/2 - $("#spinner").width() );
+      if (!isFullScreen()) {
+         _wmks.wmks("rescale");
+      }
+      repositionCanvas();
+   }
+
+   //listen for resize events
+   $(window).resize(function() {
+      relayout();
+   });
+
+$(document).ready(function(){
+   _wmks = $("<div/>")
+         .wmks({"useVNCHandshake" : false, "sendProperMouseWheelDeltas": true})
+         .bind("wmksconnecting", function() {
+            console.log("The console is connecting");
+            $("#bar").slideUp("slow", relayout);
+         })
+         .bind("wmksconnected", function() {
+            console.log("The console has been connected");
+            $("#spinner").removeClass("spinner");
+            $("#bar").slideDown("fast", relayout);
+         })
+         .bind("wmksdisconnected", function(evt, info) {
+            console.log("The console has been disconnected");
+            console.log(evt, info);
+            $('#console .wmks').html("The console has been disconnected. Close this window and re-launch the console to reconnect.");
+            $('#console .wmks').css('text-align', 'center');
+            $('#console .wmks').css('color', 'white');
+            $("#bar").slideDown("fast", relayout);
+            $("#spinner").removeClass("spinner");
+         })
+         .bind("wmkserror", function(evt, errObj) {
+            console.log("Error!");
+            console.log(evt, errObj);
+            var idx = errObj.error.lastIndexOf(".") + 1;
+            alert(errObj.error.substr(idx) + " - " + errObj.msg);
+         })
+         .bind("wmksresolutionchanged", function(canvas) {
+            console.log("Resolution has changed!");
+            $('#console .wmks canvas').css('position', 'absolute');
+            $('#console .wmks canvas').css('margin-left', -1 * (canvas.target.childNodes[0].clientWidth)/2 + 'px');
+            $('#console .wmks canvas').css('margin-top', -1 * (canvas.target.childNodes[0].clientHeight)/2 + 'px');
+            $('#console .wmks canvas').css('top', '50%');
+            $('#console .wmks canvas').css('left', '50%');
+         })
+         .appendTo("#console");
+   relayout();
+
+   // if params are provided, no need to show chrome
+   if (location.search) {
+      $("#bar").hide();
+      var authd = location.search.substr(1);
+      var loc = document.location;
+      var path = loc.host + loc.pathname;
+      path = path.substring(0, path.indexOf(".html"));
+      if (path.indexOf("vsphere-client") !== -1) {
+         // path = "ip:9443/vsphere-client/webconsole"
+         _wmks.wmks("connect", "wss://" + path + "/authd?" + authd);
+      } else {
+         // path = "ip:8080/host-client/webconsole"
+         _wmks.wmks("connect", "ws://" + path + "/authd?" + authd);
+      }
+      $("#spinner").addClass("spinner");
+   }
+
+   $("#vmTitle").text(getURLParameter("vmName"));
+   document.title=getURLParameter("vmName");
+
+   if (getURLParameter("installVMRC") != null
+         && getURLParameter("installVMRC") != 'null') {
+
+      $("#vmrc").live("click", function (e) {
+         location.href=getURLParameter("installVMRC");
+      });
+
+   } else {
+      $("#vmrc").css({"visibility": "hidden"});
+   }
+
+
+   $("#sendCAD").click(function() {
+      _wmks.wmks('sendKeyCodes', [
+         $.ui.keyCode.CONTROL,
+         $.ui.keyCode.ALT,
+         $.ui.keyCode.DELETE
+      ]);
+   });
+
+});
+</script>
+
+</body>
+</html>

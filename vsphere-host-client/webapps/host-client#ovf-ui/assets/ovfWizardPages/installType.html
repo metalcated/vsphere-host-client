@@ -1,0 +1,30 @@
+<div ng-controller="InstallTypeController">
+   <form style="margin-top:10px;" class="form-horizontal">
+      <label class="radio">
+         <input type="radio" name="installType"
+               ng-model="vxWizard.wizardData.migrationFlag" ng-value="false">
+         {{vxWizard.localeMap['DeployVcsaInstallTypePage.newDeployment']}}
+      </label>
+      <label class="radio" style="margin-top:5px;">
+         <input type="radio" name="installType"
+               ng-model="vxWizard.wizardData.migrationFlag" ng-value="true" ng-disabled="true">
+         {{vxWizard.localeMap['DeployVcsaInstallTypePage.migrationBasedDeployment']}}
+      </label>
+      <div class="control-group" style="margin-left:20px;margin-top:10px;"
+            ng-show="vxWizard.wizardData.migrationFlag">
+         <label class="control-label" style="margin-left:30px;">
+            {{vxWizard.localeMap[
+                  'DeployVcsaInstallTypePage.existingDeployment']}}
+         </label>
+         <div class="controls">
+            <select id="sourceDeploymentType"
+                  ng-model="vxWizard.wizardData.sourceNodeType"
+                  ng-options="type as type.text for type in vxWizard.wizardData.sourceDeploymentTypes">
+            </select>
+         </div>
+         <p class="alertInfo" ng-show="checkInstallType()">
+            {{warningMigrationMessage}}
+         </p>
+      </div>
+   </form>
+</div>

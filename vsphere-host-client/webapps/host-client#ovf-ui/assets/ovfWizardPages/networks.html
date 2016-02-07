@@ -1,0 +1,197 @@
+<div ng-controller="NetworksController">
+   <!-- <div class="gridStyle" ng-grid="gridOptions" style="margin-bottom:20px;"></div> -->
+   <div class="btn-group" style="margin: 10px 0 20px 0;">
+     <button id="networkSettings" class="btn"
+        ng-class="{true: 'active'}[currentView === 'networkSettings']"
+        ng-click="switchToNetworkSettings()">{{vxWizard.localeMap["DeployVcsaNetworkPage.networkSettingsBtn"]}}</button>
+     <button id="servicePorts" class="btn"
+        ng-class="{true: 'active'}[currentView === 'servicePorts']"
+        ng-click="switchToServicePorts()">{{vxWizard.localeMap["DeployVcsaNetworkPage.servicePortBtn"]}}</button>
+   </div>
+   <form  name='networkDataForm' class="form-horizontal"
+         ng-show="currentView === 'networkSettings'">
+      <div class="control-group">
+         <label class="control-label" for="network">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.chooseNetwork"]}}
+         </label>
+         <div class="controls">
+            <select id="network"
+                  ng-model="mySelections[0]"
+                  ng-options="network as network.name for network in networksList">
+            </select>
+         </div>
+      </div>
+      <div class="control-group" ng-hide='vxWizard.wizardData.migrationFlag'>
+         <label class="control-label" for="netFamily">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.networkFamily"]}}
+         </label>
+         <div class="controls">
+            <select id="netFamily"
+                  ng-model="vxWizard.wizardData.ovfOptions.networkData.netAddrFamily"
+                  ng-options="family for family in vxWizard.wizardData.networkFamily"
+                  ng-change="setNetModes()">
+            </select>
+         </div>
+      </div>
+      <div class="control-group" ng-hide='vxWizard.wizardData.migrationFlag'>
+         <label class="control-label" for="netMode">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.networkMode"]}}
+         </label>
+         <div class="controls">
+            <select id="netMode"
+                  ng-model="vxWizard.wizardData.ovfOptions.networkData.netMode"
+                  ng-options="mode for mode in modesData">
+            </select>
+         </div>
+      </div>
+      <div ng-if="!isNotStatic()" class="control-group"
+            ng-class="getHostControlGroupClass(networkDataForm.hostName)"
+            ng-hide='vxWizard.wizardData.migrationFlag || notAutoConf()'>
+         <label class="control-label" for="hostName">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.hostName"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="hostName" name="hostName"
+                  ng-model="vxWizard.wizardData.ovfOptions.networkData.hostName" required>
+            <span class="help-inline"
+                  ng-show="showRequiredHostError(networkDataForm.hostName)">
+               {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div ng-if="isNotStatic()" class="control-group"
+            ng-hide='vxWizard.wizardData.migrationFlag || notAutoConf()'>
+         <label class="control-label" for="optHostName">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.hostName"]}}
+         </label>
+         <div class="controls">
+            <input type="text" id="optHostName" name="optHostName"
+                  ng-model="vxWizard.wizardData.ovfOptions.networkData.hostName">
+         </div>
+      </div>
+      <div ng-show="!isNotStatic() && !vxWizard.wizardData.migrationFlag">
+         <div class="control-group"
+               ng-class="getControlGroupClass(networkDataForm.netAddr)">
+            <label class="control-label" for="netAddr">
+               {{vxWizard.localeMap["DeployVcsaNetworkPage.networkAddress"]}}
+            </label>
+            <div class="controls">
+               <input type="text" id="netAddr" name="netAddr"
+                     ng-model="vxWizard.wizardData.ovfOptions.networkData.netAddr"
+                     ng-disabled="isNotStatic()" required vx-valid-ip="ipFamily">
+               <span class="help-inline"
+                     ng-show="showRequiredError(networkDataForm.netAddr)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+               </span>
+               <span class="help-inline"
+                     ng-show="showInvalidIpError(networkDataForm.netAddr)">
+                  {{vxWizard.localeMap["validationText.invalidIp"]}}
+               </span>
+            </div>
+         </div>
+         <div class="control-group"
+               ng-class="getControlGroupClass(networkDataForm.netPrefix)">
+            <label class="control-label" for="netPrefix">
+               {{vxWizard.localeMap["DeployVcsaNetworkPage.networkPrefix"]}}
+            </label>
+            <div class="controls">
+               <input type="text" id="netPrefix" name="netPrefix"
+                    ng-model="vxWizard.wizardData.ovfOptions.networkData.netPrefix"
+                    ng-disabled="isNotStatic()" required>
+               <span class="help-inline"
+                     ng-show="showRequiredError(networkDataForm.netPrefix)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+               </span>
+               <span class="help-inline"
+                     ng-show="showInvalidIpError(networkDataForm.netPrefix)">
+                  {{vxWizard.localeMap["validationText.invalidIp"]}}
+               </span>
+            </div>
+         </div>
+         <div class="control-group"
+               ng-class="getControlGroupClass(networkDataForm.netGateway)">
+            <label class="control-label" for="netGateway">
+               {{vxWizard.localeMap["DeployVcsaNetworkPage.networkGateway"]}}
+            </label>
+            <div class="controls">
+               <input type="text" id="netGateway" name="netGateway"
+                     ng-model="vxWizard.wizardData.ovfOptions.networkData.netGateway"
+                     ng-disabled="isNotStatic()" required vx-valid-ip="ipFamily">
+               <span class="help-inline"
+                     ng-show="showRequiredError(networkDataForm.netGateway)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+               </span>
+               <span class="help-inline"
+                     ng-show="showInvalidIpError(networkDataForm.netGateway)">
+                  {{vxWizard.localeMap["validationText.invalidIp"]}}
+               </span>
+            </div>
+         </div>
+         <div class="control-group"
+               ng-class="getControlGroupClass(networkDataForm.netDnsServers)">
+            <label class="control-label" for="netDnsServers">
+               {{vxWizard.localeMap["DeployVcsaNetworkPage.dnsServers"]}}
+            </label>
+            <div class="controls">
+               <input type="text" id="netDnsServers" name="netDnsServers"
+                     ng-model="vxWizard.wizardData.ovfOptions.networkData.dnsServerNames"
+                     ng-disabled="isNotStatic()" required>
+               <span class="help-inline"
+                     ng-show="showRequiredError(networkDataForm.netDnsServers)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+               </span>
+            </div>
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="control-label">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.configureTimeOnAppliance"]}}
+         </label>
+         <div class="controls">
+            <label class="radio">
+               <input type="radio" name="timeSyncType" value="tools"
+                     ng-model="vxWizard.wizardData.ovfOptions.networkData.timeSyncType">
+                  {{vxWizard.localeMap["DeployVcsaNetworkPage.timeSyncUsingVMwareTools"]}}
+            </label>
+            <label class="radio">
+               <input type="radio" name="timeSyncType" value="ntp"
+                     ng-model="vxWizard.wizardData.ovfOptions.networkData.timeSyncType">
+               {{vxWizard.localeMap["DeployVcsaNetworkPage.timeSyncUsingNTPServers"]}}
+            </label>
+            <input type="text" id="netNTPServers" name="netNTPServers" required ng-if="!isTypeTools()"
+                  style="margin-left:20px;" ng-class="getNTPClass()" ng-disabled="isTypeTools()"
+                  ng-model="vxWizard.wizardData.ovfOptions.networkData.ntpServerNames">
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="checkbox">
+            <input type="checkbox" ng-model="vxWizard.wizardData.ovfOptions.sshEnabled"
+               ng-true-value="true" ng-false-value="false">
+            {{vxWizard.localeMap["DeployVcsaNetworkPage.enableSsh"]}}
+         </label>
+      </div>
+   </form>
+   <form  name='portDataForm' class="form-horizontal"
+         ng-show="currentView === 'servicePorts'">
+      <div class="control-group disabled"
+            ng-repeat="(key,value) in portData">
+         <label class="control-label" for="{{key}}">
+            {{key}}
+         </label>
+         <div class="controls">
+            <input type="text" id="{{key}}" name="{{key}}"
+                  ng-model="value"
+                  ng-disabled="true">
+            <!--<span class="help-inline"
+                  ng-show="showInvalidPortError(portDataForm.httpPort)">
+               {{vxWizard.localeMap["validationText.invalidPort"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showUnavailablePortError(portDataForm.port)">
+               {{vxWizard.localeMap["validationText.unavailablePort"]}}
+            </span>-->
+         </div>
+      </div>
+
+   </form>
+</div>

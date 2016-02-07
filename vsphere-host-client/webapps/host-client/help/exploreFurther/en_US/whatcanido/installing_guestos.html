@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>Installing a Guest Operating System : vSphere Tutorial</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 38px;
+	top: 131px;
+	text-align: center;
+}
+#g_txt2 {
+	width: 155px;
+	position: absolute;
+	left: -10px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt3 {
+	width: 175px;
+	position: absolute;
+	left: 226px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt4 {
+	width: 108px;
+	position: absolute;
+	left: 371px;
+	top: 310px;
+	text-align: center;
+}
+#g_txt5 {
+	width: 78px;
+	position: absolute;
+	left: 30px;
+	top: 412px;
+	text-align: center;
+	cursor: default;
+}
+#g_txt6 {
+	width: 78px;
+	position: absolute;
+	left: 276px;
+	top: 412px;
+	text-align: center;
+	cursor: default;	
+}
+#g_txt7 {
+	width: 78px;
+	position: absolute;
+	left: 390px;
+	top: 330px;
+	text-align: center;
+	cursor: default;	
+}
+</style>
+<SCRIPT language="JavaScript">
+if (document.images)
+{
+	image_off= new Image(480,360);
+	image_off.src="../images/basic_install_setup.jpg";  
+	image2= new Image(480,360);
+	image2.src="../images/basic_install_client.jpg";
+	image3= new Image(480,360);
+	image3.src="../images/basic_install_host.jpg";  
+	image4= new Image(480,360);
+	image4.src="../images/basic_install_iso.jpg";
+}
+
+function change1(picName,imgName)
+{
+	if (document.images)
+	{
+		imgOn=eval(imgName + ".src");
+		document[picName].src= imgOn;
+	}
+}
+</SCRIPT>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">Home</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">Using vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">Creating a virtual machine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">Creating a new virtual machine</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br />Installing a guest operating system</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Print Page"></a>		
+  			<h2>Installing a guest operating system</h2>
+  			<p>A new virtual machine is like a physical computer with a blank hard disk. Before you can use it, you need to install an operating system. An operating system on a virtual machine is called a guest operating system.</p>
+  			<p>Installing a guest operating system on a virtual machine is essentially the same as installing it on a physical computer. You must have a CD-ROM or ISO image containing the installation files from an operating system vendor. As with physical computers, a separate operating system license is required for each installation.</p>
+  			<p>After you install a guest operating system, vCenter Server allows you to use the virtual machine, just as you would a physical computer, for tasks such as installing applications or managing power operations.</p>
+  		</div>
+		<div id="graphic"><img src="../images/basic_install_setup.jpg" width="480" height="360" border="0" usemap="#Map" name="installpic" />
+  			<div id="g_txt1">You can install the guest operating system from several different locations:</div>
+  			<div id="g_txt2">Client CD-ROM drive</div>
+  			<div id="g_txt3">Host CD-ROM drive</div>
+  			<div id="g_txt4">ISO image file</div>
+  			<div id="g_txt5" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">Show me</div>
+  			<div id="g_txt6" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">Show me</div>
+  			<div id="g_txt7" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">Show me</div>
+			<map name="Map">
+				<area shape="rect" coords="19,327,110,349" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="270,327,361,349" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="382,246,471,266" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">
+			</map>
+		</div>
+		<div id="next_hdr">What's Next:</div>
+		<div id="next"><a href="installation_steps.html">Step-by-step installation guide</a></div>
+	</div>
+</div>
+
+</body>
+</html>

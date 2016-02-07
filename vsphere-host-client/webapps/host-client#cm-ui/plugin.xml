@@ -1,0 +1,1279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="com.vmware.vsphere.client.cmui" moduleUri="CmModule.swf"
+   defaultBundle="CmUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/cm-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <export>
+      <!-- TODO
+      <class name=""/>
+      <class name=""/>
+      -->
+   </export>
+
+   <!-- # Extensions points # -->
+
+   <!-- Extension point for the tabs in the global System Configuration view. -->
+   <extensionPoint id="vsphere.core.cm.views">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- # Object Navigator integration # -->
+
+   <!-- Defines the link to 'System Configuration' under 'Administration' group in the Object Navigator. -->
+   <extension id="vsphere.core.navigator.cm">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{cm.title}</title>
+         <parentUid>vsphere.core.navigator.deploymentconfig</parentUid>
+         <navigationTargetUid>vsphere.core.cm.domainView</navigationTargetUid>
+         <viewOpenedUponFocus>
+            <className>com.vmware.ui.objectnavigator.views.RelatedItemsNodeView</className>
+            <object>
+               <root>
+                  <showRelationsFor>SystemConfigurationRelations</showRelationsFor> <!-- Same as in related items spec -->
+                  <allowNodeSelection>true</allowNodeSelection>
+               </root>
+            </object>
+         </viewOpenedUponFocus>
+      </object>
+      <metadata>
+         <requiredSsoGroup>ComponentManager.Administrators,Administrators</requiredSsoGroup>
+      </metadata>
+   </extension>
+
+   <!-- Defines the shortcut to 'System Configuration' under 'Administration' group in Home view. -->
+   <extension id="vsphere.core.controlcenter.cm">
+      <extendedPoint>vise.home.shortcuts</extendedPoint>
+      <precedingExtension>vsphere.core.controlcenter.roles</precedingExtension>
+      <object>
+         <name>#{cm.title}</name>
+         <categoryUid>vsphere.core.controlcenter.administrationCategory</categoryUid>
+         <icon>#{CmUiImages:scShortcut}</icon>
+         <targetViewUid>vsphere.core.cm.domainView</targetViewUid>
+      </object>
+      <metadata>
+         <requiredSsoGroup>ComponentManager.Administrators,Administrators</requiredSsoGroup>
+      </metadata>
+   </extension>
+
+   <!-- Add an extension to the relatedItems specs to denote the relations
+        from the 'System Configuration' node to the types 'Service',
+        'Service Group' and 'Server'. -->
+   <extension id="vsphere.core.cm.relateditems.specs.SystemConfigurationRelations">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <object>
+         <type>SystemConfigurationRelations</type>
+         <relationsViewId>vsphere.core.cm.domainView</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>Server</id>
+               <icon>#{CmUiImages:server}</icon>
+               <label>#{cm.servers}</label>
+               <listViewId>vsphere.core.cm.server.list</listViewId>
+               <targetType>cm:Server</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>Service</id>
+               <icon>#{CmUiImages:service}</icon>
+               <label>#{cm.services}</label>
+               <listViewId>vsphere.core.cm.service.list</listViewId>
+               <targetType>cm:Service</targetType>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+        </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- # System Configuration views # -->
+
+   <!-- The 'System Configuration' tabs container view -->
+   <extension id="vsphere.core.cm.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <hostedPoint>vsphere.core.cm.views</hostedPoint>
+      <object>
+         <name>#{cm.title}</name>
+         <icon>#{CmUiImages:server}</icon>
+         <componentClass className="com.vmware.ui.views.TabbedView"/>
+      </object>
+   </extension>
+
+   <!-- Extension pint for global view's 'Summary' tab portlets -->
+   <extensionPoint id="vsphere.core.cm.views.summarySectionViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The 'Summary' tab in the global view -->
+   <extension id="vsphere.core.cm.views.summaryView">
+      <extendedPoint>vsphere.core.cm.views</extendedPoint>
+      <hostedPoint>vsphere.core.cm.views.summarySectionViews</hostedPoint>
+      <object>
+         <name>#{inventory:summaryTabLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SummaryView</className>
+            <object>
+               <root>
+                  <headerComponentSpec className="com.vmware.vsphere.client.views.cm.summary.CmSummaryView"/>
+                  <issuesViewExtensionId>vsphere.core.cm.views.monitor.issues</issuesViewExtensionId>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Global Summary - Server Health -->
+   <extension id="vsphere.core.cm.summary.serverHealth">
+      <extendedPoint>vsphere.core.cm.views.summarySectionViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{cm.summary.section.serverHealth.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.summary.GlobalServerHealthView"/>
+      </object>
+   </extension>
+
+   <!-- Global Summary - Service Health -->
+   <extension id="vsphere.core.cm.summary.serviceHealth">
+      <extendedPoint>vsphere.core.cm.views.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.summary.serverHealth</precedingExtension>
+      <object>
+         <name>#{cm.summary.section.serviceHealth.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.summary.GlobalServiceHealthView"/>
+      </object>
+   </extension>
+
+   <!-- The 'Objects' tab in the global view -->
+   <extension id="vsphere.core.cm.itemsView">
+      <extendedPoint>vsphere.core.cm.views</extendedPoint>
+      <precedingExtension>vsphere.core.cm.summary</precedingExtension>
+      <object>
+         <name>#{inventory:itemsTabLabel}</name>
+         <componentClass className="com.vmware.vsphere.client.views.RelatedItemsView">
+            <object>
+               <root>
+                  <showRelationsFor>SystemConfigurationRelations</showRelationsFor> <!-- Same as in related items spec -->
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- # Column definitions # -->
+
+   <!--'Server' columns extension -->
+   <extension id="vsphere.core.cm.server.defaultColumns">
+       <extendedPoint>vsphere.core.cm.server.list.columns</extendedPoint>
+      <object type="com.vmware.vsphere.client.views.cm.lists.ServerColumnContainer"/>
+   </extension>
+
+   <!--Core facets defined for servers lists -->
+   <extension id="vsphere.core.cm.server.facets">
+      <extendedPoint>vsphere.core.cm.server.list.facets</extendedPoint>
+      <object type="com.vmware.ui.facets.FacetSetSpec">
+         <facets>
+            <Array>
+               <com.vmware.core.specs.ObjectSpec>
+                  <className>com.vmware.ui.facets.model.StaticValueSelectionFacet</className>
+                  <object>
+                     <root>
+                        <label>#{cm.health.column}</label>
+                        <facetValues>
+                           <Array>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.critical}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>systemHealth</property>
+                                 <value>critical</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.warning}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>systemHealth</property>
+                                 <value>warning</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.property.value.unknown}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>systemHealth</property>
+                                 <value>unknown</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.good}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>systemHealth</property>
+                                 <value>good</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.unsupported}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>systemHealth</property>
+                                 <value>unsupported</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                           </Array>
+                        </facetValues>
+                     </root>
+                  </object>
+               </com.vmware.core.specs.ObjectSpec>
+               <com.vmware.core.specs.ObjectSpec>
+                  <className>com.vmware.ui.facets.model.StaticValueSelectionFacet</className>
+                  <object>
+                     <root>
+                        <label>#{cm.deploymentType.column}</label>
+                        <facetValues>
+                           <Array>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.server.deploymentType.embedded}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>deploymentType</property>
+                                 <value>embedded</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.server.deploymentType.infrastructure}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>deploymentType</property>
+                                 <value>infrastructure</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.server.deploymentType.management}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>deploymentType</property>
+                                 <value>management</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.property.value.unknown}</label>
+                                 <targetType>cm:Server</targetType>
+                                 <property>deploymentType</property>
+                                 <value>unknown</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                           </Array>
+                        </facetValues>
+                     </root>
+                  </object>
+               </com.vmware.core.specs.ObjectSpec>
+            </Array>
+         </facets>
+      </object>
+   </extension>
+
+   <!--'Service' columns extension -->
+   <extension id="vsphere.core.cm.service.defaultColumns">
+       <extendedPoint>vsphere.core.cm.service.list.columns</extendedPoint>
+      <object type="com.vmware.vsphere.client.views.cm.lists.ServiceColumnContainer"/>
+   </extension>
+
+   <!--Core facets defined for services lists -->
+   <extension id="vsphere.core.cm.service.facets">
+      <extendedPoint>vsphere.core.cm.service.list.facets</extendedPoint>
+      <object type="com.vmware.ui.facets.FacetSetSpec">
+         <facets>
+            <Array>
+               <com.vmware.core.specs.ObjectSpec>
+                  <className>com.vmware.ui.facets.model.StaticValueSelectionFacet</className>
+                  <object>
+                     <root>
+                        <label>#{cm.health.column}</label>
+                        <facetValues>
+                           <Array>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.critical}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>health</property>
+                                 <value>critical</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.warning}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>health</property>
+                                 <value>warning</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.property.value.unknown}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>health</property>
+                                 <value>unknown</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.good}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>health</property>
+                                 <value>good</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.commonHealthStatus.unsupported}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>health</property>
+                                 <value>unsupported</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                           </Array>
+                        </facetValues>
+                     </root>
+                  </object>
+               </com.vmware.core.specs.ObjectSpec>
+               <com.vmware.core.specs.ObjectSpec>
+                  <className>com.vmware.ui.facets.model.StaticValueSelectionFacet</className>
+                  <object>
+                     <root>
+                        <label>#{cm.status.column}</label>
+                        <facetValues>
+                           <Array>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.service.status.running}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>status</property>
+                                 <value>running</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.service.status.stoppedNormal}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>status</property>
+                                 <value>stoppedNormal</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.service.status.stoppedAbnormal}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>status</property>
+                                 <value>stoppedAbnormal</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                              <com.vmware.ui.facets.model.FacetValue>
+                                 <label>#{cm.property.value.unknown}</label>
+                                 <targetType>cm:Service</targetType>
+                                 <property>status</property>
+                                 <value>unknown</value>
+                              </com.vmware.ui.facets.model.FacetValue>
+                           </Array>
+                        </facetValues>
+                     </root>
+                  </object>
+               </com.vmware.core.specs.ObjectSpec>
+            </Array>
+         </facets>
+      </object>
+   </extension>
+
+   <!-- # Icon/Label definitions for the supported types # -->
+
+   <!-- Icon provider for cm:Server type -->
+   <extension id="vsphere.core.iconLabelSpecCollection.server">
+      <extendedPoint>vise.inventory.representationspecs</extendedPoint>
+      <object>
+         <objectType>cm:Server</objectType>
+         <specCollection>
+            <com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+               <iconId>#{CmUiImages:server}</iconId>
+            </com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+         </specCollection>
+      </object>
+   </extension>
+
+   <!-- Icon provider for cm:Service type -->
+   <extension id="vsphere.core.iconLabelSpecCollection.service">
+      <extendedPoint>vise.inventory.representationspecs</extendedPoint>
+      <object>
+         <objectType>cm:Service</objectType>
+         <specCollection>
+            <com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+               <iconId>#{CmUiImages:service}</iconId>
+            </com.vmware.ui.objectrepresentation.model.IconLabelSpec>
+         </specCollection>
+      </object>
+   </extension>
+
+   <!-- # Server/Service object types used for advanced search # -->
+
+   <!-- cm:Server type definition -->
+   <extension id="vsphere.core.cm.server.type">
+      <extendedPoint>vsphere.core.objectTypes</extendedPoint>
+      <object>
+         <types>
+            <String>cm:Server</String>
+         </types>
+         <label>#{cm.server}</label>
+         <labelPlural>#{cm.servers}</labelPlural>
+         <icon>#{CmUiImages:server}</icon>
+         <listViewId>vsphere.core.cm.server.list</listViewId>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- cm:Service type definition -->
+   <extension id="vsphere.core.cm.service.type">
+      <extendedPoint>vsphere.core.objectTypes</extendedPoint>
+      <object>
+         <types>
+            <String>cm:Service</String>
+         </types>
+         <label>#{cm.service}</label>
+         <labelPlural>#{cm.services}</labelPlural>
+         <icon>#{CmUiImages:service}</icon>
+         <listViewId>vsphere.core.cm.service.list</listViewId>
+      </object>
+      <metadata>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- # 'Service' views # -->
+
+   <!-- Template instance for the inventory extension for 'Service' objects -->
+   <templateInstance id="vsphere.core.inventory.service.objectViewTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+      <variable name="namespace" value="vsphere.core.cm.service"/>
+      <variable name="objectType" value="cm:Service"/>
+
+      <excludedExtension>vsphere.core.cm.service.related</excludedExtension>
+   </templateInstance>
+
+   <!--Priority group for the global Services list columns -->
+   <extension id="vsphere.core.cm.service.prioritygroup.columns.global">
+      <extendedPoint>vmware.prioritization.columns</extendedPoint>
+      <object>
+         <prioritizedIds>
+            <String>com.vmware.cm.service.name.column</String>
+            <String>com.vmware.cm.service.health.column</String>
+            <String>com.vmware.cm.service.status.column</String>
+            <String>com.vmware.cm.service.server.column</String>
+         </prioritizedIds>
+         <columnSetExtensionPointId>vsphere.core.cm.service.list.columns</columnSetExtensionPointId>
+      </object>
+   </extension>
+
+   <!-- Template instance for the 'Summary' tab in the 'Service' inventory view -->
+   <templateInstance id="vsphere.core.cm.service.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+      <variable name="namespace" value="vsphere.core.cm.service"/>
+      <variable name="summaryHeaderView" value="com.vmware.vsphere.client.views.cm.service.summary.ServiceSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Actions portlet in Service -> Summary tab -->
+   <extension id="vsphere.core.cm.service.summary.actionsView">
+      <extendedPoint>vsphere.core.cm.service.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{cm.summary.sections.actions.title}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.ActionsView</className>
+            <object>
+               <root>
+                  <actionGroups>
+                     <com.vmware.vsphere.client.model.ActionGroup>
+                        <actions>
+                           <com.vmware.vsphere.client.model.ActionItem>
+                              <actionId>vsphere.core.cm.service.restartAction</actionId>
+                           </com.vmware.vsphere.client.model.ActionItem>
+                           <com.vmware.vsphere.client.model.ActionItem>
+                              <actionId>vsphere.core.cm.service.startAction</actionId>
+                           </com.vmware.vsphere.client.model.ActionItem>
+                           <com.vmware.vsphere.client.model.ActionItem>
+                              <actionId>vsphere.core.cm.service.stopAction</actionId>
+                           </com.vmware.vsphere.client.model.ActionItem>
+                        </actions>
+                     </com.vmware.vsphere.client.model.ActionGroup>
+                  </actionGroups>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Health messages portlet in Service -> Summary tab. -->
+   <extension id="vsphere.core.cm.service.summary.healthMessages">
+      <extendedPoint>vsphere.core.cm.service.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.service.summary.actionsView</precedingExtension>
+      <object>
+         <name>#{cm.summary.healthMessages.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.service.summary.HealthMessagesView"/>
+      </object>
+   </extension>
+
+   <!-- Related objects portlet in Service -> Summary tab. -->
+   <extension id="vsphere.core.cm.service.summary.relatedObjects">
+      <extendedPoint>vsphere.core.cm.service.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.service.summary.healthMessages</precedingExtension>
+      <object>
+         <name>#{Common:relatedObjects.portletLabel}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.related.RelatedObjectsView</className>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Service Configuration UI in Service > Manage > Settings -->
+   <extension id="vsphere.core.cm.service.manage.settings.scmconfig">
+      <extendedPoint>vsphere.core.cm.service.manage.settingsViews</extendedPoint>
+      <object>
+         <name>#{cm.service.manage.settings.label}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.service.manage.ServiceSettingsView"/>
+      </object>
+      <metadata>
+         <objectType>cm:Service</objectType>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>configurationRegistered</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Actions set for Service -->
+   <extension id="vsphere.core.cm.service.serviceActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.cmActionCategory</category>
+         <actions>
+            <!-- Restart service action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.service.restartAction</uid>
+               <label>#{cm.service.restart.action.title}</label>
+               <description>#{cm.service.restart.action.description}</description>
+               <icon>#{CmUiImages:serviceRestart}</icon>
+               <invokeEvent>serviceRestartRequest</invokeEvent>
+               <conditionalProperty>isRestartable</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+            <!-- Start service action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.service.startAction</uid>
+               <label>#{cm.service.start.action.title}</label>
+               <description>#{cm.service.start.action.description}</description>
+               <icon>#{CmUiImages:serviceStart}</icon>
+               <invokeEvent>serviceStartRequest</invokeEvent>
+               <conditionalProperty>isStartable</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+            <!-- Stop service action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.service.stopAction</uid>
+               <label>#{cm.service.stop.action.title}</label>
+               <description>#{cm.service.stop.action.description}</description>
+               <icon>#{CmUiImages:serviceStop}</icon>
+               <invokeEvent>serviceStopRequest</invokeEvent>
+               <conditionalProperty>isStoppable</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+            <!-- Navigate to Service > Manage > Settings Action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.service.navigateToSettings</uid>
+               <label>#{cm.service.manage.settings.label}</label>
+               <description>#{cm.service.manage.settings.description}</description>
+               <icon>#{CommonImages:defaultEdit}</icon>
+               <delegate>
+                  <className>com.vmware.ui.delegate.NavigateToSettingsActionDelegate</className>
+                  <object>
+                     <root>
+                        <targetExtensionId>vsphere.core.cm.service.manage.settings</targetExtensionId>
+                     </root>
+                  </object>
+               </delegate>
+               <conditionalProperty>configurationRegistered</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+            <!-- Edit service settings action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <!-- The UID matches ServiceSettingsEditResolver.DEFAULT_EDIT_ACTION_UID -->
+               <uid>vsphere.core.cm.service.editSettingsAction</uid>
+               <label>#{cm.service.settings.editButton.label}</label>
+               <description>#{cm.service.settings.editButton.description}</description>
+               <delegate className="com.vmware.vsphere.client.actions.service.ServiceSettingsEditResolver"/>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>cm:Service</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action menu for objects of type cm:Service -->
+   <extension id="vsphere.core.cm.service.menu">
+      <extendedPoint>vise.actions.menus</extendedPoint>
+      <object>
+         <!-- Restart -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.service.restartAction</uid>
+            <label>#{cm.service.restart.action.title}</label>
+            <icon>#{CmUiImages:serviceRestart}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Start -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.service.startAction</uid>
+            <label>#{cm.service.start.action.title}</label>
+            <icon>#{CmUiImages:serviceStart}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Stop -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.service.stopAction</uid>
+            <label>#{cm.service.stop.action.title}</label>
+            <icon>#{CmUiImages:serviceStop}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>separator</type>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Service Settings -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.service.navigateToSettings</uid>
+            <label>#{cm.service.manage.settings.label}</label>
+            <icon>#{CommonImages:defaultEdit}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+      </object>
+      <metadata>
+         <objectType>cm:Service</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Server relation spec for the Related objects portlet of services -->
+   <extension id="vsphere.core.cm.service.relatedObjects.specs.serverForService">
+      <extendedPoint>vsphere.relatedobjects.summary.specs</extendedPoint>
+      <object>
+         <com.vmware.ui.relateditems.model.RelationSpec>
+            <id>serverForService</id>
+            <icon>#{CmUiImages:server}</icon>
+            <label>#{cm.service.summary.header.server.label}</label>
+            <listViewId>vsphere.core.cm.service.summary.relatedObjects</listViewId>
+            <relation>server</relation>
+            <targetType>cm:Server</targetType>
+         </com.vmware.ui.relateditems.model.RelationSpec>
+      </object>
+      <metadata>
+         <objectType>cm:Service</objectType>
+      </metadata>
+   </extension>
+
+   <!-- # 'Server' views # -->
+
+   <!-- Template instance for the inventory extension for 'Server' objects -->
+   <templateInstance id="vsphere.core.inventory.server.objectViewTemplateInstance">
+      <templateId>vsphere.core.inventory.objectViewTemplate</templateId>
+      <variable name="namespace" value="vsphere.core.cm.server"/>
+      <variable name="objectType" value="cm:Server"/>
+
+      <!-- exclude the inherited Settings view because we will redefine it with a categorized toc view. -->
+      <excludedExtension>vsphere.core.cm.server.manage.settings</excludedExtension>
+   </templateInstance>
+
+   <!-- Template instance for the 'Summary' tab in the 'Server' inventory view -->
+   <templateInstance id="vsphere.core.cm.server.summaryViewTemplateInstance">
+      <templateId>vsphere.core.inventory.summaryViewTemplate</templateId>
+      <variable name="namespace" value="vsphere.core.cm.server"/>
+      <variable name="summaryHeaderView" value="com.vmware.vsphere.client.views.cm.servers.summary.ServerSummaryHeaderView"/>
+   </templateInstance>
+
+   <!-- Server settings categories extension point. -->
+   <extensionPoint id="vsphere.core.cm.server.settingsCategories">
+      <objectType class="com.vmware.common.CategorySpec"/>
+   </extensionPoint>
+
+   <!-- Common settings category -->
+   <extension id="vsphere.core.cm.server.commonSettingsCategory">
+      <extendedPoint>vsphere.core.cm.server.settingsCategories</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <label>#{cm.server.manage.settings.category.common}</label>
+      </object>
+   </extension>
+
+   <!-- Advanced settings category -->
+   <extension id="vsphere.core.cm.server.advancedSettingsCategory">
+      <extendedPoint>vsphere.core.cm.server.settingsCategories</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.commonSettingsCategory</precedingExtension>
+      <object>
+         <label>#{cm.server.manage.settings.category.advanced}</label>
+      </object>
+   </extension>
+
+   <!-- Services list for Server related objects -->
+   <extension id="vsphere.core.cm.server.relatedItems.services">
+      <extendedPoint>vise.inventory.lists</extendedPoint>
+      <hostedPoint>vsphere.core.cm.service.list.columns</hostedPoint>
+      <hostedPoint>vsphere.core.cm.service.list.facets</hostedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.ui.lists.ListView</className>
+      </componentClass>
+      </object>
+   </extension>
+
+   <!--Priority group for services list for Server related objects -->
+   <extension id="vsphere.core.cm.server.relatedItems.services.columns">
+      <extendedPoint>vmware.prioritization.columns</extendedPoint>
+      <object>
+         <prioritizedIds>
+            <String>com.vmware.cm.service.name.column</String>
+            <String>com.vmware.cm.service.health.column</String>
+            <String>com.vmware.cm.service.status.column</String>
+         </prioritizedIds>
+         <regionId>vsphere.core.cm.server.relatedItems.services</regionId>
+         <columnSetExtensionPointId>vsphere.core.cm.service.list.columns</columnSetExtensionPointId>
+      </object>
+   </extension>
+
+   <!-- Actions portlet in Server -> Summary tab -->
+   <extension id="vsphere.core.cm.server.summary.actionsView">
+      <extendedPoint>vsphere.core.cm.server.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{cm.summary.sections.actions.title}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.ActionsView</className>
+            <object>
+               <root>
+                  <actionGroups>
+                     <com.vmware.vsphere.client.model.ActionGroup>
+                        <actions>
+                           <com.vmware.vsphere.client.model.ActionItem>
+                              <actionId>vsphere.core.cm.server.restartAction</actionId>
+                           </com.vmware.vsphere.client.model.ActionItem>
+                           <com.vmware.vsphere.client.model.ActionItem>
+                              <actionId>vsphere.core.cm.server.stopAction</actionId>
+                           </com.vmware.vsphere.client.model.ActionItem>
+                        </actions>
+                     </com.vmware.vsphere.client.model.ActionGroup>
+                  </actionGroups>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server Summary - Service Health -->
+   <extension id="vsphere.core.cm.server.summary.servicesHealth">
+      <extendedPoint>vsphere.core.cm.server.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.summary.actionsView</precedingExtension>
+      <object>
+         <name>#{cm.summary.section.serviceHealth.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.servers.summary.ServerServiceHealthView"/>
+      </object>
+   </extension>
+
+   <!-- Health messages portlet in Server -> Summary tab. -->
+   <extension id="vsphere.core.cm.server.summary.healthMessages">
+      <extendedPoint>vsphere.core.cm.server.summarySectionViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.summary.servicesHealth</precedingExtension>
+      <object>
+         <name>#{cm.summary.healthMessages.title}</name>
+         <componentClass className="com.vmware.vsphere.client.views.cm.service.summary.HealthMessagesView"/>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Monitor tab for Server object. -->
+   <!-- Append all custom views at the end of the default Monitor tabs -->
+
+   <!-- Server > Monitor > Networking -->
+   <extension id="vsphere.core.cm.server.monitor.networkingStatusView">
+      <extendedPoint>vsphere.core.cm.server.monitorViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.monitor.events</precedingExtension>
+      <object>
+         <name>#{cm.server.monitor.net.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.monitor.NetworkingView"/>
+                  <label>#{cm.server.monitor.net.view.title}</label>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Monitor > Storage -->
+   <extension id="vsphere.core.cm.server.monitor.storageStatusView">
+      <extendedPoint>vsphere.core.cm.server.monitorViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.monitor.networkingStatusView</precedingExtension>
+      <object>
+         <name>#{cm.server.monitor.storage.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.monitor.StorageView"/>
+                  <label>#{cm.server.monitor.storage.view.title}</label>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Monitor > Memory -->
+   <extension id="vsphere.core.cm.server.monitor.memoryStatusView">
+      <extendedPoint>vsphere.core.cm.server.monitorViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.monitor.storageStatusView</precedingExtension>
+      <object>
+         <name>#{cm.server.monitor.memory.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.monitor.MemoryView"/>
+                  <label>#{cm.server.monitor.memory.view.title}</label>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Monitor > CPU -->
+   <extension id="vsphere.core.cm.server.monitor.cpuStatusView">
+      <extendedPoint>vsphere.core.cm.server.monitorViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.monitor.memoryStatusView</precedingExtension>
+      <object>
+         <name>#{cm.server.monitor.cpu.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.monitor.CpuView"/>
+                  <label>#{cm.server.monitor.percentCpuTime.label}</label>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server -> Manage -> Settings tab -->
+   <extension id="vsphere.core.cm.server.manage.settings">
+      <extendedPoint>vsphere.core.cm.server.manageViews</extendedPoint>
+      <hostedPoint>vsphere.core.cm.server.manage.settingsViews</hostedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{inventory:settingsTabLabel}</name>
+         <componentClass className="com.vmware.ui.views.TocView">
+            <object>
+               <root>
+                  <categoriesExtensionPointId>vsphere.core.cm.server.settingsCategories</categoriesExtensionPointId>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Server > Manage > Settings > Access -->
+   <extension id="vsphere.core.cm.server.manage.settings.accessView">
+      <extendedPoint>vsphere.core.cm.server.manage.settingsViews</extendedPoint>
+      <precedingExtension>NULL</precedingExtension>
+      <object>
+         <name>#{cm.server.manage.settings.access.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.manage.settings.AccessView"/>
+                  <label>#{cm.server.manage.settings.access.label}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.core.cm.server.editSettingsAction</actionId>
+                        <customLabel>USE_DEFAULT_EDIT</customLabel>
+                        <invocationArgumentProvider>serverData</invocationArgumentProvider>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+         <categoryUid>vsphere.core.cm.server.commonSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Manage > Settings > Networking -->
+   <extension id="vsphere.core.cm.server.manage.settings.networkingView">
+      <extendedPoint>vsphere.core.cm.server.manage.settingsViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.manage.settings.accessView</precedingExtension>
+      <object>
+         <name>#{cm.server.manage.settings.networking.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.manage.settings.NetworkingView"/>
+                  <label>#{cm.server.manage.settings.networking.label}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.core.cm.server.editSettingsAction</actionId>
+                        <customLabel>USE_DEFAULT_EDIT</customLabel>
+                        <invocationArgumentProvider>serverData</invocationArgumentProvider>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+         <categoryUid>vsphere.core.cm.server.commonSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Manage > Settings > Firewall -->
+   <extension id="vsphere.core.cm.server.manage.settings.firewallView">
+      <extendedPoint>vsphere.core.cm.server.manage.settingsViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.manage.settings.networkingView</precedingExtension>
+      <object>
+         <name>#{cm.server.manage.settings.firewall.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.manage.settings.FirewallView"/>
+                  <label>#{cm.server.manage.settings.firewall.label}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.core.cm.server.editSettingsAction</actionId>
+                        <customLabel>USE_DEFAULT_EDIT</customLabel>
+                        <invocationArgumentProvider>serverData</invocationArgumentProvider>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+         <categoryUid>vsphere.core.cm.server.advancedSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isApplianceManaged</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>AND</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server > Manage > Settings > Active Directory -->
+   <extension id="vsphere.core.cm.server.manage.settings.activeDirectory">
+      <extendedPoint>vsphere.core.cm.server.manage.settingsViews</extendedPoint>
+      <precedingExtension>vsphere.core.cm.server.manage.settings.firewallView</precedingExtension>
+      <object>
+         <name>#{cm.server.manage.settings.activeDirectory.label}</name>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.SettingsView</className>
+            <object>
+               <root>
+                  <settingsComponentInfo className="com.vmware.vsphere.client.views.cm.servers.manage.settings.ActiveDirectoryView"/>
+                  <label>#{cm.server.manage.settings.activeDirectory.label}</label>
+                  <actions>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.core.cm.server.joinActiveDirectoryAction</actionId>
+                        <customLabel>#{cm.server.activeDirectory.action.join.label}</customLabel>
+                        <invocationArgumentProvider>serverData</invocationArgumentProvider>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                     <com.vmware.vsphere.client.views.SettingsActionInfo>
+                        <actionId>vsphere.core.cm.server.leaveActiveDirectoryAction</actionId>
+                        <customLabel>#{cm.server.activeDirectory.action.leave.label}</customLabel>
+                        <invocationArgumentProvider>serverData</invocationArgumentProvider>
+                     </com.vmware.vsphere.client.views.SettingsActionInfo>
+                  </actions>
+               </root>
+            </object>
+         </componentClass>
+         <categoryUid>vsphere.core.cm.server.advancedSettingsCategory</categoryUid>
+      </object>
+      <metadata>
+         <propertyConditions>
+            <com.vmware.data.query.CompositeConstraint>
+               <nestedConstraints>
+                  <com.vmware.data.query.PropertyConstraint>
+                     <propertyName>isDomainController</propertyName>
+                     <comparator>EQUALS</comparator>
+                     <comparableValue>
+                        <Boolean>true</Boolean>
+                     </comparableValue>
+                  </com.vmware.data.query.PropertyConstraint>
+               </nestedConstraints>
+               <conjoiner>OR</conjoiner>
+            </com.vmware.data.query.CompositeConstraint>
+         </propertyConditions>
+      </metadata>
+   </extension>
+
+   <!-- Server Relation specs / Related Objects -->
+   <extension id="vsphere.core.relateditems.specs.cm.server">
+      <extendedPoint>vise.relateditems.specs</extendedPoint>
+      <object>
+         <type>cm:Server</type>
+         <relationsViewId>vsphere.core.cm.server.related</relationsViewId>
+         <relationSpecs>
+            <com.vmware.ui.relateditems.model.RelationSpec>
+               <id>servicesRelatedObjectsPerServer</id>
+               <icon>#{CmUiImages:service}</icon>
+               <label>#{cm.services}</label>
+               <listViewId>vsphere.core.cm.server.relatedItems.services</listViewId>
+               <targetType>cm:Service</targetType>
+               <relation>services</relation>
+            </com.vmware.ui.relateditems.model.RelationSpec>
+         </relationSpecs>
+      </object>
+   </extension>
+
+   <!-- Action set for actions that are supported only on server nodes which are appliance managed -->
+   <extension id="vsphere.core.cm.server.cloudVmServerActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.cmActionCategory</category>
+         <actions>
+            <!-- Restart server action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.restartAction</uid>
+               <label>#{cm.server.restart.action}</label>
+               <icon>#{CmUiImages:serverRestart}</icon>
+               <invokeEvent>serverRestartRequest</invokeEvent>
+               <conditionalProperty>isApplianceManaged</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Stop server action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.stopAction</uid>
+               <label>#{cm.server.stop.action}</label>
+               <icon>#{CmUiImages:serverStop}</icon>
+               <invokeEvent>serverStopRequest</invokeEvent>
+               <conditionalProperty>isApplianceManaged</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Edit settings action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.editSettingsAction</uid>
+               <label>#{cm.server.edit.action}</label>
+               <icon>#{CommonImages:defaultEdit}</icon>
+               <invokeEvent>serverEditRequest</invokeEvent>
+               <conditionalProperty>isApplianceManaged</conditionalProperty>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>cm:Server</objectType>
+      </metadata>
+   </extension>
+
+   <!-- The specific Join/Leave AD set of actions on a node -->
+   <extension id="vsphere.core.cm.server.serverJoinLeaveAdActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <category>vsphere.core.cmActionCategory</category>
+         <actions>
+            <!-- Join AD action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.joinActiveDirectoryAction</uid>
+               <label>#{cm.server.activeDirectory.action.join.label}</label>
+               <invokeEvent>joinActiveDirectoryRequest</invokeEvent>
+               <conditionalProperty>!activeDirectoryJoined</conditionalProperty>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+            <!-- Leave AD action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.leaveActiveDirectoryAction</uid>
+               <label>#{cm.server.activeDirectory.action.leave.label}</label>
+               <invokeEvent>leaveActiveDirectoryRequest</invokeEvent>
+               <conditionalProperty>activeDirectoryJoined</conditionalProperty>
+               <privateAction>true</privateAction>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>cm:Server</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Common actions set for Server -->
+   <extension id="vsphere.core.cm.server.serverActionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <actions>
+            <!-- Export support bundle action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>vsphere.core.cm.server.exportLogs</uid>
+               <label>#{cm.server.exportLogs.action}</label>
+               <icon>#{CmUiImages:exportLogs}</icon>
+               <invokeEvent>serverExportLogsRequest</invokeEvent>
+               <category>vsphere.core.cmActionCategory</category>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>cm:Server</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Action menu for objects of type cm:Server -->
+   <extension id="vsphere.core.cm.server.menu">
+      <extendedPoint>vise.actions.menus</extendedPoint>
+      <object>
+         <!-- Restart -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.server.restartAction</uid>
+            <label>#{cm.server.restart.action}</label>
+            <icon>#{CmUiImages:serverRestart}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Stop -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.server.stopAction</uid>
+            <label>#{cm.server.stop.action}</label>
+            <icon>#{CmUiImages:serverStop}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>separator</type>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Edit Settings -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.server.editSettingsAction</uid>
+            <label>#{cm.server.edit.action}</label>
+            <icon>#{CommonImages:defaultEdit}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>separator</type>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+         <!-- Export Support Bundle -->
+         <com.vmware.actionsfw.ActionMenuItemSpec>
+            <type>action</type>
+            <uid>vsphere.core.cm.server.exportLogs</uid>
+            <label>#{cm.server.exportLogs.action}</label>
+            <icon>#{CmUiImages:exportLogs}</icon>
+         </com.vmware.actionsfw.ActionMenuItemSpec>
+      </object>
+      <metadata>
+         <objectType>cm:Server</objectType>
+      </metadata>
+   </extension>
+</plugin>

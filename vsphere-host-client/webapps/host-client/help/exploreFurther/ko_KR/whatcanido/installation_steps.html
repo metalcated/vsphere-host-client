@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>단계별 설치 가이드: vSphere 자습서</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 40px; /* was 25px */
+	top: 68px; /* 38px */
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">홈</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">vSphere 사용</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">가상 시스템 생성</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">새 가상 시스템 생성</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br /><a href="installing_guestos.html">게스트 운영 체제 설치</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;단계별 설치 가이드</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper00">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="페이지 인쇄"></a>		
+  			<h2>단계별 설치 가이드</h2>
+  			<p><strong>게스트 운영 체제를 설치하려면:</strong></p>
+  			<ol>
+    			<li>브라우저에 VMware 클라이언트 통합 플러그인이 설치되어 있는지 확인합니다.</li>
+				<li>인벤토리에서 가상 시스템을 선택합니다.</li>
+    			<li><strong>작업 &gt; 설정 편집</strong>을 선택해 VM 편집 대화상자를 엽니다.</li>
+    			<li><strong>가상 하드웨어</strong> 탭에서 운영 체제 CD를 삽입할 CD/DVD 드라이브를 클릭합니다.</li>
+    			<li>오른쪽 창의 디바이스 유형 아래에서 운영 체제 CD/DVD-ROM 또는 ISO 이미지 파일의 위치를 선택합니다.</li>
+    			<li><strong>데이터스토어 ISO 파일</strong>을 선택한 경우에는 ISO 파일을 찾아 선택합니다. 데이터스토어 ISO 파일 및 호스트 디바이스 옵션 모두에 대해 <strong>전원을 켤 때 연결</strong> 확인란을 선택합니다.</li>
+    			<li><strong>확인</strong>을 클릭합니다.</li>
+        		<li>구체적인 설치 지침을 보려면 아래에 있는 다음 링크 중 하나를 클릭합니다.<br /> &nbsp;
+        		<ul id="stepbysteplist">
+          			<li><a href="installation_clientcdrom.html">클라이언트 CD-ROM 드라이브</a></li>
+          			<li><a href="installation_clientcdrom.html"></a><a href="installation_hostcdrom.html">호스트 CD-ROM 드라이브</a></li>
+          			<li><a href="installation_clientcdrom.html"></a><a href="installation_iso.html">ISO 이미지 파일</a></li>
+        		</ul>
+    		</li>
+      	</ol>
+		</div>
+		<div id="graphic"><img src="../images/gos_step_by_step.png" width="480" height="360" alt="가상 시스템 설정 하드웨어 탭">
+	  		<div id="g_txt1">VM 가상 하드웨어 편집 탭</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

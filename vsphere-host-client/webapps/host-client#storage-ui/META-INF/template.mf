@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.storageui
+Bundle-Version: ${version}
+Bundle-Name: datastoreui
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/storage-ui

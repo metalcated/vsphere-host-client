@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.opsmgmt.client.eventui"
+   moduleUri="EventModule.swf"
+   defaultBundle="EventUi">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/event-ui-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <dependencies>
+      <dependency type="module" uri="../opsmgmt-rsls/OpsMgmtRslsModule.swf"/>
+   </dependencies>
+
+   <!-- The extension point for the related events. -->
+   <extensionPoint id="vsphere.opsmgmt.event.relatedEventsViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- Object Navigator extension into the statistics category under manage and monitor -->
+   <extension id="vsphere.core.navigator.events">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{navigator.events}</title>
+         <icon>#{EventUiImages:eventConsoleIcon}</icon>
+         <parentUid>vsphere.core.navigator.statisticsCategory</parentUid>
+         <navigationTargetUid>vsphere.opsmgmt.events.domainView</navigationTargetUid>
+      </object>
+   </extension>
+
+   <!-- The Event console domain view -->
+   <extension id="vsphere.opsmgmt.events.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <name>#{eventConsole}</name>
+         <icon>#{EventUiImages:eventConsoleIcon}></icon>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Control center - Event Console shortcut -->
+   <extension id="vsphere.core.controlcenter.events">
+      <extendedPoint>vise.home.shortcuts</extendedPoint>
+      <precedingExtension>vsphere.core.controlcenter.tasks</precedingExtension>
+      <object>
+         <name>#{eventConsole}</name>
+         <categoryUid>vsphere.core.controlcenter.monitoringCategory</categoryUid>
+         <icon>#{EventUiImages:eventConsoleShortcut}</icon>
+         <targetViewUid>vsphere.opsmgmt.events.domainView</targetViewUid>
+      </object>
+   </extension>
+
+   <!-- Folder events view -->
+   <extension id="vsphere.opsmgmt.event.folder.eventView">
+      <extendedPoint>vsphere.core.folder.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Datacenter events view -->
+   <extension id="vsphere.opsmgmt.event.datacenter.eventView">
+      <extendedPoint>vsphere.core.datacenter.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Cluster events view -->
+   <extension id="vsphere.opsmgmt.event.cluster.eventView">
+      <extendedPoint>vsphere.core.cluster.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Host events view -->
+   <extension id="vsphere.opsmgmt.event.host.eventView">
+      <extendedPoint>vsphere.core.host.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- VApp events view -->
+   <extension id="vsphere.opsmgmt.event.vApp.eventView">
+      <extendedPoint>vsphere.core.vApp.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- VM events view -->
+   <extension id="vsphere.opsmgmt.event.vm.eventView">
+      <extendedPoint>vsphere.core.vm.monitor.eventsViews</extendedPoint>
+      <extendedPoint>vsphere.core.template.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Datastore events view -->
+   <extension id="vsphere.opsmgmt.event.datastore.eventView">
+      <extendedPoint>vsphere.core.datastore.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- Network events view -->
+   <extension id="vsphere.opsmgmt.event.network.eventView">
+      <extendedPoint>vsphere.core.network.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- OpaqueNetwork events view -->
+   <extension id="vsphere.opsmgmt.event.opaqueNetwork.eventView">
+      <extendedPoint>vsphere.core.opaqueNetwork.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- DVS events view -->
+   <extension id="vsphere.opsmgmt.event.dvs.eventView">
+      <extendedPoint>vsphere.core.dvs.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- DVPortGroup events view -->
+   <extension id="vsphere.opsmgmt.event.dvPortgroup.eventView">
+      <extendedPoint>vsphere.core.dvPortgroup.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- ResourcePool events view -->
+   <extension id="vsphere.opsmgmt.event.resourcePool.eventView">
+      <extendedPoint>vsphere.core.resourcePool.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- StoragePod events view -->
+   <extension id="vsphere.opsmgmt.event.storagePod.eventView">
+      <extendedPoint>vsphere.core.dscluster.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.EventConsoleView" />
+      </object>
+   </extension>
+
+   <!-- VcExtension events view -->
+   <extension id="vsphere.opsmgmt.event.vcExtensions.eventView">
+      <extendedPoint>vsphere.core.vcextension.monitor.eventsViews</extendedPoint>
+      <hostedPoint>vsphere.opsmgmt.event.relatedEventsViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.events.VcExtensionEventConsoleView"/>
+      </object>
+   </extension>
+
+   <!-- View for the related events. -->
+   <extension id="vsphere.opsmgmt.event.relatedEventsView">
+      <extendedPoint>vsphere.opsmgmt.event.relatedEventsViews</extendedPoint>
+      <extendedPoint>vsphere.core.tasks.relatedEventsViews</extendedPoint>
+      <object>
+         <name>ignored</name>
+         <componentClass className="com.vmware.vsphere.client.views.events.RelatedEventsView"/>
+      </object>
+   </extension>
+
+</plugin>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>com.vmware.opsmgmt.client</groupId>
+      <artifactId>opsmgmt-rsls</artifactId>
+      <version>6.0.0</version>
+   </parent>
+
+   <artifactId>opsmgmt-rsls-war</artifactId>
+   <packaging>war</packaging>
+   <name>opsmgmt-rsls war</name>
+
+   <properties>
+      <!-- The swf file name w/o the extension. This name should also matches the swf name generated
+         by FlexBuilder (which is the same as the main mxml file name).-->
+      <swf.name>OpsMgmtRslsModule</swf.name>
+      <build.war.directory>${project.build.directory}/${project.artifactId}</build.war.directory>
+   </properties>
+
+   <dependencies>
+       <dependency>
+         <groupId>com.vmware.opsmgmt.client</groupId>
+          <artifactId>opsmgmt-rsls-swf</artifactId>
+          <version>${project.version}</version>
+          <type>swf</type>
+          <scope>provided</scope>
+       </dependency>
+    </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>com.springsource.bundlor</groupId>
+            <artifactId>com.springsource.bundlor.maven</artifactId>
+            <version>${bundlor.version}</version>
+            <configuration>
+               <manifestTemplatePath>${basedir}/src/main/webapp/META-INF/template.mf</manifestTemplatePath>
+               <outputPath>${basedir}/src/main/webapp</outputPath>
+            </configuration>
+            <executions>
+               <execution>
+                  <id>bundlor</id>
+                  <goals><goal>bundlor</goal></goals>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>init-build-outputDirectory</id>
+                  <phase>process-resources</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <!-- Workaround for bundlor as there are no source files -->
+                        <mkdir dir="${project.build.outputDirectory}"/>
+                     </tasks>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>rename-swf</id>
+                  <phase>compile</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <!-- Copy and rename swf assets. -->
+                        <copy file="${swf.outputDirectory}/opsmgmt-rsls-swf-${project.version}.swf"
+                           tofile="${build.war.directory}/${swf.name}.swf"/>
+                     </tasks>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+               <archive>
+                  <manifestFile>src/main/webapp/META-INF/MANIFEST.MF</manifestFile>
+               </archive>
+               <webappDirectory>${build.war.directory}</webappDirectory>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>

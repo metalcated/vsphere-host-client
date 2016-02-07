@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:util="http://www.springframework.org/schema/util"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd">
+   <bean id="sessionStrategy"
+         class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy">
+      <property name="migrateSessionAttributes" value="false" />
+      <property name="retainedAttributes" ref="retainedAttributes" />
+   </bean>
+
+   <bean id="clientIdSessionAttrName" class="com.vmware.vise.util.session.SessionUtil"
+      factory-method="getClientIdAttrName" />
+
+   <bean id="hashedClientIdSessionAttrName" class="com.vmware.vise.util.session.SessionUtil"
+      factory-method="getHashedClientIdAttrName" />
+
+   <util:list id="retainedAttributes" value-type="java.lang.String">
+      <ref bean="clientIdSessionAttrName" />
+      <ref bean="hashedClientIdSessionAttrName" />
+      <value>applicationLocale</value>
+      <value>SPRING_SECURITY_SAVED_REQUEST</value>
+      <value>WEBSSO-SESSION-INDEX</value>
+   </util:list>
+</beans>

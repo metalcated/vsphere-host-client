@@ -1,0 +1,26 @@
+/* CSS Document for Printing */
+
+#hdrright {
+	width: 150px;
+	height: 50px;
+	float: left;
+	background-color: #7B869C;
+}
+#hdrleft {
+	width: 817px;
+	height: 47px;
+	font-weight: bold;
+	font-size: 11px;
+	line-height: 1.2;
+	float: left;
+	background-color: #7B869C;
+	background-image: url('../images/img_tb_lbkgnd_727x47.png');
+	color: #263758;
+	padding: 0 0 0 31px;
+}
+#hdrnav {
+	display: none;
+}
+#printbutton {
+	display: none;
+}

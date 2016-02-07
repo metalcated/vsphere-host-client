@@ -1,0 +1,7 @@
+<div ng-controller="ProgressFooterButtonsController">
+	<button id='cancelDeploy' class='wizard-button' ng-click="vxWizard.cancel()"
+			ng-hide="vxWizard.wizardData.progressClose">Cancel</button>
+	<button class="wizard-button" ng-show="vxWizard.wizardData.progressClose"
+			ng-click="vxWizard.onClose()">Close</button>
+	<span id="wizard-resize-icon-span"></span>
+</div>

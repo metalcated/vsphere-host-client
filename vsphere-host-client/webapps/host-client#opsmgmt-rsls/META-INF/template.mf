@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.opsmgmt.opsmgmtrsls
+Bundle-Version: ${version}
+Bundle-Name: opsmgmt-rsls
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/opsmgmt-rsls

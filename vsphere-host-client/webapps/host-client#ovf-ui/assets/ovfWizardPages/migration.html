@@ -1,0 +1,161 @@
+<div ng-controller="MigrationInfoController">
+   <form  name='migrationDataForm' class="form-horizontal" style="padding:10px;">
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.vpxdIp)]">
+         <label class="control-label" for="vpxdIp">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.sourceVCenterServerIp']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="vpxdIp" name="vpxdIp"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.vpxdIp"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.vpxdIp)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <span class="help-inline"
+                  ng-show="showInvalidIpError(migrationDataForm.vpxdIp)">
+               {{vxWizard.localeMap["validationText.invalidIp"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[isDeployment55() && addErrorClass(migrationDataForm.vpxdUser)]">
+         <label class="control-label" for="vpxdUser">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.sourceVCenterUsername']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="vpxdUser" name="vpxdUser" ng-hide="isDeployment55()"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.vpxdUser"
+                  required ng-disabled="isDeployment55()">
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.vpxdUser)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+            <label ng-show="isDeployment55()">
+               administrator@vsphere.local
+            </label>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.vpxdpassword)]">
+         <label class="control-label" for="vpxdpassword">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.sourceVCenterPassword']}}
+         </label>
+         <div class="controls">
+            <input type="password" id="vpxdpassword" name="vpxdpassword"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.vpxdPassword"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.vpxdpassword)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.guestUser)]">
+         <label class="control-label" for="guestUser">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.guestOSUsername']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="guestUser" name="guestUser"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.guestUser"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.guestUser)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.guestPassword)]">
+         <label class="control-label" for="guestPassword">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.guestOSPassword']}}
+         </label>
+         <div class="controls">
+            <input type="password" id="guestPassword" name="guestPassword"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.guestPassword"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.guestPassword)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.hostIp)]">
+         <label class="control-label" for="hostIp">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.primaryHostIP']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="hostIp" name="hostIp"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.hostIp"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.hostIp)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+             <span class="help-inline"
+                  ng-show="showInvalidIpError(migrationDataForm.hostIp)">
+               {{vxWizard.localeMap["validationText.invalidIp"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.hostUsername)]">
+         <label class="control-label" for="hostUsername">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.primaryHostUsername']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="hostUsername" name="hostUsername"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.hostUser"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.hostUsername)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group"
+            ng-class="{true: 'error'}[addErrorClass(migrationDataForm.hostPassword)]">
+         <label class="control-label" for="hostPassword">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.primaryHostPassword']}}
+         </label>
+         <div class="controls">
+            <input type="password" id="hostPassword" name="hostPassword"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.hostPassword"
+                  required>
+            <span class="help-inline"
+                  ng-show="showRequiredError(migrationDataForm.hostPassword)">
+                  {{vxWizard.localeMap["validationText.required"]}}
+            </span>
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="control-label" for="exportPath">
+            {{vxWizard.localeMap[
+                  'DeployVcsaMigrationInfoPage.exportPath']}}
+         </label>
+         <div class="controls">
+            <input type="text" id="exportPath"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.exportPath">
+         </div>
+      </div>
+      <div class="control-group">
+         <label class="checkbox">
+            <input type="checkbox"
+                  ng-model="vxWizard.wizardData.ovfOptions.migrationData.optionalBitsFlag"
+               ng-true-value="yes" ng-false-value="no">
+            {{vxWizard.localeMap["DeployVcsaMigrationInfoPage.migrateOptionalBits"]}}
+         </label>
+      </div>
+   </form>
+</div>

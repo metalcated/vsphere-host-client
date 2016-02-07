@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <bean class="com.vmware.vise.util.service.ServiceRegistrar">
+      <constructor-arg index="0" ref="serviceRegistry"/>
+      <constructor-arg index="1">
+         <array>
+            <value>com.vmware.vise.data.mutation.MutationProvider</value>
+            <value>com.vmware.vise.data.query.DataProviderAdapter</value>
+            <value>com.vmware.vise.data.query.PropertyProviderBean</value>
+            <value>com.vmware.vise.extensionfw.ExtensionListener</value>
+            <value>com.vmware.vise.search.transport.QueryServiceIndex</value>
+            <value>com.vmware.vise.security.UserSessionListener</value>
+            <value>com.vmware.vise.store.PersistenceServerScopeProvider</value>
+            <value>com.vmware.vise.vim.commons.extensions.LinkedVcGroupRegistryListener</value>
+         </array>
+      </constructor-arg>
+   </bean>
+
+</beans>

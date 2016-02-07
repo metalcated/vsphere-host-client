@@ -1,0 +1,63 @@
+<div class="wizard-validation-pagelevel" id="validationBanner"
+      ng-show="vxWizard.validationBannerVisible()"
+      ng-style="vxWizard.getValidationBannerStyle()">
+   <div class="wizard-validation-message-column"
+         ng-class="vxWizard.getValidationBannerClass()">
+      <div ng-repeat="msg in vxWizard.validationBanner.data"
+            class="wizard-validation-message">
+         <span class="iconValidationFloatLeft"
+               ng-class="vxWizard.getValidationMessageClass(msg.type)">
+         </span>
+         <span class="wizard-validation-message-text">
+            {{msg.text}}
+         </span>
+      </div>
+   </div>
+   <div class="wizard-validation-buttons-column">
+      <span class="iconValidationFloatRight iconClose16"
+            ng-click="vxWizard.clearValidationBanner()">
+      </span>
+      <span class="wizard-validation-pagelevel-link"
+            ng-show="vxWizard.ifShowAllMessagesEnabled()"
+            ng-click="vxWizard.showAllMessages()">
+         Show all
+      </span>
+      <span class="wizard-validation-pagelevel-link"
+            ng-show="vxWizard.ifHideMessagesEnabled()"
+            ng-click="vxWizard.hideMessages()">
+         Hide all
+      </span>
+   </div>
+</div>
+<span ng-hide="vxWizard.wizardData.showProgress">
+   <div class="wizard-panel-TOC">
+      <ul class="wizard-steps-list">
+         <li ng-repeat="page in vxWizard.pages"
+               ng-class="vxWizard.getStepClass(page.state, $index)"
+               ng-show="vxWizard.criteriaMatch(page.state)">
+            {{page.title}}
+         </li>
+      </ul>
+   </div>
+   <div class="wizard-page-container">
+      <!-- Dynamic Header -->
+      <div class="wizard-page-header">
+         <h2 class="wizard-page-header"
+               ng-model="vxWizard.pages[vxWizard.currentIdx].title">
+            {{vxWizard.pages[vxWizard.currentIdx].title}}
+         </h2>
+         <h3 class="wizard-instructional-text"
+               ng-model="vxWizard.pages[vxWizard.currentIdx].description">
+            {{vxWizard.pages[vxWizard.currentIdx].description}}
+         </h3>
+         <hr class="wizard-page-header-horizontal-rule">
+      </div>
+      <!-- Dynamic content -->
+      <div class="wizard-page-content"
+            ng-include="vxWizard.pages[vxWizard.currentIdx].url">
+      </div>
+   </div>
+</span>
+<div ng-include="'ovf-ui/assets/ovfWizardPages/progress.html'"
+      ng-if="vxWizard.wizardData.showProgress">
+</div>

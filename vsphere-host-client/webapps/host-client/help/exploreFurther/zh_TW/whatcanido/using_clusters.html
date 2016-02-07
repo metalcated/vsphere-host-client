@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>使用叢集:vSphere 教學課程</title>
+<style type="text/css">
+#g_txt1 {
+	width: 230px;
+	position: absolute;
+	left: 39px;
+	top: 402px;
+}
+#g_txt2 {
+	width: 104px;
+	position: absolute;
+	left: 400px;
+	top: 322px;
+	color: #333333;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">首頁</a> &gt; <a href="whatcanido.html">使用 vSphere</a> &gt; <a href="creating_clusters.html">建立叢集</a> &gt; 使用叢集</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper00">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="列印頁面"></a>		
+			<h2>使用叢集</h2>
+			<p>使用叢集可盡可能提高主機使用率，並為虛擬機器提供高可用性。叢集會在主機之間分配資源並管理負載平衡。透過使用叢集，您可以啟用下列 VMware 解決方案:</p>
+  			<ul>
+			<li><strong>vSphere Distributed Resource Scheduler (DRS)</strong><br />vSphere DRS 可持續平衡 ESX/ESXi 主機之間的虛擬機器工作負載。當虛擬機器活動所需的 CPU 或記憶體資源超過其執行所在主機能夠提供的資源時，vCenter Server 系統便會觸發 vMotion 移轉功能以平衡工作負載。</li>
+			<li><strong>vSphere High Availability (HA)</strong><br />vSphere HA 可讓 ESX/ESXi 主機上執行的虛擬機器自動從主機故障中復原。當某台主機出現故障時，叢集中其他主機上所有相關聯的虛擬機器都會立即重新啟動。</li>
+				<li><strong>VMware Enhanced vMotion Compatibility (EVC)</strong><br /> EVC 可確保叢集中的所有主機均向虛擬機器提供相同的 CPU 功能集，從而協助確保叢集中主機之間的 vMotion 相容性。</li>
+  			</ul>
+			<p>您還可以建立資源集區，以階層方式分割叢集中可用的 CPU 和記憶體資源，從而進一步優化叢集使用情況。</p>
+			<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />  			
+  			<div id="reltopics">
+			<p><strong>相關主題</strong></p>
+			<a href="using_resourcepools.html">使用資源集區 </a>
+  			</div>
+		</div>
+		<div id="graphic"><img src="../images/using_cluster.jpg" alt="使用叢集" width="480" height="360" />
+			<div id="g_txt1">使用叢集可讓您平衡多台主機之間的負載。</div>
+			<div id="g_txt2">叢集</div>
+  		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pluginPackage id="com.vmware.vsphere.client" version="6.0.0" name="Virtual Infrastructure" description="vSphere Host Client" vendor="VMware">
+   <metadata>
+      <property name="supportedServerVersions" value="5.5.0,6.0.0"/>
+      <property name="isHostClient" value="true" />
+   </metadata>
+   <bundlesOrder>
+      <bundle id="host-client" />
+      <bundle id="host-client#inventory-viewer" />
+   </bundlesOrder>
+</pluginPackage>

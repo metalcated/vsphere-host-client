@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>com.vmware.vsphere.client</groupId>
+      <artifactId>war-module-parent</artifactId>
+      <version>6.0.16.0-SNAPSHOT</version>
+      <relativePath>../../../war-module-parent/pom.xml</relativePath>
+   </parent>
+
+   <artifactId>vm-ui-war</artifactId>
+   <packaging>war</packaging>
+   <name>${project.artifactId}</name>
+
+   <properties>
+      <!-- The swf file name w/o the extension. This name should also matches the swf name generated
+         by FlexBuilder (which is the same as the main mxml file name).-->
+      <swf.name>VmModule</swf.name>
+      <swf.artifactId>vm-ui-swf</swf.artifactId>
+   </properties>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>com.springsource.bundlor</groupId>
+            <artifactId>com.springsource.bundlor.maven</artifactId>
+         </plugin>
+         <plugin>
+            <groupId>org.sonatype.flexmojos</groupId>
+            <artifactId>flexmojos-maven-plugin</artifactId>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+         </plugin>
+
+         <!-- Enable eclipse plugin for this project -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-eclipse-plugin</artifactId>
+            <configuration>
+               <skip>false</skip>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>xml-maven-plugin</artifactId>
+         </plugin>
+      </plugins>
+   </build>
+
+   <dependencies>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>${swf.artifactId}</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+   </dependencies>
+
+</project>

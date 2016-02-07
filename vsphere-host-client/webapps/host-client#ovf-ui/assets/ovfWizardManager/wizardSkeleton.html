@@ -1,0 +1,21 @@
+<div id='wizardSkeleton' ng-controller='WizardController' class="hide noStyle">
+   <div class="modal-backdrop" ng-if="wizard.show"></div>
+   <div class="wizard-modal default-text" ng-if="wizard.show">
+      <div class="wizard-modal-titlebar">
+         {{wizard.localeMap["DeployVcsaWizard.title"]}}
+         <span class="iconCloudVMCreate16 wizard-titlebar-object-icon"></span>
+         <!-- <span class="iconCollapseRight16 pull-right"></span>
+         <span class="iconHelpButtonNor16 pull-right"></span> -->
+      </div>
+      <div class="wizard-modal-body" vx-wizard="wizard">
+      </div>
+      <div class="wizard-modal-footer">
+         <div vx-wizard-buttons="wizard"></div>
+   </div>
+</div>
+<div id="wizardBlockUIMessage" style="padding:15px">
+   <div class="progress progress-indeterminate active">
+      <div class="bar"></div>
+   </div>
+   <span style="float:left;padding-bottom:10px;">Validating...</span>
+</div>

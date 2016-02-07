@@ -1,0 +1,46 @@
+# To change the Help url reference, change the value to the required url.
+# If you are deploying a Help package locally on the vSphere Web Client system, then provide a relative url.
+# For example, if you deployed help.war, you would specify help.url=/help/
+#help.url=http://techpubs.vmware.com/
+
+# Session timeout in minutes, default 120
+#session.timeout = 120
+
+# This value configures the refresh rate of the client, in seconds.  By default, auto-refresh is disabled.  Enabling it can severely alter the scale characteristics of the client.
+# If auto-refresh is enabled, it will prevent the session from automatically logging out.
+# refresh.rate = 600
+
+# The URL to the my.vmware.com service
+#myvmware.com.url = https://psb.vmware.com/services/downloadurl?baseProduct={0}&baseVersion={1}&installProduct={2}
+
+# Disable sliding animation of the navigator pane.
+navigator.disableAnimation = true
+
+# Data caching
+data.cache.enabled = true
+data.cache.capacity = 100
+data.cache.expireAfterWriteSeconds = 60
+
+# FEATURES
+# Show faceted UI
+feature.facetedSearch.enabled = true
+# Collapse portlets. This proerty controls the collapsible portlets behavior. If set it to 'true' then all portlets will be collapsed by default.
+portlets.collapsed = false
+
+#
+# Specifies from where permission information is retrieved.
+#
+# Possible values are:
+#
+# auto: Uses either VC or AuthZ based on the object for which information is
+#       requested. For objects managed by VC 5.1 or earlier the information is
+#       taken directly from the VC. For objects managed by VC 6.0 or custom
+#       objects - the info is taken from AuthZ
+#
+# legacy: Gets the permission info using VC as backend for any object managed by VC.
+#         For other objects uses AuthZ.
+#
+# authz: Always use AuthZ as source of information regardless of whether the object
+#        is being managed by VC or not.
+#
+# permissions.mode = auto

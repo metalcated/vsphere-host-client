@@ -1,0 +1,8 @@
+/* CSS Document for Printing */
+
+.scrollRegion {
+   width:100%;
+   overflow:auto;
+   border-style:solid;
+   border-width:thin;
+}

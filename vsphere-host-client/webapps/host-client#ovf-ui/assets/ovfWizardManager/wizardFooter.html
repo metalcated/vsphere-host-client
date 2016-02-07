@@ -1,0 +1,13 @@
+<div ng-hide="vxWizard.wizardData.showProgress">
+	<button class="wizard-button" ng-click="onBackClick()"
+	      ng-disabled="disableBack()">Back</button>
+	<button class="wizard-button" ng-click="onNextClick()"
+	      ng-disabled="disableNext()">Next</button>
+	<button class="wizard-button" ng-click="vxWizard.onFinish()"
+			ng-disabled="disableFinish()">Finish</button>
+	<button class="wizard-button" ng-click="vxWizard.onClose()">Cancel</button>
+	<span id="wizard-resize-icon-span"></span>
+</div>
+<div ng-include="'ovf-ui/assets/ovfWizardPages/progressFooter.html'"
+		ng-if="vxWizard.wizardData.showProgress">
+</div>

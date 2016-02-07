@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.tasksui
+Bundle-Version: ${version}
+Bundle-Name: tasks-ui
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/tasks-ui
+

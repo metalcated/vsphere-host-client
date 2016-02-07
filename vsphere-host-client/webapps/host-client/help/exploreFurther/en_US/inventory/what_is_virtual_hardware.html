@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>What Is Virtual Hardware? : vSphere Tutorial</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#g_txt1 {
+	width: 160px;
+	position: absolute;
+	left: 23px;
+	top: 168px;
+	text-align: right;
+}
+#g_txt2 {
+	width: 160px;
+	position: absolute;
+	left: 323px;
+	top: 371px;
+}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="hdrleft"><div id="hdrinnerone"><a href="../index.html">Home</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="inventory.html">Explore the inventory</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="what_is_vm.html">What is virtual hardware?</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;What Is Virtual Hardware?</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="Print Page"></a>		
+  			<h2>What is virtual hardware?</h2>
+				<p>Just as a physical computer has hardware devices such as CPU and memory, a virtual machine has virtual hardware devices. If you look at a virtual machine's configuration, you find virtual CPU, memory, hard disks, CD/DVD drives, floppy drives, Ethernet adapters, sound cards, and so on. Each virtual device performs the same function for the virtual machine as does the hardware on a physical computer. </p>
+				<p>Virtual hardware lets the virtual machine divide up the physical hardware as needed. For example, you can run many virtual machines on a single physical CPU, each appearing to have its own virtual CPU. You can move a virtual machine from one host to another and the mappings between the virtual and physical devices change automatically, while the virtual devices remain unchanged. Through virtual hardware, virtual machines are insulated from the details of physical hardware.</p>
+				<p>For a complete list of virtual devices, see the vSphere Web Client online help.</p>  			
+				<img src="../images/img_horz_rule.gif" alt="" width="416px" height="1px" border="0"><br />
+  			<div id="reltopics">
+    			<p><strong>Related Topics</strong></p>
+      			<a href="what_is_vm.html">What is a virtual machine?</a><br />
+      			<a href="../whatcanido/installing_guestos.html">Installing a guest operating system</a>
+  			</div>
+		</div>
+		<div id="graphic"><img src="../images/what_is_a_virtual_hardware.jpg" alt="Virtual Hardware" width="480" height="360" />
+	  		<div id="g_txt1">Virtual Hardware</div>
+	  		<div id="g_txt2">Physical Hardware</div>
+		</div>
+		<div id="next_hdr">What's Next:</div>
+		<div id="next"><a href="../whatcanido/adding_hardware_devices.html">Adding virtual hardware</a></div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="../style/tutorialmain.css" type="text/css" />
+<link rel="stylesheet" href="../style/tutorialprint.css" media="print" type="text/css" />
+<title>安装客户机操作系统：vSphere 教程</title>
+<style type="text/css">
+#graphic {
+	font-size: 11px;
+}
+#graphic a {
+	color: #666666;
+	text-decoration: none;
+}
+#g_txt1 {
+	width: 425px;
+	position: absolute;
+	left: 38px;
+	top: 131px;
+	text-align: center;
+}
+#g_txt2 {
+	width: 155px;
+	position: absolute;
+	left: -10px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt3 {
+	width: 175px;
+	position: absolute;
+	left: 226px;
+	top: 391px;
+	text-align: center;
+}
+#g_txt4 {
+	width: 108px;
+	position: absolute;
+	left: 371px;
+	top: 310px;
+	text-align: center;
+}
+#g_txt5 {
+	width: 78px;
+	position: absolute;
+	left: 30px;
+	top: 412px;
+	text-align: center;
+	cursor: default;
+}
+#g_txt6 {
+	width: 78px;
+	position: absolute;
+	left: 276px;
+	top: 412px;
+	text-align: center;
+	cursor: default;	
+}
+#g_txt7 {
+	width: 78px;
+	position: absolute;
+	left: 390px;
+	top: 330px;
+	text-align: center;
+	cursor: default;	
+}
+</style>
+<SCRIPT language="JavaScript"> if (document.images) { 	image_off= new Image(480,360); 	image_off.src="../images/basic_install_setup.jpg";   	image2= new Image(480,360); 	image2.src="../images/basic_install_client.jpg"; 	image3= new Image(480,360); 	image3.src="../images/basic_install_host.jpg";   	image4= new Image(480,360); 	image4.src="../images/basic_install_iso.jpg"; }  function change1(picName,imgName) { 	if (document.images) 	{ 		imgOn=eval(imgName + ".src"); 		document[picName].src= imgOn; 	} } </SCRIPT>
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="header">
+	<div id="hdrleft"><div id="hdrinnertwo"><a href="../index.html">主页</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="whatcanido.html">使用 vSphere</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_virtualmachine.html">创建虚拟机</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="creating_new_vm.html">创建新虚拟机</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<br />安装客户机操作系统</div></div>
+		<div id="hdrright">&nbsp;</div>
+	</div>
+	<div id="contentwrapper01">
+		<div id="content">
+			<a href="javascript:window.print();"><img id="printbutton" src="../images/img_btn_print.gif" width="61px" height="12px" border="0" alt="打印页面"></a>		
+			<h2>安装客户机操作系统</h2>
+			<p>新虚拟机就像一台装有空白硬盘的物理机。在使用之前，需要先安装操作系统。虚拟机上的操作系统称为客户机操作系统。</p>
+			<p>在虚拟机上安装客户机操作系统与在物理机上安装操作系统的方法基本相同。您必须拥有操作系统供应商提供的包含安装文件的 CD-ROM 或 ISO 映像。与物理机一样，每次安装都需要单独的操作系统许可证。</p>
+			<p>安装客户机操作系统后，您就可以通过 vCenter Server 使用虚拟机执行诸如安装应用程序或管理电源操作等任务，就像使用物理机时一样。</p>
+  		</div>
+		<div id="graphic"><img src="../images/basic_install_setup.jpg" width="480" height="360" border="0" usemap="#Map" name="installpic" />
+			<div id="g_txt1">可以从多种不同位置安装客户机操作系统：</div>
+			<div id="g_txt2">客户端 CD-ROM 驱动器</div>
+			<div id="g_txt3">主机 CD-ROM 驱动器</div>
+			<div id="g_txt4">ISO 映像文件</div>
+			<div id="g_txt5" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">显示</div>
+			<div id="g_txt6" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">显示</div>
+			<div id="g_txt7" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">显示</div>
+			<map name="Map">
+				<area shape="rect" coords="19,327,110,349" onMouseover="change1('installpic','image2')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="270,327,361,349" onMouseover="change1('installpic','image3')" onMouseout="change1('installpic','image_off')">
+				<area shape="rect" coords="382,246,471,266" onMouseover="change1('installpic','image4')" onMouseout="change1('installpic','image_off')">
+			</map>
+		</div>
+		<div id="next_hdr">下节内容：</div>
+		<div id="next"><a href="installation_steps.html">分步安装指南</a></div>
+	</div>
+</div>
+
+</body>
+</html>

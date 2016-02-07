@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: mts
+Build-Jdk: 1.7.0_21
+Bundle-Vendor: VMware
+Bundle-Version: 6.0.0
+Tool: Bundlor 1.0.0.RELEASE
+Bundle-Name: cm-ui
+Bundle-ManifestVersion: 2
+Web-ContextPath: host-client/cm-ui
+Bundle-SymbolicName: com.vmware.vsphere.client.cmui
+

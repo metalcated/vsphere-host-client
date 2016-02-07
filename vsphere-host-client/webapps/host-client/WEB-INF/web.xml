@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+   <display-name>container-app</display-name>
+
+   <!-- this plays important role what part of the configuration noted by
+        contextConfigLocator is loaded -->
+   <context-param>
+       <param-name>spring.profiles.active</param-name>
+       <param-value>hostclient</param-value>
+   </context-param>
+
+   <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/spring/application-context.xml</param-value>
+   </context-param>
+
+   <context-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.XmlWebApplicationContext</param-value>
+   </context-param>
+
+   <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+   </listener>
+
+   <listener>
+      <listener-class>com.vmware.vise.util.concurrent.ThreadPoolShutdownListener</listener-class>
+   </listener>
+
+   <servlet>
+      <servlet-name>springServlet</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+      <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>/WEB-INF/spring/bundle-context.xml</param-value>
+      </init-param>
+
+      <init-param>
+         <param-name>contextClass</param-name>
+         <param-value>org.springframework.web.context.support.XmlWebApplicationContext</param-value>
+      </init-param>
+
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <!-- Error handler for un-handled java errors -->
+   <error-page>
+      <exception-type>java.lang.Throwable</exception-type>
+      <location>/error.jsp</location>
+   </error-page>
+
+   <!-- Map all /messagebroker requests to the DispatcherServlet for handling -->
+   <servlet-mapping>
+      <servlet-name>springServlet</servlet-name>
+      <url-pattern>/messagebroker/*</url-pattern>
+   </servlet-mapping>
+
+   <servlet>
+      <servlet-name>interSiteTransferServlet</servlet-name>
+      <servlet-class>com.vmware.vsphere.client.security.util.InterSiteTransferServlet</servlet-class>
+   </servlet>
+
+   <servlet>
+      <servlet-name>errorReportServlet</servlet-name>
+      <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <!-- Map all /errorReport requests to the ErrorReportServlet for handling -->
+   <servlet-mapping>
+      <servlet-name>errorReportServlet</servlet-name>
+      <url-pattern>/errorReport/</url-pattern>
+   </servlet-mapping>
+
+   <servlet>
+      <servlet-name>downloadManager</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+      <init-param>
+         <param-name>contextConfigLocation</param-name>
+         <param-value>/WEB-INF/spring/downloadManager-context.xml</param-value>
+      </init-param>
+
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <servlet>
+      <servlet-name>reportingServiceDownloadServlet</servlet-name>
+      <servlet-class>com.vmware.vise.reporting.service.DownloadServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <!-- Map all /reporting-service/ requests to the custom spring handling -->
+   <servlet-mapping>
+      <servlet-name>reportingServiceDownloadServlet</servlet-name>
+      <url-pattern>/reporting-service/*</url-pattern>
+   </servlet-mapping>
+
+   <!-- Map all /resources/ requests to the custom spring handling -->
+   <servlet-mapping>
+      <servlet-name>downloadManager</servlet-name>
+      <url-pattern>/download/*</url-pattern>
+   </servlet-mapping>
+
+   <!-- Remote Console Servlet -->
+   <servlet>
+        <servlet-name>AuthdAdapter</servlet-name>
+        <servlet-class>com.vmware.vise.vim.commons.mks.tomcat.TomcatAuthdAdapterServlet</servlet-class>
+        <init-param>
+            <param-name>maxConnections</param-name>
+            <param-value>300</param-value>
+        </init-param>
+        <init-param>
+            <param-name>bufferSize</param-name>
+            <param-value>4096</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthdAdapter</servlet-name>
+        <url-pattern>/webconsole/authd/*</url-pattern>
+    </servlet-mapping>
+
+
+
+   <!-- Filter to force UTF-8 encoding. More information on the filter here:
+      http://static.springsource.org/spring/docs/2.5.x/api/org/springframework/web/filter/CharacterEncodingFilter.html -->
+   <filter>
+      <filter-name>characterEncodingFilter</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+         <param-name>encoding</param-name>
+         <param-value>UTF8</param-value>
+      </init-param>
+   </filter>
+
+   <filter-mapping>
+      <filter-name>characterEncodingFilter</filter-name>
+      <url-pattern>/j_spring_security_check</url-pattern>
+   </filter-mapping>
+
+   <!-- pre-filter for logging support -->
+   <filter>
+      <filter-name>logFilter</filter-name>
+      <filter-class>com.vmware.vsphere.client.logging.MDCLogFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>logFilter</filter-name>
+       <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+   <!-- Filter to register session. -->
+   <filter>
+      <filter-name>sessionManagementFilter</filter-name>
+      <filter-class>com.vmware.vise.security.SessionManagementFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>sessionManagementFilter</filter-name>
+       <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+   <!-- Filter to extract session locale. -->
+   <filter>
+      <filter-name>i18nFilter</filter-name>
+      <filter-class>com.vmware.vise.util.i18n.I18nFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>i18nFilter</filter-name>
+       <url-pattern>/ui.jsp</url-pattern>
+   </filter-mapping>
+
+   <filter-mapping>
+       <filter-name>i18nFilter</filter-name>
+       <url-pattern>/j_spring_security_check</url-pattern>
+   </filter-mapping>
+
+   <!-- pre-filter for login support -->
+   <filter>
+      <filter-name>accessibilityFilter</filter-name>
+      <filter-class>com.vmware.vise.util.accessibility.AccessibilityFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>accessibilityFilter</filter-name>
+       <url-pattern>/ui.jsp</url-pattern>
+   </filter-mapping>
+
+   <filter>
+      <filter-name>loginFilter</filter-name>
+      <filter-class>com.vmware.vise.security.FlexLoginFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>loginFilter</filter-name>
+       <url-pattern>/j_spring_security_check</url-pattern>
+   </filter-mapping>
+
+   <!-- pre-filter for logout support -->
+   <filter>
+      <filter-name>logoutFilter</filter-name>
+      <filter-class>com.vmware.vise.security.FlexLogoutFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+       <filter-name>logoutFilter</filter-name>
+       <url-pattern>/j_spring_security_logout</url-pattern>
+   </filter-mapping>
+
+   <!-- Hook in spring security -->
+   <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+   <filter-mapping>
+      <filter-name>springSecurityFilterChain</filter-name>
+      <url-pattern>/*</url-pattern>
+   </filter-mapping>
+
+   <!-- Filter to rewrite BlazeDS requests -->
+   <filter>
+      <filter-name>urlRewriteFilter</filter-name>
+      <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+   </filter>
+
+   <filter-mapping>
+      <filter-name>urlRewriteFilter</filter-name>
+      <url-pattern>/endpoints/*</url-pattern>
+      <dispatcher>REQUEST</dispatcher>
+      <dispatcher>FORWARD</dispatcher>
+   </filter-mapping>
+
+   <welcome-file-list>
+      <welcome-file>ui.jsp</welcome-file>
+   </welcome-file-list>
+
+   <!-- Client Integration Plug-in installer for Linux -->
+   <mime-mapping>
+      <extension>bundle</extension>
+      <mime-type>application/x-sh</mime-type>
+   </mime-mapping>
+
+   <!-- Client Integration Plug-in installer for Windows -->
+   <mime-mapping>
+      <extension>msi</extension>
+      <mime-type>application/msi</mime-type>
+   </mime-mapping>
+
+   <!-- Client Integration Plug-in installer for Mac (not currently supported) -->
+   <mime-mapping>
+      <extension>tar.gz</extension>
+      <mime-type>application/x-gzip</mime-type>
+   </mime-mapping>
+
+</web-app>

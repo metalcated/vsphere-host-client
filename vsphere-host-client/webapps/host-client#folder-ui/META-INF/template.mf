@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.folderui
+Bundle-Version: ${version}
+Bundle-Name: folder-ui
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/folder-ui
+

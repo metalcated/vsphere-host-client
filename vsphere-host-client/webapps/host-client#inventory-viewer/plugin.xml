@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="com.vmware.vsphere.client.inventoryviewer"
+   moduleUri="InventoryModule.swf"
+   defaultBundle="inventory">
+
+   <resources>
+      <resource locale="{locale}">
+         <module uri="locales/inventory-viewer-{locale}.swf"/>
+      </resource>
+   </resources>
+
+   <!-- The extension point for inventory objects. For example ServerObjectRef objects. -->
+   <extensionPoint id="vsphere.core.inventory.objectViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for server objects (referenced by ServerObjectRef). -->
+   <extensionPoint id="vsphere.core.inventory.serverObjectViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The extension point for query objects. -->
+   <extensionPoint id="vsphere.core.inventory.queryObjectViews">
+      <objectType class="com.vmware.ui.views.ViewSpec"/>
+   </extensionPoint>
+
+   <!-- The inventory view for aggregate nodes -->
+   <extension id="vsphere.core.inventory.queryObjectView">
+      <extendedPoint>vsphere.core.inventory.objectViews</extendedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.inventory.TreeAggregateNodeListView"/>
+      </object>
+      <metadata>
+         <objectType>com.vmware.vsphere.client.common.TypedQueryObject</objectType>
+         <tags>global</tags>
+      </metadata>
+   </extension>
+
+   <!-- A template for common getting started view for aggregate nodes such as Compute,
+        Storage, Networking and Security, etc.
+        NOTE - these nodes might have different GS paging at some stage -->
+   <template id="vsphere.core.summarynode.gettingStartedViewTemplate">
+      <variable name="summaryName" required="true"/>
+      <!-- Common Getting started overview Page. -->
+      <extension id="vsphere.core.${summaryName}.gettingStarted">
+         <extendedPoint>vsphere.core.${summaryName}.views</extendedPoint>
+         <object>
+            <name>#{inventory:gettingStarted.overview.tabTitle}</name>
+            <componentClass>
+               <className>com.vmware.vsphere.client.views.GettingStartedView</className>
+               <object>
+                  <root>
+                     <title>#{inventory:gettingStarted.overview.title}</title>
+                     <description>#{inventory:gettingStarted.overview.description}</description>
+                     <closeButtonEnabled>false</closeButtonEnabled>
+                     <titleWizardState>#{inventory:gettingStarted.overview.wizard.title}</titleWizardState>
+                     <descriptionWizardState>#{inventory:gettingStarted.overview.wizard.description}</descriptionWizardState>
+                     <additionalInfo>#{inventory:gettingStarted.overview.wizard.additionalInfo}</additionalInfo>
+                     <supportedFUE>true</supportedFUE>
+                     <image>#{CommonImages:gettingStarted.viImageAggregate}</image>
+                     <arrowText>#{inventory:gettingStarted.overview.arrowText}</arrowText>
+                     <linkDisplayInfos>
+                        <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                           <label>#{inventory:gettingStarted.overview.explore.whatIsVsLabel}</label>
+                           <urlKey>inventory:gettingStarted.overview.explore.whatIsVsUrl</urlKey>
+                        </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                           <label>#{inventory:gettingStarted.overview.explore.networkingVsLabel}</label>
+                           <urlKey>inventory:gettingStarted.overview.explore.networkingVsUrl</urlKey>
+                        </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                           <label>#{inventory:gettingStarted.overview.explore.storageVsLabel}</label>
+                           <urlKey>inventory:gettingStarted.overview.explore.storageVsUrl</urlKey>
+                        </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                           <label>#{inventory:gettingStarted.overview.explore.inventoryViewsLabel}</label>
+                           <urlKey>inventory:gettingStarted.overview.explore.inventoryViewsUrl</urlKey>
+                        </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                        <com.vmware.vsphere.client.views.LinkDisplayInfo>
+                           <label>#{inventory:gettingStarted.overview.explore.useObjectNavigatorLabel}</label>
+                           <urlKey>inventory:gettingStarted.overview.explore.useObjectNavigatorUrl</urlKey>
+                        </com.vmware.vsphere.client.views.LinkDisplayInfo>
+                     </linkDisplayInfos>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+      </extension>
+   </template>
+
+   <!-- Template for summary tab of some summary(aggregate) nodes - Compute, Storage, etc. -->
+   <template id="vsphere.core.summarynode.summaryViewTemplate">
+      <variable name="summaryName" required="true"/>
+      <variable name="headerComponentSpec" required="true"/>
+      <!-- Summary tab extension point-->
+      <extensionPoint id="vsphere.core.${summaryName}.summary.view">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Summary tab -->
+      <extension id="vsphere.core.${summaryName}.summary">
+         <extendedPoint>vsphere.core.${summaryName}.views</extendedPoint>
+         <precedingExtension>vsphere.core.${summaryName}.gettingStarted</precedingExtension>
+         <hostedPoint>vsphere.core.${summaryName}.summary.view</hostedPoint>
+         <object>
+            <name>#{inventory:summaryTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.SummaryView">
+               <object>
+                  <root>
+                     <headerComponentSpec className="${headerComponentSpec}"/>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+      </extension>
+   </template>
+
+   <!-- Host Client Exclude filter -->
+   <extension id="vsphere.core.hostClientExcludeFilter">
+      <extendedPoint>vmware.extension.filters</extendedPoint>
+      <object>
+         <filterClass>
+            <className>com.vmware.vsphere.client.filters.HostClientExcludeFilter</className>
+            <object>
+               <root>
+                  <excludeExtensions>
+                     <Array>
+                        <String>vsphere.core.tasks.domainView</String>
+                        <String>vsphere.core.controlcenter.tasks</String>
+                        <String>vsphere.opsmgmt.events.domainView</String>
+                        <String>vsphere.core.controlcenter.events</String>
+                        <String>vsphere.core.inventory.customizationSpecManagerApp</String>
+                        <String>vsphere.core.controlcenter.customizationSpecManager</String>
+                        <String>vsphere.core.network.inventoryActionSet</String>
+                        <String>vsphere.core.datastore.configureStorageIOControl</String>
+                        <String>vsphere.core.datastore.customAttributesActionSet</String>
+                        <String>vsphere.core.datastore.inventoryMoveActionSetForVmfs</String>
+                        <String>vsphere.core.datastore.inventoryMoveActionSetForNfs</String>
+                        <String>vsphere.core.datastore.inventoryMoveActionSetForVVOL</String>
+                        <String>vsphere.core.datastore.enterMaintenanceModeActionSet</String>
+                        <String>vsphere.core.datastore.exitMaintenanceModeActionSet</String>
+                        <String>vsphere.core.datastore.moveOutFromDsClusterActionSet</String>
+                        <String>vsphere.core.datastore.inventoryVSphereClientActionSet</String>
+                        <String>vsphere.core.datastore.viSubMenuVmfs</String>
+                        <String>vsphere.core.datastore.viSubMenuNfs</String>
+                        <String>vsphere.core.datastore.viSubMenuVvol</String>
+                        <String>vsphere.core.datastore.viSubMenuVsan</String>
+                        <String>vsphere.core.datastore.manage.settings.connectivityView</String>
+                        <String>vsphere.core.datastore.manage.settings.general.capabilitiesView</String>
+                        <String>vsphere.core.datastore.manage.settings.pe.peView</String>
+                        <String>vsphere.core.datastore.navtoSettingsActionSet</String>
+                        <String>vsphere.core.vm.summary.tagsView</String>
+                        <String>vsphere.core.vm.vAppDetailsView</String>
+                        <String>vsphere.core.vm.manage.settings.vmSdrsView</String>
+                        <String>vsphere.core.vm.manage.settings.vmAppView</String>
+                        <String>vsphere.core.vm.configSdrsRulesActionSet</String>
+                        <String>vsphere.core.host.manage.settings.powerConfigSoftwareView</String>
+                        <String>vsphere.core.vm.customAttributeActionSet</String>
+                        <String>vsphere.core.host.customAttributesActionSet</String>
+                        <String>vsphere.core.excludeFilter</String>
+                        <String>vsphere.navigation.history.tabbedNavigationHistory</String>
+                        <String>vsphere.core.relateditems.specs.hostCore</String>
+                        <String>vsphere.core.relateditems.specs.hostNetworking</String>
+                        <String>vsphere.core.relateditems.specs.hostStorage</String>
+                        <String>vsphere.core.relateditems.specs.clusteredhostCore</String>
+                        <String>vsphere.core.relateditems.specs.clusteredhostNetworking</String>
+                        <String>vsphere.core.relateditems.specs.clusteredhostStorage</String>
+                        <String>vsphere.core.host.connectionActionSet</String>
+                        <String>vsphere.core.host.inventoryActionSet</String>
+                        <String>vsphere.core.host.menu</String>
+                        <String>vsphere.core.host.viSubMenu</String>
+                        <String>vsphere.core.host.summary.tagsView</String>
+                        <String>vsphere.core.vm.menu</String>
+                        <String>vsphere.core.vm.viSubMenu</String>
+                        <String>vsphere.core.vm.migrateActionSet</String>
+                        <String>vsphere.core.vm.inventoryActionSet</String>
+                        <String>vsphere.core.host.relatedItemsView</String>
+                        <String>vsphere.core.host.gettingStartedView</String>
+                        <String>vsphere.core.vm.gettingStartedView</String>
+                        <String>vsphere.core.host.importCertificateActionSet</String>
+                        <String>vsphere.core.host.joinDomainActionSet</String>
+                        <String>vsphere.core.host.leaveDomainActionSet</String>
+                        <String>vsphere.core.host.summary.relatedObjects</String>
+                        <String>vsphere.core.host.editSmartCardAuthentication</String>
+                        <String>vsphere.core.host.manage.settings.securityProfile.lockdownView</String>
+                        <String>vsphere.core.cm.domainView</String>
+                        <String>vsphere.core.controlcenter.cm</String>
+                        <String>vsphere.core.controlcenter.licensing</String>
+                        <String>vsphere.core.controlcenter.gettingStartedHomeView</String>
+                        <String>vsphere.core.vm.inventoryEditVmPoliciesActionSet</String>
+                        <String>vsphere.core.dvPortgroup.menu</String>
+                        <String>com.vmware.network.menu</String>
+                        <String>com.vmware.opaqueNetwork.menu</String>
+                        <String>vsphere.core.vm.FailureResponseView</String>
+                     </Array>
+                  </excludeExtensions>
+               </root>
+            </object>
+         </filterClass>
+         <returnsInstantly>true</returnsInstantly>
+      </object>
+   </extension>
+
+   <!-- The extension point for solution sub-menus. -->
+   <extensionPoint id="vsphere.core.menus.solutionMenus">
+      <objectType class="com.vmware.actionsfw.ActionMenuItemSpec"/>
+   </extensionPoint>
+
+   <!-- The template for an object view. This template includes the following
+      tab hierarchy:
+      Getting Started
+      Summary
+      Monitor
+         Performance
+         Events
+      Manage
+         Settings
+      Related Items
+
+      Extension points:
+      - ${namespace}.summaryViews
+
+      - ${namespace}.monitorViews
+      - ${namespace}.monitor.performanceViews
+      - ${namespace}.monitor.eventsViews
+
+      - ${namespace}.manageViews
+      - ${namespace}.manage.settingsViews
+
+      - ${namespace}.relatedViews
+
+      Extensions:
+      The template provides an extension for each tab as follows:
+      -${namespace}.summary
+
+      -${namespace}.monitor
+      -${namespace}.monitor.performance
+      -${namespace}.monitor.events
+
+      -${namespace}.manage
+      -${namespace}.manage.settings
+
+      -${namespace}.related
+
+      The template tabs are configured so that:
+      - If no extensions are specified for a given tab then the tab is not displayed.
+      - The tab view is computed dynamically to be a single view, sub tabbed view, or
+         a toc view depending on the number of extensions, and the nesting level.
+
+      Variables:
+      - namespace: The namespace used in the extension points and extension ids,
+         e.g. vsphere.core.host
+      - objectType: The view's object type, e.g. HostSystem.
+      - readRole: The name of the role that has read access to the system. (internal)
+      - disableListDoubleClickNavigation: Used to disable list view navigation.
+   -->
+   <template id="vsphere.core.inventory.objectViewTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="objectType" required="true"/>
+      <variable name="readRole" required="false"/>
+      <variable name="disableListDoubleClickNavigation" required="false"/>
+
+      <!-- Object tabs -->
+      <extensionPoint id="${namespace}.views">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Getting Started views -->
+      <extensionPoint id="${namespace}.gettingStartedViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Summary views -->
+      <extensionPoint id="${namespace}.summaryViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Monitor views -->
+      <extensionPoint id="${namespace}.monitorViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Performance views -->
+      <extensionPoint id="${namespace}.monitor.performanceViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Performance Advanced views -->
+      <extensionPoint id="${namespace}.monitor.performance.advancedViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Events views -->
+      <extensionPoint id="${namespace}.monitor.eventsViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Manage views -->
+      <extensionPoint id="${namespace}.manageViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!-- Settings views -->
+      <extensionPoint id="${namespace}.manage.settingsViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <!--Extension point for columns-->
+      <extensionPoint id="${namespace}.list.columns">
+         <objectType class="com.vmware.ui.lists.ColumnSetContainer"/>
+      </extensionPoint>
+
+      <!-- Object view -->
+      <extension id="${namespace}.view">
+         <extendedPoint>vsphere.core.inventory.serverObjectViews</extendedPoint>
+         <hostedPoint>${namespace}.views</hostedPoint>
+         <object>
+            <componentClass className="com.vmware.vsphere.client.views.ObjectTabbedView"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+            <privilege>${readRole}</privilege>
+         </metadata>
+      </extension>
+
+      <!-- Getting Started tab -->
+      <extension id="${namespace}.gettingStarted">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <hostedPoint>${namespace}.gettingStartedViews</hostedPoint>
+         <precedingExtension>NULL</precedingExtension>
+         <object>
+            <name>#{inventory:gettingStartedTabLabel}</name>
+            <componentClass>
+               <className>com.vmware.ui.views.SingleExtensionView</className>
+               <object>
+                  <root>
+                     <extensionViewProperties>
+                        <Object>
+                           <neverShowAgainKey>
+                              ${namespace}.gs.neverShowAgain
+                           </neverShowAgainKey>
+                        </Object>
+                     </extensionViewProperties>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+            <userSettingsConditions>
+               <com.vmware.data.query.CompositeConstraint>
+                  <nestedConstraints>
+                     <com.vmware.data.query.PropertyConstraint>
+                        <propertyName>${namespace}.gs.neverShowAgain</propertyName>
+                        <comparator>
+                           <com.vmware.data.query.Comparator>
+                              <value>NOT_EQUALS</value>
+                           </com.vmware.data.query.Comparator>
+                        </comparator>
+                        <comparableValue>
+                           <Boolean>true</Boolean>
+                        </comparableValue>
+                     </com.vmware.data.query.PropertyConstraint>
+                     <com.vmware.data.query.PropertyConstraint>
+                        <propertyName>gettingStartedPages.neverShowAgain</propertyName>
+                        <comparator>NOT_EQUALS</comparator>
+                        <comparableValue>
+                           <Boolean>true</Boolean>
+                        </comparableValue>
+                     </com.vmware.data.query.PropertyConstraint>
+                  </nestedConstraints>
+                  <conjoiner>
+                     <com.vmware.data.query.Conjoiner>
+                        <value>AND</value>
+                     </com.vmware.data.query.Conjoiner>
+                  </conjoiner>
+               </com.vmware.data.query.CompositeConstraint>
+            </userSettingsConditions>
+         </metadata>
+      </extension>
+
+      <!-- Summary tab -->
+      <extension id="${namespace}.summary">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <hostedPoint>${namespace}.summaryViews</hostedPoint>
+         <precedingExtension>${namespace}.gettingStarted</precedingExtension>
+         <object>
+            <name>#{inventory:summaryTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- Monitor tab -->
+      <extension id="${namespace}.monitor">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <hostedPoint>${namespace}.monitorViews</hostedPoint>
+         <precedingExtension>${namespace}.summary</precedingExtension>
+         <object>
+            <name>#{inventory:monitorTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- Monitor/Performance tab -->
+      <extension id="${namespace}.monitor.performance">
+         <extendedPoint>${namespace}.monitorViews</extendedPoint>
+         <hostedPoint>${namespace}.monitor.performanceViews</hostedPoint>
+         <precedingExtension>NULL</precedingExtension>
+         <object>
+            <name>#{inventory:performanceTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- The advanced view under Monitor/Performance -->
+      <extension id="${namespace}.monitor.performance.advancedView">
+         <extendedPoint>${namespace}.monitor.performanceViews</extendedPoint>
+         <hostedPoint>${namespace}.monitor.performance.advancedViews</hostedPoint>
+         <object>
+            <name>#{inventory:performance.advancedTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+            <requiresHostedExtensions>${requiresHostedExtensions}</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- Monitor/Events tab -->
+      <extension id="${namespace}.monitor.events">
+         <extendedPoint>${namespace}.monitorViews</extendedPoint>
+         <hostedPoint>${namespace}.monitor.eventsViews</hostedPoint>
+         <precedingExtension>${namespace}.monitor.performance</precedingExtension>
+         <object>
+            <name>#{inventory:eventsTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- Manage tab -->
+      <extension id="${namespace}.manage">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <hostedPoint>${namespace}.manageViews</hostedPoint>
+         <precedingExtension>${namespace}.monitor</precedingExtension>
+         <object>
+            <name>#{inventory:manageTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!-- Manage/Settings tab -->
+      <extension id="${namespace}.manage.settings">
+         <extendedPoint>${namespace}.manageViews</extendedPoint>
+         <hostedPoint>${namespace}.manage.settingsViews</hostedPoint>
+         <precedingExtension>NULL</precedingExtension>
+         <object>
+            <name>#{inventory:settingsTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.NestedObjectView"/>
+         </object>
+         <metadata>
+            <requiresHostedExtensions>true</requiresHostedExtensions>
+         </metadata>
+      </extension>
+
+      <!--Extension for various lists in the application.-->
+      <extension id="${namespace}.list">
+         <extendedPoint>vise.inventory.lists</extendedPoint>
+         <hostedPoint>${namespace}.list.columns</hostedPoint>
+
+         <object>
+            <componentClass>
+               <className>com.vmware.ui.lists.ListView</className>
+               <object>
+                  <root>
+                     <doubleClickNavigationDisable>${disableListDoubleClickNavigation}</doubleClickNavigationDisable>
+                  </root>
+               </object>
+            </componentClass>
+         </object>
+      </extension>
+
+      <!-- Related Items tab -->
+      <extension id="${namespace}.related">
+         <extendedPoint>${namespace}.views</extendedPoint>
+         <precedingExtension>${namespace}.manage</precedingExtension>
+         <object>
+            <name>#{inventory:relatedItemsTabLabel}</name>
+            <componentClass className="com.vmware.vsphere.client.views.RelatedItemsView"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+   </template>
+
+   <!-- The template for a VC object view.
+      This inherits "vsphere.core.inventory.objectViewTemplate", and adds a
+      permissions view.
+   -->
+   <template id="vsphere.core.inventory.vcObjectViewTemplate">
+      <inheritedTemplate>vsphere.core.inventory.objectViewTemplate</inheritedTemplate>
+      <variable name="readRole" required="false" defaultValue="System.Read" />
+
+       <!-- No Access view -->
+      <extension id="${namespace}.noAccess">
+         <extendedPoint>vsphere.core.inventory.serverObjectViews</extendedPoint>
+         <object>
+            <componentClass className="com.vmware.ui.error.NoAccessErrorOverlay"/>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+            <privilege>!${readRole}</privilege>
+         </metadata>
+      </extension>
+   </template>
+
+   <!--
+      The template for the standard summary view. This view contains the following:
+      - A header view.
+      - A view displaying the summary section views.
+
+      Note that an object view template should be instantiated in conjuntion with the
+      instantiation of this template.
+
+      Extension points:
+      - ${namespace}.summarySectionViews: The summary section views.
+
+      Variables:
+      - namespace: The namespace used in the extension points and extension ids,
+         e.g. vsphere.core.host
+      - summaryHeaderView (optional): The class name for the summary view header,
+         e.g. com.vmware.vsphere.client.views.host.HostSummaryHeaderView
+   -->
+   <template id="vsphere.core.inventory.summaryViewTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="summaryHeaderView" required="false"/>
+
+      <!-- Summary section views -->
+      <extensionPoint id="${namespace}.summarySectionViews">
+         <objectType class="com.vmware.ui.views.ViewSpec"/>
+      </extensionPoint>
+
+      <extension id="${namespace}.summaryView">
+         <extendedPoint>${namespace}.summaryViews</extendedPoint>
+         <hostedPoint>${namespace}.summarySectionViews</hostedPoint>
+         <object>
+            <name>#{inventory:summaryTabLabel}</name>
+            <componentClass>
+               <className>com.vmware.vsphere.client.views.SummaryView</className>
+               <object><root>
+                  <headerComponentSpec className="${summaryHeaderView}" />
+               </root></object>
+            </componentClass>
+         </object>
+      </extension>
+   </template>
+
+   <!-- The inventory domain view -->
+   <extension id="vsphere.core.inventory.domainView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <hostedPoint>vsphere.core.inventory.objectViews</hostedPoint>
+      <object>
+         <name>vCenter Management</name>
+         <icon>#{appIcon}></icon>
+         <componentClass className="com.vmware.vsphere.client.views.inventory.InventoryObjectView"/>
+         <applyDefaultChrome>false</applyDefaultChrome>
+      </object>
+   </extension>
+
+   <!-- The inventory view for any type of ServerobjectRef.-->
+   <extension id="vsphere.core.inventory.serverObjectView">
+      <extendedPoint>vsphere.core.inventory.objectViews</extendedPoint>
+      <hostedPoint>vsphere.core.inventory.serverObjectViews</hostedPoint>
+      <object>
+         <componentClass className="com.vmware.vsphere.client.views.inventory.ServerObjectView"/>
+      </object>
+      <metadata>
+         <objectType>com.vmware.core.model.IResourceReference</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Association between inventory application and tree views.-->
+   <extension id="vsphere.core.inventory.invSpecAssociation">
+      <extendedPoint>vsphere.core.associations</extendedPoint>
+      <object>
+         <activatorExtensionIds>
+            <String>vsphere.core.inventory.domainView</String>
+         </activatorExtensionIds>
+         <activatedExtensionIds>
+            <String>vsphere.core.physicalInventorySpec</String>
+         </activatedExtensionIds>
+      </object>
+   </extension>
+
+   <!-- Default inventory navigator -->
+   <extension id="vsphere.core.defaultNavigator">
+      <extendedPoint>vsphere.core.navigators</extendedPoint>
+      <hostedPoint>vsphere.core.navigator.inventorySpecs</hostedPoint>
+      <object>
+         <componentClass>
+            <className>com.vmware.vsphere.client.views.inventory.viInventoryTreeView</className>
+            <object>
+               <root>
+                  <treeSpecsAssociationId>vsphere.core.inventory.domainView</treeSpecsAssociationId>
+               </root>
+            </object>
+         </componentClass>
+      </object>
+   </extension>
+
+   <!-- Host Client view extension of the inventory tree -->
+   <extension id="vsphere.core.physicalInventorySpec">
+      <extendedPoint>vsphere.core.navigator.inventorySpecs</extendedPoint>
+      <object>
+         <name>#{physicalInventorySpec.name}</name>
+         <icon>#{physicalInventorySpec.icon}</icon>
+         <usage>
+            <com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecUsage>
+               <usageType>new</usageType>
+            </com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecUsage>
+         </usage>
+         <nodes>
+            <!-- Host system-->
+            <com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNode>
+               <id>standaloneHost</id>
+               <resultTypes>
+                  <String>HostSystem</String>
+               </resultTypes>
+               <labels>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeLabel>
+                     <labelSpecs>
+                        <com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                           <labelFormat>
+                              #{navigator:disconnectedNode.name}
+                           </labelFormat>
+                           <condition>
+                              <com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                                 <propertyName>runtime.connectionState</propertyName>
+                                 <comparator>
+                                    <com.vmware.data.query.Comparator>
+                                       <value>EQUALS</value>
+                                    </com.vmware.data.query.Comparator>
+                                 </comparator>
+                                 <propertyValue>disconnected</propertyValue>
+                              </com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                           </condition>
+                           <labelStyle>#{navigator:unavailableStyle}</labelStyle>
+                        </com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                        <com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                           <labelFormat>
+                              #{notRespondingNode.name}
+                           </labelFormat>
+                           <condition>
+                              <com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                                 <propertyName>runtime.connectionState</propertyName>
+                                 <comparator>
+                                    <com.vmware.data.query.Comparator>
+                                       <value>EQUALS</value>
+                                    </com.vmware.data.query.Comparator>
+                                 </comparator>
+                                 <propertyValue>notResponding</propertyValue>
+                              </com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                           </condition>
+                           <labelStyle>#{navigator:unavailableStyle}</labelStyle>
+                        </com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                     </labelSpecs>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeLabel>
+               </labels>
+               <role>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNodeRole>
+                     <value>root</value>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNodeRole>
+               </role>
+               <querySpec>
+                  <com.vmware.data.query.QuerySpec>
+                     <name>getHost-HostClient</name>
+                     <resourceSpec>
+                        <com.vmware.data.ResourceSpec>
+                           <constraint>
+                           <!-- TODO Replace the OIC with a more generic constraint to get the root host -->
+                              <com.vmware.data.query.ObjectIdentityConstraint>
+                                 <target>
+                                    <com.vmware.core.model.ServerObjectRef>
+                                       <type>HostSystem</type>
+                                       <value>ha-host</value>
+                                    </com.vmware.core.model.ServerObjectRef>
+                                 </target>
+                              </com.vmware.data.query.ObjectIdentityConstraint>
+                           </constraint>
+                           <propertySpecs>
+                              <com.vmware.data.PropertySpec>
+                                 <propertyNames>
+                                    <String>name</String>
+                                 </propertyNames>
+                              </com.vmware.data.PropertySpec>
+                           </propertySpecs>
+                        </com.vmware.data.ResourceSpec>
+                     </resourceSpec>
+                     <resultSpec>
+                        <com.vmware.data.query.ResultSpec>
+                           <maxResultCount>-1</maxResultCount>
+                        </com.vmware.data.query.ResultSpec>
+                     </resultSpec>
+                  </com.vmware.data.query.QuerySpec>
+               </querySpec>
+               <childNodes>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.ChildNode>
+                     <id>virtualMachine</id>
+                     <querySpec>
+                        <com.vmware.data.query.QuerySpec>
+                           <resourceSpec>
+                              <com.vmware.data.ResourceSpec>
+                                 <constraint>
+                                    <com.vmware.data.query.RelationalConstraint>
+                                       <relation>vm</relation>
+                                       <targetType>VirtualMachine</targetType>
+                                       <hasInverseRelation>false</hasInverseRelation>
+                                       <constraintOnRelatedObject>
+                                          <com.vmware.data.query.ObjectIdentityConstraint>
+                                             <target>{objectRef}</target>
+                                          </com.vmware.data.query.ObjectIdentityConstraint>
+                                       </constraintOnRelatedObject>
+                                    </com.vmware.data.query.RelationalConstraint>
+                                 </constraint>
+                                 <propertySpecs>
+                                    <com.vmware.data.PropertySpec>
+                                       <propertyNames>
+                                          <String>name</String>
+                                       </propertyNames>
+                                    </com.vmware.data.PropertySpec>
+                                 </propertySpecs>
+                              </com.vmware.data.ResourceSpec>
+                           </resourceSpec>
+                           <resultSpec>
+                              <com.vmware.data.query.ResultSpec>
+                                 <maxResultCount>-1</maxResultCount>
+                              </com.vmware.data.query.ResultSpec>
+                           </resultSpec>
+                        </com.vmware.data.query.QuerySpec>
+                     </querySpec>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.ChildNode>
+               </childNodes>
+            </com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNode>
+            <!-- Virtual Machine -->
+            <com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNode>
+               <id>virtualMachine</id>
+               <resultTypes>
+                  <String>VirtualMachine</String>
+               </resultTypes>
+               <aggregationInfo>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.AggregationInfo>
+                     <aggregateType>VirtualMachine</aggregateType>
+                     <aggregateLabelFormat>#{Common:vmAggregateNode.name}</aggregateLabelFormat>
+                     <aggregationThreshold>100</aggregationThreshold>
+                     <listViewId>vsphere.core.vm.list</listViewId>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.AggregationInfo>
+               </aggregationInfo>
+               <icons>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeIcon>
+                     <iconSpecs>
+                        <!-- TODO check FT requirements for host-client
+
+                        <com.vmware.vsphere.client.model.navigator.inventorySpecs.IconSpec>
+                           <icon>#{CommonImages:vmPrimary}</icon>
+                           <condition>
+                              <com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                                 <propertyName>config.ftInfo.role</propertyName>
+                                 <comparator>
+                                    <com.vmware.data.query.Comparator>
+                                       <value>EQUALS</value>
+                                    </com.vmware.data.query.Comparator>
+                                 </comparator>
+                                 <propertyValue>1</propertyValue>
+                              </com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                           </condition>
+                        </com.vmware.vsphere.client.model.navigator.inventorySpecs.IconSpec>
+                        -->
+                     </iconSpecs>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeIcon>
+               </icons>
+               <labels>
+                  <com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeLabel>
+                     <labelSpecs>
+                        <com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                           <labelFormat>
+                              #{navigator:inaccessibleNode.name}
+                           </labelFormat>
+                           <condition>
+                              <com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                                 <propertyName>runtime.connectionState</propertyName>
+                                 <comparator>
+                                    <com.vmware.data.query.Comparator>
+                                       <value>EQUALS</value>
+                                    </com.vmware.data.query.Comparator>
+                                 </comparator>
+                                 <propertyValue>inaccessible</propertyValue>
+                              </com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                           </condition>
+                           <labelStyle>#{navigator:unavailableStyle}</labelStyle>
+                        </com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                        <com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                           <labelFormat>
+                              #{navigator:invalidNode.name}
+                           </labelFormat>
+                           <condition>
+                              <com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                                 <propertyName>runtime.connectionState</propertyName>
+                                 <comparator>
+                                    <com.vmware.data.query.Comparator>
+                                       <value>EQUALS</value>
+                                    </com.vmware.data.query.Comparator>
+                                 </comparator>
+                                 <propertyValue>invalid</propertyValue>
+                              </com.vmware.vsphere.client.model.navigator.inventorySpecs.ConditionSpec>
+                           </condition>
+                           <labelStyle>#{navigator:unavailableStyle}</labelStyle>
+                        </com.vmware.vsphere.client.model.navigator.inventorySpecs.LabelSpec>
+                     </labelSpecs>
+                  </com.vmware.vsphere.client.model.navigator.inventorySpecs.NodeLabel>
+               </labels>
+            </com.vmware.vsphere.client.model.navigator.inventorySpecs.InventorySpecNode>
+         </nodes>
+      </object>
+   </extension>
+
+   <!-- A template for a generic menu.
+        This contains settings, move, rename, assign and alarm actions, plus the usual
+        prioritization and solution areas.  -->
+   <template id="vsphere.core.menus.editsettings.serverObjectMenuTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="objectType" required="true"/>
+
+      <variable name="settingsActionUid" required="false"/>
+      <variable name="moveActionUid" required="false"/>
+      <variable name="renameActionUid" required="false"/>
+
+      <extension id="${namespace}.menu">
+         <extendedPoint>vise.actions.menus</extendedPoint>
+         <object>
+            <!-- Promoted actions go here -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>promotions</type>
+               <maxNumber>10</maxNumber>
+               <label>#{inventory:menu.loadingPromotions}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Edit Settings -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${settingsActionUid}</uid>
+               <label>#{inventory:menu.settingsAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Move To -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${moveActionUid}</uid>
+               <label>#{inventory:menu.moveToAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Rename -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${renameActionUid}</uid>
+               <label>#{inventory:menu.renameAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Assign Tag -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>vsphere.core.tagging.assignTagAction</uid>
+               <label>#{Common:tag.actionAssign}</label>
+               <icon>#{CommonImages:tagging.assign.icon}</icon>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Remove Tag -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>vsphere.core.tagging.removeTagAction</uid>
+               <label>#{Common:tag.actionRemove}</label>
+               <icon>#{CommonImages:tagging.remove.icon}</icon>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Alarms sub-menu -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <label>#{inventory:menu.alarmsSubMenu}</label>
+               <uid>alarms</uid>
+               <children>
+                  <Array>
+                     <!-- Add alarm -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.addAlarm</uid>
+                        <label>#{AlarmsUi:alarmAction.addAlarm.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                     <!-- Enable Alarm Actions -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.enableAlarmActions</uid>
+                        <label>#{AlarmsUi:alarmAction.enableAction.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                     <!-- Disable Alarm Actions -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.disableAlarmActions</uid>
+                        <label>#{AlarmsUi:alarmAction.disableAction.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                  </Array>
+               </children>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Solution sub-menus -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>subMenus</type>
+               <!-- don't worry about a uid here - we'll set it equal to the below value by default -->
+               <subMenusSpecUid>vsphere.core.menus.solutionMenus</subMenusSpecUid>
+               <label>#{inventory:menu.loadingSolutionSubMenus}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+   </template>
+
+   <!-- A template for a generic menu.
+        This contains settings, rename, assign and alarm actions, plus the usual
+        prioritization and solution areas.  -->
+   <template id="vsphere.core.menus.nomove.editsettings.serverObjectMenuTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="objectType" required="true"/>
+
+      <variable name="settingsActionUid" required="false"/>
+      <variable name="moveActionUid" required="false"/>
+      <variable name="renameActionUid" required="false"/>
+
+      <extension id="${namespace}.menu">
+         <extendedPoint>vise.actions.menus</extendedPoint>
+         <object>
+            <!-- Promoted actions go here -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>promotions</type>
+               <maxNumber>10</maxNumber>
+               <label>#{inventory:menu.loadingPromotions}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Settings -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${settingsActionUid}</uid>
+               <label>#{inventory:menu.settingsAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Rename -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${renameActionUid}</uid>
+               <label>#{inventory:menu.renameAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Assign Tag -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>vsphere.core.tagging.assignTagAction</uid>
+               <label>#{Common:tag.actionAssign}</label>
+               <icon>#{CommonImages:tagging.assign.icon}</icon>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Remove Tag -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>vsphere.core.tagging.removeTagAction</uid>
+               <label>#{Common:tag.actionRemove}</label>
+               <icon>#{CommonImages:tagging.remove.icon}</icon>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Alarms sub-menu -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <label>#{inventory:menu.alarmsSubMenu}</label>
+               <uid>alarms</uid>
+               <children>
+                  <Array>
+                     <!-- Add alarm -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.addAlarm</uid>
+                        <label>#{AlarmsUi:alarmAction.addAlarm.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                     <!-- Enable Alarm Actions -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.enableAlarmActions</uid>
+                        <label>#{AlarmsUi:alarmAction.enableAction.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                     <!-- Disable Alarm Actions -->
+                     <com.vmware.actionsfw.ActionMenuItemSpec>
+                        <type>action</type>
+                        <uid>vsphere.opsmgmt.alarms.disableAlarmActions</uid>
+                        <label>#{AlarmsUi:alarmAction.disableAction.label}</label>
+                     </com.vmware.actionsfw.ActionMenuItemSpec>
+                  </Array>
+               </children>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Solution sub-menus -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>subMenus</type>
+               <!-- don't worry about a uid here - we'll set it equal to the below value by default -->
+               <subMenusSpecUid>vsphere.core.menus.solutionMenus</subMenusSpecUid>
+               <label>#{inventory:menu.loadingSolutionSubMenus}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+         </metadata>
+      </extension>
+   </template>
+
+   <!-- A template for a generic serentiy-client object menu which has a settings item.
+        The menu hosts the extension point vsphere.core.menus.solutionMenus so that
+        solution sub-menus can be provided.  -->
+   <template id="vsphere.core.menus.settings.serverObjectMenuTemplate">
+      <variable name="namespace" required="true"/>
+      <variable name="objectType" required="true"/>
+
+      <variable name="settingsActionUid" required="false"/>
+      <variable name="moveActionUid" required="false"/>
+      <variable name="renameActionUid" required="false"/>
+
+      <extension id="${namespace}.menu">
+         <extendedPoint>vise.actions.menus</extendedPoint>
+         <object>
+            <!-- Promoted actions go here -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>promotions</type>
+               <maxNumber>10</maxNumber>
+               <label>#{inventory:menu.loadingPromotions}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Settings -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${settingsActionUid}</uid>
+               <label>#{inventory:menu.navToSettingsAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Rename -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>action</type>
+               <uid>${renameActionUid}</uid>
+               <label>#{inventory:menu.renameAction}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>separator</type>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+            <!-- Solution sub-menus -->
+            <com.vmware.actionsfw.ActionMenuItemSpec>
+               <type>subMenus</type>
+               <!-- don't worry about a uid here - we'll set it equal to the below value by default -->
+               <subMenusSpecUid>vsphere.core.menus.solutionMenus</subMenusSpecUid>
+               <label>#{inventory:menu.loadingSolutionSubMenus}</label>
+            </com.vmware.actionsfw.ActionMenuItemSpec>
+         </object>
+         <metadata>
+            <objectType>${objectType}</objectType>
+            <objectType>!Datastore</objectType>
+         </metadata>
+      </extension>
+   </template>
+</plugin>

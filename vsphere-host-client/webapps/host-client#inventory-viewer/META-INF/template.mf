@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.inventoryviewer
+Bundle-Version: ${version}
+Bundle-Name: inventory-viewer
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/inventory-viewer
+Import-Template: ${osgi.manifest.import}
+Import-Package: 
+ flex.messaging.endpoints,
+ flex.messaging.io.amf,
+ flex.messaging.io.amf.translator,
+ flex.messaging.messages,
+ flex.messaging.services,
+ flex.messaging.services.remoting.adapters,
+ org.springframework.flex.messaging,
+ org.springframework.flex.remoting,
+ org.springframework.flex.servlet,
+ org.springframework.web.servlet,
+ org.springframework.web.servlet.handler

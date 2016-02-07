@@ -1,0 +1,19 @@
+<div ng-controller="SizingController" ng-show='profileFlag'>
+   <form class="form-horizontal" style="padding:10px;">
+      <div class="control-group">
+         <label class="control-label">
+            Select vCenter Server Appliance size
+         </label>
+         <div class="controls">
+            <select id="sizeProfile"
+                  ng-model="vxWizard.wizardData.ovfOptions.sizingData"
+                  ng-options="profile.label for profile in sizeProfiles">
+            </select>
+         </div>
+      </div>
+   </form>
+   <div style="padding:10px;">
+      <h3>Description</h3>
+      <p ng-bind="vxWizard.wizardData.ovfOptions.sizingData.description"></p>
+   </div>
+</div>

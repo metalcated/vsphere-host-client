@@ -1,0 +1,897 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>com.vmware.vsphere.client</groupId>
+      <artifactId>container-app</artifactId>
+      <version>6.0.0</version>
+   </parent>
+
+   <artifactId>container-app-war</artifactId>
+   <packaging>war</packaging>
+   <name>Container App war</name>
+
+   <properties>
+      <log.debugOnlyTrace>true</log.debugOnlyTrace>
+      <build.war.directory>${project.build.directory}/${project.artifactId}</build.war.directory>
+      <build.war.name>${project.build.finalName}</build.war.name>
+      <build.custom.wardirectory>${project.build.directory}/war/custom</build.custom.wardirectory>
+      <application.security.xml>application-security.xml</application.security.xml>
+      <web.xml>**/web.xml</web.xml>
+      <debugClassifier>debug</debugClassifier>
+   </properties>
+
+   <dependencies>
+      <!-- Flex SDK dependencies -->
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>framework</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>textLayout</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>mx</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>osmf</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>spark</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>spark_dmv</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>sparkskins</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>rpc</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>charts</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <dependency>
+         <groupId>com.adobe.flex.framework</groupId>
+         <artifactId>advancedgrids</artifactId>
+         <version>${flex.sdk.version}</version>
+         <type>swf</type>
+         <classifier>${debugClassifier}</classifier>
+      </dependency>
+      <!-- UI Platform dependencies -->
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>flex-util</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>flex-common-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>flex-model-core</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>flex-widgets</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>charts-toolkit</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>frinje</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>portal-framework-client</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>extension-framework-client</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>data-services-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>aspect-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>common-ui-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>vmrc-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>tiwo</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>actions-framework</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>persistence-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>user-settings-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>security-framework-client</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>help-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.platform</groupId>
+         <artifactId>resource-framework-client</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <!-- VIM Platform dependencies -->
+      <dependency>
+         <groupId>com.vmware.vimplatform</groupId>
+         <artifactId>vim-ui-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.vimplatform</groupId>
+         <artifactId>vmodl-as</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <!-- VI Client dependencies -->
+      <dependency>
+         <groupId>com.vmware.vsphere.client</groupId>
+         <artifactId>app-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.vsphere.client</groupId>
+         <artifactId>ui-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.vsphere.client</groupId>
+         <artifactId>proxy-lib</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.vsphere.client</groupId>
+         <artifactId>navigator</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+      </dependency>
+      <dependency>
+         <groupId>com.vmware.vsphere.client</groupId>
+         <artifactId>ui-swf</artifactId>
+         <version>${project.version}</version>
+         <type>swf</type>
+         <scope>provided</scope>
+      </dependency>
+   </dependencies>
+
+   <profiles>
+      <profile>
+         <id>qa</id>
+         <properties>
+            <log.debugOnlyTrace>false</log.debugOnlyTrace>
+            <enable.clientId.start>--&gt;</enable.clientId.start>
+            <enable.clientId.end>&lt;!--</enable.clientId.end>
+         </properties>
+         <activation><activeByDefault>false</activeByDefault></activation>
+      </profile>
+      <profile>
+         <id>hostclient</id>
+         <properties>
+            <application.security.xml>host-client-application-security.xml</application.security.xml>
+            <build.war.name>host-client</build.war.name>
+            <web.xml>src/main/tomcat/WEB-INF/web.web.xml</web.xml>
+         </properties>
+         <dependencies>
+            <!-- Build the lib folder with stuff in repository/usr -->
+            <dependency>
+               <groupId>com.vmware.vsphere.client</groupId>
+               <artifactId>server-osgi-bundles</artifactId>
+               <version>${project.version}</version>
+               <type>pom</type>
+            </dependency>
+
+            <!-- HTTP client async OSGI dependencies required
+             by vAPI runtime PR:1241549, the fix is temporary until we remove the
+             host client dependences to vAPI.-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpasyncclient-osgi</artifactId>
+                <version>${httpcomponents.httpasyncclient.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <!-- Provided servlet dependencies -->
+            <dependency>
+               <groupId>javax.servlet</groupId>
+               <artifactId>javax.servlet-api</artifactId>
+               <version>3.0.1</version>
+               <scope>provided</scope>
+            </dependency>
+
+            <!-- OSGi dependencies -->
+            <dependency>
+               <groupId>org.osgi</groupId>
+               <artifactId>org.osgi.core</artifactId>
+               <version>4.3.0</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework.osgi</groupId>
+               <artifactId>spring-osgi-core</artifactId>
+               <version>1.2.1</version>
+               <scope>provided</scope>
+               <exclusions>
+                  <exclusion>
+                     <groupId>org.springframework</groupId>
+                     <artifactId>org.springframework.aop</artifactId>
+                  </exclusion>
+                  <exclusion>
+                     <groupId>org.springframework</groupId>
+                     <artifactId>org.springframework.beans</artifactId>
+                  </exclusion>
+                  <exclusion>
+                     <groupId>org.springframework</groupId>
+                     <artifactId>org.springframework.context</artifactId>
+                  </exclusion>
+                  <exclusion>
+                     <groupId>org.springframework</groupId>
+                     <artifactId>org.springframework.core</artifactId>
+                  </exclusion>
+               </exclusions>
+            </dependency>
+
+            <!-- Logging dependencies -->
+            <dependency>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-api</artifactId>
+               <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.slf4j</groupId>
+               <artifactId>slf4j-simple</artifactId>
+               <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- URL rewriting dependence -->
+            <dependency>
+               <groupId>org.tuckey</groupId>
+               <artifactId>urlrewritefilter</artifactId>
+               <version>4.0.3</version>
+            </dependency>
+
+            <!-- Transfer some missing org.springframework files -->
+            <dependency>
+               <groupId>org.aopalliance</groupId>
+               <artifactId>com.springsource.org.aopalliance</artifactId>
+               <version>1.0.0</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-context</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-web</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-aspects</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-expression</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-jdbc</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-jms</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-orm</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-oxm</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-tx</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-webmvc</artifactId>
+               <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.springframework.security</groupId>
+               <artifactId>spring-security-config</artifactId>
+               <version>${spring.security.version}</version>
+            </dependency>
+
+            <!-- Pickup dependencies -->
+            <dependency>
+               <groupId>org.apache.commons</groupId>
+               <artifactId>commons-exec</artifactId>
+               <version>1.1</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.platform</groupId>
+               <artifactId>extension-framework-server</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-core-asl</artifactId>
+               <version>1.9.6</version>
+            </dependency>
+            <dependency>
+               <groupId>org.codehaus.jackson</groupId>
+               <artifactId>jackson-mapper-asl</artifactId>
+               <version>1.9.6</version>
+            </dependency>
+
+            <!-- Service dependencies -->
+            <dependency>
+               <groupId>com.vmware.platform</groupId>
+               <artifactId>help-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.platform</groupId>
+               <artifactId>persistence-framework-server</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.platform</groupId>
+               <artifactId>data-services</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.vimplatform</groupId>
+               <artifactId>data-service-adapters</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.vimplatform</groupId>
+               <artifactId>vim-services</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.vsphere.client</groupId>
+               <artifactId>reporting-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.vsphere.client</groupId>
+               <artifactId>mixed-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.vsphere.client</groupId>
+               <artifactId>security-service-vsphere</artifactId>
+               <version>${project.version}</version>
+               <exclusions>
+                  <exclusion>
+                     <groupId>org.springframework</groupId>
+                     <artifactId>org.springframework.transaction</artifactId>
+                  </exclusion>
+               </exclusions>
+            </dependency>
+
+            <!-- Ops management -->
+            <dependency>
+               <groupId>com.vmware.opsmgmt.client</groupId>
+               <artifactId>opsmgmt-commons</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.opsmgmt.client</groupId>
+               <artifactId>event-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+            <dependency>
+               <groupId>com.vmware.opsmgmt.client</groupId>
+               <artifactId>advperfcharts-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+
+            <!-- License client -->
+            <dependency>
+               <groupId>com.vmware.license.client</groupId>
+               <artifactId>license-service</artifactId>
+               <version>${project.version}</version>
+            </dependency>
+         </dependencies>
+         <build>
+            <finalName>host-client</finalName>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>fix-tomcat-contexts</id>
+                        <phase>prepare-package</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                           <tasks>
+                              <mkdir dir="${build.custom.wardirectory}" />
+                              <copy todir="${build.custom.wardirectory}">
+                                 <fileset dir="src/main/tomcat" includes="**/*"/>
+                              </copy>
+
+                              <copy file="${build.custom.wardirectory}/WEB-INF/spring/${application.security.xml}"
+                                    tofile="${build.custom.wardirectory}/WEB-INF/spring/application-security.xml" />
+                           </tasks>
+                        </configuration>
+                     </execution>
+                     <execution>
+                        <id>copy-misc</id>
+                        <phase>prepare-package</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                           <tasks>
+                              <copy todir="${build.custom.wardirectory}">
+                                 <fileset dir="src/main/webapp/clienttools" includes="**/*"/>
+                              </copy>
+                           </tasks>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-dependency-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>unpack-vsc-hostclient-jars</id>
+                        <phase>compile</phase>
+                        <goals><goal>unpack</goal></goals>
+                        <configuration>
+                           <outputDirectory>${build.war.directory}/WEB-INF/lib</outputDirectory>
+                           <overWriteIfNewer>true</overWriteIfNewer>
+                           <artifactItems>
+                              <artifactItem>
+                                 <groupId>com.vmware.vsphere.client</groupId>
+                                 <artifactId>vsc-hostclient-modules-plugins</artifactId>
+                                 <version>${project.version}</version>
+                                 <type>zip</type>
+                              </artifactItem>
+                           </artifactItems>
+                           <excludes>*.war</excludes>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+      <profile>
+         <id>release</id>
+         <properties>
+            <debugClassifier></debugClassifier>
+         </properties>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <id>copy-debug-swf</id>
+                        <phase>compile</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                           <tasks>
+                              <copy file="${swf.outputDirectory}/ui-swf-${project.version}-debug.swf"
+                                 tofile="${build.war.directory}/${swf.ui.name}-debug.swf"/>
+                           </tasks>
+                        </configuration>
+                     </execution>
+                     <execution>
+                        <id>swf2lzma</id>
+                        <phase>compile</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                           <tasks if="${build.swf.optimize}">
+                              <ant antfile="${SRCROOT}/tools/swf2lzma/swf2lzma.xml">
+                                 <property name="SRCROOT" value="${SRCROOT}" />
+                                 <property name="SWF"
+                               value="${build.war.directory}/rsl/advancedgrids-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/charts-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/framework-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/mx-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/rpc-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/spark_dmv-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/spark-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/sparkskins-${flex.sdk.version}.swf,
+                                     ${build.war.directory}/rsl/flex-util-${project.version}.swf,
+                                     ${build.war.directory}/rsl/flex-common-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/flex-model-core-${project.version}.swf,
+                                     ${build.war.directory}/rsl/flex-widgets-${project.version}.swf,
+                                     ${build.war.directory}/rsl/charts-toolkit-${project.version}.swf,
+                                     ${build.war.directory}/rsl/frinje-${project.version}.swf,
+                                     ${build.war.directory}/rsl/portal-framework-client-${project.version}.swf,
+                                     ${build.war.directory}/rsl/extension-framework-client-${project.version}.swf,
+                                     ${build.war.directory}/rsl/data-services-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/aspect-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/common-ui-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/vmrc-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/tiwo-${project.version}.swf,
+                                     ${build.war.directory}/rsl/actions-framework-${project.version}.swf,
+                                     ${build.war.directory}/rsl/persistence-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/user-settings-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/security-framework-client-${project.version}.swf,
+                                     ${build.war.directory}/rsl/help-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/resource-framework-client-${project.version}.swf,
+                                     ${build.war.directory}/rsl/vim-ui-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/vmodl-as-${project.version}.swf,
+                                     ${build.war.directory}/rsl/app-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/proxy-lib-${project.version}.swf,
+                                     ${build.war.directory}/rsl/navigator-${project.version}.swf,
+                                     ${build.war.directory}/rsl/ui-lib-${project.version}.swf" />
+                              </ant>
+                           </tasks>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+         <activation>
+            <property>
+               <name>flex.debug</name>
+               <value>false</value>
+            </property>
+         </activation>
+      </profile>
+   </profiles>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>com.springsource.bundlor</groupId>
+            <artifactId>com.springsource.bundlor.maven</artifactId>
+            <version>${bundlor.version}</version>
+            <configuration>
+               <manifestTemplatePath>${basedir}/src/main/webapp/META-INF/template.mf</manifestTemplatePath>
+               <outputPath>${basedir}/src/main/webapp</outputPath>
+            </configuration>
+            <executions>
+               <execution>
+                  <id>bundlor</id>
+                  <goals><goal>bundlor</goal></goals>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>init-build-outputDirectory</id>
+                  <phase>process-resources</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <!-- Workaround for bundlor as there are no source files -->
+                        <mkdir dir="${project.build.outputDirectory}"/>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <!-- copy the generated UI html templates. -->
+               <execution>
+                  <phase>compile</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <copy todir="${build.war.directory}">
+                           <fileset dir="${swf.outputDirectory}/${wrapper.generated}"/>
+                        </copy>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <!-- Copy the swf file and rename it to match the
+                  names in the html wrapper and the FlexBuilder output. -->
+               <execution>
+                  <id>copy-swf</id>
+                  <phase>compile</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <copy file="${swf.outputDirectory}/ui-swf-${project.version}.swf"
+                           tofile="${build.war.directory}/${swf.ui.name}.swf"/>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <!-- Copy the locales folder because copy-flex-resources doesn't when
+                  "runtimeLocales" is specified as a variable.-->
+               <execution>
+                  <id>copy-locales</id>
+                  <phase>compile</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <copy todir="${build.war.directory}/locales">
+                           <fileset dir="${swf.outputDirectory}/locales"/>
+                        </copy>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <!-- Copy resourcebundle vsphereclient.zip from vim-services. -->
+
+               <execution>
+                  <id>copy-resourcebundle-vsphereclient.zip</id>
+                  <phase>compile</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <copy todir="${build.war.directory}">
+                           <fileset dir="${SRCROOT}/vim-platform/vim-framework/server/target">
+                              <include name="*.zip"/>
+                           </fileset>
+                        </copy>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <execution>
+                  <id>fix-application-security-xml</id>
+                  <phase>prepare-package</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <mkdir dir="${build.custom.wardirectory}" />
+                        <copy todir="${build.custom.wardirectory}">
+                           <fileset dir="src/main/webapp" includes="**/${application.security.xml}"/>
+                           <mapper type="glob" from="*${application.security.xml}" to="*application-security.xml" />
+                        </copy>
+                     </tasks>
+                  </configuration>
+               </execution>
+
+               <execution>
+                  <id>rename-debug-rsls</id>
+                  <phase>process-resources</phase>
+                  <goals><goal>run</goal></goals>
+                  <configuration>
+                     <tasks>
+                        <!-- Load Ant-Contrib -->
+                        <taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="maven.plugin.classpath" />
+                        <!-- Copy all the libraries required for optimization -->
+                        <for param="rsl" list="advancedgrids,charts,framework,mx,osmf,rpc,spark_dmv,spark,sparkskins,textLayout">
+                           <sequential>
+                              <if>
+                                 <available file="${build.war.directory}/rsl/@{rsl}-${flex.sdk.version}-debug.swf" />
+                                 <then>
+                                    <move file="${build.war.directory}/rsl/@{rsl}-${flex.sdk.version}-debug.swf"
+                                          tofile="${build.war.directory}/rsl/@{rsl}-${flex.sdk.version}.swf" />
+                                 </then>
+                              </if>
+                           </sequential>
+                        </for>
+                     </tasks>
+                  </configuration>
+               </execution>
+            </executions>
+            <dependencies>
+               <dependency>
+                  <groupId>ant-contrib</groupId>
+                  <artifactId>ant-contrib</artifactId>
+                  <version>1.0b3</version>
+                  <exclusions>
+                     <exclusion>
+                        <groupId>ant</groupId>
+                        <artifactId>ant</artifactId>
+                     </exclusion>
+                  </exclusions>
+               </dependency>
+            </dependencies>
+         </plugin>
+
+         <!-- Copy the Marge theme artifact to the assets directory. -->
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>copy-rsls</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>copy-dependencies</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${build.war.directory}/rsl</outputDirectory>
+                     <includeGroupIds>com.adobe.flex.framework,com.vmware</includeGroupIds>
+                     <includeTypes>swf</includeTypes>
+                     <excludeScope>provided</excludeScope>
+                     <type>swf</type>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>copy-theme</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>copy</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${build.war.directory}/assets</outputDirectory>
+                     <overWriteIfNewer>true</overWriteIfNewer>
+                     <artifactItems>
+                        <artifactItem>
+                           <groupId>com.vmware.platform</groupId>
+                           <artifactId>marge-theme</artifactId>
+                           <version>${project.version}</version>
+                           <type>swf</type>
+                           <destFileName>marge-theme.swf</destFileName>
+                        </artifactItem>
+                     </artifactItems>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+               <warName>${build.war.name}</warName>
+               <webResources>
+                  <resource>
+                     <filtering>true</filtering>
+                     <directory>src/main/webapp</directory>
+                     <includes>
+                        <include>${web.xml}</include>
+                     </includes>
+                  </resource>
+                  <resource>
+                     <directory>src/main/webapp/config</directory>
+                     <filtering>true</filtering>
+                     <targetPath>config</targetPath>
+                  </resource>
+                  <resource>
+                     <directory>${build.custom.wardirectory}</directory>
+                  </resource>
+                  <resource>
+                     <directory>src/main/webapp/clienttools</directory>
+                     <filtering>true</filtering>
+                     <targetPath>clienttools</targetPath>
+                  </resource>
+               </webResources>
+               <archive>
+                  <manifestFile>src/main/webapp/META-INF/MANIFEST.MF</manifestFile>
+               </archive>
+               <webappDirectory>${build.war.directory}</webappDirectory>
+               <excludes>**/application-security.xml</excludes>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>load_cip_version_properties_file</id>
+                  <phase>generate-sources</phase>
+                  <goals><goal>read-project-properties</goal></goals>
+                  <configuration>
+                     <files>
+                        <file>${GOBUILD_CIP_ROOT}/products.txt</file>
+                     </files>
+                     <quiet>true</quiet>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+
+</project>

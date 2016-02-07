@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.vmware.vsphere.client.vmui
+Bundle-Version: ${version}
+Bundle-Name: vm-ui
+Bundle-Vendor: VMware
+Web-ContextPath: ${web-context-path}/vm-ui
