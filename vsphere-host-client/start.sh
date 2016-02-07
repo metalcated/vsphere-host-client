@@ -1,4 +1,4 @@
-#d)/bin/bash
+#!/bin/bash
 
 run_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
