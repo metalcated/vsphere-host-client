@@ -5,7 +5,7 @@ HTML_FILE = "/opt/vsphere-host-client/webapps/ROOT/index.html" # Can change to w
 HTML_PAGE = """<html>
 
 <head>
-<meta http-equiv="refresh" content="0;URL=http://%(addr)s/host-client">
+<meta http-equiv="refresh" content="0;URL=http://%(addr)s:8080/host-client">
 </head>
 
 <body>
