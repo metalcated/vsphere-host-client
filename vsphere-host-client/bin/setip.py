@@ -1,6 +1,6 @@
 import ftplib, socket, fcntl, struct
 
-HTML_FILE = "/opt/vsphere-host-client/webapps/ROOT/index.html" # Can change to what you want - it will be the local and remote filename
+HTML_FILE = "/opt/vsphere-host-client/webapps/ROOT/index.html"
 
 HTML_PAGE = """<html>
 
